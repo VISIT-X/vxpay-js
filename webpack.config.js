@@ -15,7 +15,7 @@ module.exports = {
 		library: 'VX'
 	},
 	module: {
-		loaders: [
+		rules: [
 			{
 				test: /\.js$/,
 				loader: 'babel-loader',
