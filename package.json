@@ -1,6 +1,6 @@
 {
   "name": "vxpay-js",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Javascript library to initialize and handle VXPay iframe",
   "main": "build/vxpay.js",
   "author": "Igor Timoshenkov",
@@ -28,17 +28,16 @@
     "webpack-dev-server": "^3.0.0"
   },
   "scripts": {
-    "babel": "babel --presets es2015 js/main.js -o build/main.bundle.js",
-    "build": "yarn lint && yarn cover && yarn copy && webpack",
+    "build": "npm run cover && webpack && npm run copy",
     "watch": "webpack --watch",
+    "clean": "rm -rf build",
     "serve": "webpack-dev-server --open",
     "test": "mocha test --recursive --require babel-core/register",
-    "cover": "nyc --reporter=html --report-dir=docs/coverage yarn test",
+    "cover": "nyc --reporter=html --report-dir=docs/coverage npm run test",
     "copy": "node copy-dist.js",
-    "push": "yarn build && git push",
+    "push": "npm run build && git push",
     "lint": "eslint --ext .js src",
-    "prepublish": "yarn build",
-    "postinstall": "webpack"
+    "prepublish": "npm run clean && npm run build"
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",

@@ -1,6 +1,5 @@
 /node_modules/
 /.idea/
-/build/*.map
-/build/docs/
+/build/*
 /coverage/
 .nyc_output

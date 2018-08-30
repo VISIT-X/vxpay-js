@@ -71,7 +71,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "2d0b22e9ba1ea7887612"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "42dba5c88a47a771dca4"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -1549,7 +1549,7 @@ module.exports = function (NAME, wrapper, methods, common, IS_MAP, IS_WEAK) {
 "use strict";
 
 
-var core = module.exports = { version: '2.5.3' };
+var core = module.exports = { version: '2.5.7' };
 if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 
 /***/ }),
@@ -2223,7 +2223,6 @@ var LIBRARY = __webpack_require__("./node_modules/core-js/modules/_library.js");
 var $export = __webpack_require__("./node_modules/core-js/modules/_export.js");
 var redefine = __webpack_require__("./node_modules/core-js/modules/_redefine.js");
 var hide = __webpack_require__("./node_modules/core-js/modules/_hide.js");
-var has = __webpack_require__("./node_modules/core-js/modules/_has.js");
 var Iterators = __webpack_require__("./node_modules/core-js/modules/_iterators.js");
 var $iterCreate = __webpack_require__("./node_modules/core-js/modules/_iter-create.js");
 var setToStringTag = __webpack_require__("./node_modules/core-js/modules/_set-to-string-tag.js");
@@ -2260,7 +2259,7 @@ module.exports = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCE
   var VALUES_BUG = false;
   var proto = Base.prototype;
   var $native = proto[ITERATOR] || proto[FF_ITERATOR] || DEFAULT && proto[DEFAULT];
-  var $default = !BUGGY && $native || getMethod(DEFAULT);
+  var $default = $native || getMethod(DEFAULT);
   var $entries = DEFAULT ? !DEF_VALUES ? $default : getMethod('entries') : undefined;
   var $anyNative = NAME == 'Array' ? proto.entries || $native : $native;
   var methods, key, IteratorPrototype;
@@ -2271,7 +2270,7 @@ module.exports = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCE
       // Set @@toStringTag to native iterators
       setToStringTag(IteratorPrototype, TAG, true);
       // fix for some old engines
-      if (!LIBRARY && !has(IteratorPrototype, ITERATOR)) hide(IteratorPrototype, ITERATOR, returnThis);
+      if (!LIBRARY && typeof IteratorPrototype[ITERATOR] != 'function') hide(IteratorPrototype, ITERATOR, returnThis);
     }
   }
   // fix Array#{values, @@iterator}.name in V8 / FF
@@ -2651,7 +2650,8 @@ module.exports = function () {
     };
     // environments with maybe non-completely correct, but existent Promise
   } else if (Promise && Promise.resolve) {
-    var promise = Promise.resolve();
+    // Promise.resolve without an argument throws an error in LG WebOS 2
+    var promise = Promise.resolve(undefined);
     notify = function notify() {
       promise.then(flush);
     };
@@ -3418,12 +3418,18 @@ module.exports = function (key) {
 "use strict";
 
 
+var core = __webpack_require__("./node_modules/core-js/modules/_core.js");
 var global = __webpack_require__("./node_modules/core-js/modules/_global.js");
 var SHARED = '__core-js_shared__';
 var store = global[SHARED] || (global[SHARED] = {});
-module.exports = function (key) {
-  return store[key] || (store[key] = {});
-};
+
+(module.exports = function (key, value) {
+  return store[key] || (store[key] = value !== undefined ? value : {});
+})('versions', []).push({
+  version: core.version,
+  mode: __webpack_require__("./node_modules/core-js/modules/_library.js") ? 'pure' : 'global',
+  copyright: '© 2018 Denis Pushkarev (zloirock.ru)'
+});
 
 /***/ }),
 
@@ -6416,10 +6422,13 @@ var task = __webpack_require__("./node_modules/core-js/modules/_task.js").set;
 var microtask = __webpack_require__("./node_modules/core-js/modules/_microtask.js")();
 var newPromiseCapabilityModule = __webpack_require__("./node_modules/core-js/modules/_new-promise-capability.js");
 var perform = __webpack_require__("./node_modules/core-js/modules/_perform.js");
+var userAgent = __webpack_require__("./node_modules/core-js/modules/_user-agent.js");
 var promiseResolve = __webpack_require__("./node_modules/core-js/modules/_promise-resolve.js");
 var PROMISE = 'Promise';
 var TypeError = global.TypeError;
 var process = global.process;
+var versions = process && process.versions;
+var v8 = versions && versions.v8 || '';
 var $Promise = global[PROMISE];
 var isNode = classof(process) == 'process';
 var empty = function empty() {/* empty */};
@@ -6434,7 +6443,11 @@ var USE_NATIVE = !!function () {
       exec(empty, empty);
     };
     // unhandled rejections tracking support, NodeJS Promise without it fails @@species test
-    return (isNode || typeof PromiseRejectionEvent == 'function') && promise.then(empty) instanceof FakePromise;
+    return (isNode || typeof PromiseRejectionEvent == 'function') && promise.then(empty) instanceof FakePromise
+    // v8 6.6 (Node 10 and Chrome 66) have a bug with resolving custom thenables
+    // https://bugs.chromium.org/p/chromium/issues/detail?id=830565
+    // we can't detect it synchronously, so just check versions
+    && v8.indexOf('6.6') !== 0 && userAgent.indexOf('Chrome/66') === -1;
   } catch (e) {/* empty */}
 }();
 
@@ -6456,7 +6469,7 @@ var notify = function notify(promise, isReject) {
       var resolve = reaction.resolve;
       var reject = reaction.reject;
       var domain = reaction.domain;
-      var result, then;
+      var result, then, exited;
       try {
         if (handler) {
           if (!ok) {
@@ -6465,8 +6478,11 @@ var notify = function notify(promise, isReject) {
           }
           if (handler === true) result = value;else {
             if (domain) domain.enter();
-            result = handler(value);
-            if (domain) domain.exit();
+            result = handler(value); // may throw
+            if (domain) {
+              domain.exit();
+              exited = true;
+            }
           }
           if (result === reaction.promise) {
             reject(TypeError('Promise-chain cycle'));
@@ -6475,6 +6491,7 @@ var notify = function notify(promise, isReject) {
           } else resolve(result);
         } else reject(value);
       } catch (e) {
+        if (domain && !exited) domain.exit();
         reject(e);
       }
     };
@@ -7041,9 +7058,11 @@ function set(target, propertyKey, V /* , receiver */) {
   }
   if (has(ownDesc, 'value')) {
     if (ownDesc.writable === false || !isObject(receiver)) return false;
-    existingDescriptor = gOPD.f(receiver, propertyKey) || createDesc(0);
-    existingDescriptor.value = V;
-    dP.f(receiver, propertyKey, existingDescriptor);
+    if (existingDescriptor = gOPD.f(receiver, propertyKey)) {
+      if (existingDescriptor.get || existingDescriptor.set || existingDescriptor.writable === false) return false;
+      existingDescriptor.value = V;
+      dP.f(receiver, propertyKey, existingDescriptor);
+    } else dP.f(receiver, propertyKey, createDesc(0, V));
     return true;
   }
   return ownDesc.set === undefined ? false : (ownDesc.set.call(receiver, V), true);
@@ -7994,12 +8013,12 @@ $export($export.P + $export.U + $export.F * __webpack_require__("./node_modules/
     if ($slice !== undefined && end === undefined) return $slice.call(anObject(this), start); // FF fix
     var len = anObject(this).byteLength;
     var first = toAbsoluteIndex(start, len);
-    var final = toAbsoluteIndex(end === undefined ? len : end, len);
-    var result = new (speciesConstructor(this, $ArrayBuffer))(toLength(final - first));
+    var fin = toAbsoluteIndex(end === undefined ? len : end, len);
+    var result = new (speciesConstructor(this, $ArrayBuffer))(toLength(fin - first));
     var viewS = new $DataView(this);
     var viewT = new $DataView(result);
     var index = 0;
-    while (first < final) {
+    while (first < fin) {
       viewT.setUint8(index++, viewS.getUint8(first++));
     }return result;
   }
@@ -10572,6 +10591,18 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     return iterator;
   };
 
+  /**
+   * Search param name and values should be encoded according to https://url.spec.whatwg.org/#urlencoded-serializing
+   * encodeURIComponent() produces the same result except encoding spaces as `%20` instead of `+`.
+   */
+  var serializeParam = function serializeParam(value) {
+    return encodeURIComponent(value).replace(/%20/g, '+');
+  };
+
+  var deserializeParam = function deserializeParam(value) {
+    return decodeURIComponent(value).replace(/\+/g, ' ');
+  };
+
   var polyfillURLSearchParams = function polyfillURLSearchParams() {
 
     var URLSearchParams = function URLSearchParams(searchString) {
@@ -10584,7 +10615,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
           var attribute;
           for (var i = 0; i < attributes.length; i++) {
             attribute = attributes[i].split('=');
-            this.append(decodeURIComponent(attribute[0]), attribute.length > 1 ? decodeURIComponent(attribute[1]) : '');
+            this.append(deserializeParam(attribute[0]), attribute.length > 1 ? deserializeParam(attribute[1]) : '');
           }
         }
       } else if (searchString instanceof URLSearchParams) {
@@ -10666,12 +10697,11 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     }
 
     proto.toString = function () {
-      var searchString = '';
+      var searchArray = [];
       this.forEach(function (value, name) {
-        if (searchString.length > 0) searchString += '&';
-        searchString += encodeURIComponent(name) + '=' + encodeURIComponent(value);
+        searchArray.push(serializeParam(name) + '=' + serializeParam(value));
       });
-      return searchString;
+      return searchArray.join("&");
     };
 
     global.URLSearchParams = URLSearchParams;
@@ -10707,18 +10737,27 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     var URL = function URL(url, base) {
       if (typeof url !== 'string') url = String(url);
 
-      var doc = document.implementation.createHTMLDocument('');
-      window.doc = doc;
-      if (base) {
-        var baseElement = doc.createElement('base');
+      // Only create another document if the base is different from current location.
+      var doc = document,
+          baseElement;
+      if (base && (global.location === void 0 || base !== global.location.href)) {
+        doc = document.implementation.createHTMLDocument('');
+        baseElement = doc.createElement('base');
         baseElement.href = base;
         doc.head.appendChild(baseElement);
+        try {
+          if (baseElement.href.indexOf(base) !== 0) throw new Error(baseElement.href);
+        } catch (err) {
+          throw new Error("URL unable to set base " + base + " due to " + err);
+        }
       }
 
       var anchorElement = doc.createElement('a');
       anchorElement.href = url;
-      doc.body.appendChild(anchorElement);
-      anchorElement.href = anchorElement.href; // force href to refresh
+      if (baseElement) {
+        doc.body.appendChild(anchorElement);
+        anchorElement.href = anchorElement.href; // force href to refresh
+      }
 
       if (anchorElement.protocol === ':' || !/:/.test(anchorElement.href)) {
         throw new TypeError('Invalid URL');
@@ -10780,7 +10819,14 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
       'origin': {
         get: function get() {
-          return this._anchorElement.protocol + '//' + this._anchorElement.hostname + (this._anchorElement.port ? ':' + this._anchorElement.port : '');
+          // get expected port from protocol
+          var expectedPort = { 'http:': 80, 'https:': 443, 'ftp:': 21 }[this._anchorElement.protocol];
+          // add port to origin if, expected port is different than actual port
+          // and it is not empty f.e http://foo:8080
+          // 8080 != 80 && 8080 != ''
+          var addPortToOrigin = this._anchorElement.port != expectedPort && this._anchorElement.port !== '';
+
+          return this._anchorElement.protocol + '//' + this._anchorElement.hostname + (addPortToOrigin ? ':' + this._anchorElement.port : '');
         },
         enumerable: true
       },
@@ -14621,7 +14667,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var VXPayHookRouter = function VXPayHookRouter(hooks, event) {
 	// origin check
 	if (event.origin && _VXPayIframe2.default.ORIGIN_VX.indexOf(event.origin) === -1) {
-		throw new TypeError('Event origin does not match: ' + event.origin);
+		return false;
 	}
 
 	// parse message
