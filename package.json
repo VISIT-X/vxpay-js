@@ -37,7 +37,7 @@
     "copy": "node copy-dist.js",
     "push": "npm run build && git push",
     "lint": "eslint --ext .js src",
-    "prepare": "npm run build"
+    "prepublishOnly": "npm run build"
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
