@@ -121,7 +121,7 @@ class VXPayIframe extends VXPayEventListener {
 	 * @return {string}
 	 */
 	get url() {
-		this._frame.src;
+		return this._frame.src;
 	}
 }
 
