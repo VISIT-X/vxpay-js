@@ -16,11 +16,9 @@ script:
   - npm run test
 
 after_script:
-  - echo "Try to pack the lib for npm ..."
+  # build the package
+  - npm webpack --mode production
   - npm pack
-  - echo "Try to install packed archive ..."
-  - NPM_PACK_VER="$(node -p "require('./package.json').version")"
-  - echo "$NPM_PACK_VER"
-  # - mkdir vxpay-js-app
-  # - cd vxpay-js-app
-  # - echo "../vxpay-js-$NPM_PACK_VER.tgz"
+  - mkdir vxpay-js-app && cd vxpay-js-app
+  - npm install "../vxpay-js-$(node -p "require('./package.json').version").tgz"
+  - ls -l node_modules/vxpay-js/
