@@ -12,11 +12,15 @@ node_js:
 - 8
 - node
 
+script:
+  - npm run lint
+  - npm run test
+
 after_script:
   - echo "Try to pack the lib for npm ..."
   - npm pack
-  - echo "Try to install packed archive ..."
-  - NPM_PACK_VER="$(node -p "require('./package.json').version")"
-  - mkdir vxpay-js-app
-  - cd vxpay-js-app
-  - echo "../vxpay-js-$NPM_PACK_VER.tgz"
+  # - echo "Try to install packed archive ..."
+  # - NPM_PACK_VER="$(node -p "require('./package.json').version")"
+  # - mkdir vxpay-js-app
+  # - cd vxpay-js-app
+  # - echo "../vxpay-js-$NPM_PACK_VER.tgz"
