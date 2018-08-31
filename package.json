@@ -37,13 +37,16 @@
     "copy": "node copy-dist.js",
     "push": "npm run build && git push",
     "lint": "eslint --ext .js src",
-    "prepublish": "npm run build"
+    "prepare": "npm run build"
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "is-mobile": "^0.2.2",
     "url-polyfill": "^1.0.11"
   },
+  "files": [
+    "build/vxpay*.js"
+  ],
   "engines": {
     "node": ">=8.0",
     "npm": ">=5.0"

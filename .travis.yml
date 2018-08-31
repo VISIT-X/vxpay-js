@@ -12,7 +12,11 @@ node_js:
 - 8
 - node
 
-before_script:
-  - echo "$TRAVIS_REPO_SLUG"
-
-# also Travis somehow runs `yarn build` ??
+after_script:
+  - echo "Try to pack the lib for npm ..."
+  - npm pack
+  - echo "Try to install packed archive ..."
+  - NPM_PACK_VER="$(node -p "require('./package.json').version")"
+  - mkdir vxpay-js-app
+  - cd vxpay-js-app
+  - echo "../vxpay-js-$NPM_PACK_VER.tgz"
