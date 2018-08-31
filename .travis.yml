@@ -20,5 +20,6 @@ after_script:
   - npm webpack --mode production
   - npm pack
   - mkdir vxpay-js-app && cd vxpay-js-app
-  - npm install "../vxpay-js-$(node -p "require('./package.json').version").tgz"
+  - VXPAY_JS_VER=$(node -p "require('./package.json').version")
+  - npm install "../vxpay-js-$VXPAY_JS_VER.tgz"
   - ls -l node_modules/vxpay-js/
