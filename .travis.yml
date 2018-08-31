@@ -5,8 +5,7 @@ os:
   - osx
 
 cache:
-  directories:
-  - node_modules
+  bundler: true
 
 node_js:
 - 8
@@ -19,8 +18,9 @@ script:
 after_script:
   - echo "Try to pack the lib for npm ..."
   - npm pack
-  # - echo "Try to install packed archive ..."
-  # - NPM_PACK_VER="$(node -p "require('./package.json').version")"
+  - echo "Try to install packed archive ..."
+  - NPM_PACK_VER="$(node -p "require('./package.json').version")"
+  - echo "$NPM_PACK_VER"
   # - mkdir vxpay-js-app
   # - cd vxpay-js-app
   # - echo "../vxpay-js-$NPM_PACK_VER.tgz"
