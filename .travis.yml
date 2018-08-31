@@ -5,17 +5,12 @@ os:
   - osx
 
 cache:
-  yarn: true
   directories:
   - node_modules
 
 node_js:
 - 8
 - node
-
-# everything else - falls back to defaults, e.g.:
-# before_script: yarn install && yarn lint
-# script: yarn test
 
 before_script:
   - echo "$TRAVIS_REPO_SLUG"
