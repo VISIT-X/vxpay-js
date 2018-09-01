@@ -7,10 +7,13 @@ os:
 cache:
   bundler: true
 
+# test step is auto-configured: npm run test
+
 stages:
-- test
-- build
-- deploy
+  - lint
+  - test
+  - build
+  - deploy
 
 node_js:
 - 8
@@ -19,7 +22,7 @@ node_js:
 jobs:
   include:
 
-  - stage: test
+  - stage: lint
     name: "ESLint"
     string: npm run lint
 
