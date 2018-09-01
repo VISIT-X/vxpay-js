@@ -16,17 +16,6 @@ module.exports = {
 		libraryTarget: 'umd',
 		umdNamedDefine: true
 	},
-	module: {
-		loaders: [
-			{
-				test: /\.js$/,
-				loader: 'babel-loader',
-				query: {
-					presets: ['es2015']
-				}
-			}
-		]
-	},
 	devServer: {
 		contentBase: path.resolve(__dirname, './docs'),
 		hot: true

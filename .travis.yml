@@ -1,23 +1,50 @@
 language: node_js
 
 os:
-  - linux
-  - osx
+- linux
+- osx
 
 cache:
-  yarn: true
-  directories:
-  - node_modules
+  bundler: true
+
+# test step is auto-configured: npm run test
+
+stages:
+  - lint
+  - test
+  - build
+  - deploy
 
 node_js:
 - 8
 - node
 
-# everything else - falls back to defaults, e.g.:
-# before_script: yarn install && yarn lint
-# script: yarn test
+jobs:
+  include:
 
-before_script:
-  - echo "$TRAVIS_REPO_SLUG"
+  - stage: lint
+    name: "ESLint"
+    string: npm run lint
 
-# also Travis somehow runs `yarn build` ??
+  - stage: build
+    name: "Build, pack & confirm NPM package"
+    script:
+    - ./node_modules/.bin/webpack --mode production
+    - npm pack
+    - VXPAY_JS_VER=$(node -p "require('./package.json').version")
+    - echo "$VXPAY_JS_VER"
+    - cd ../
+    - mkdir vxpay-js-integration
+    - cd vxpay-js-integration
+    - npm install "../vxpay-js/vxpay-js-$VXPAY_JS_VER.tgz"
+    - ls -l node_modules/vxpay-js/build/
+
+  - stage: deploy
+    name: "Release NPM package on TAG"
+    script: echo "Deploying to npm ..."
+    deploy:
+      provider: npm
+      email: "$NPM_EMAIL"
+      api_key: "$API_KEY"
+      on:
+        tags: true
