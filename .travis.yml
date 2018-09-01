@@ -43,6 +43,7 @@ jobs:
     name: "Release NPM package on TAG"
     script: echo "Deploying to npm ..."
     deploy:
+      skip_cleanup: true
       provider: npm
       email: "$NPM_EMAIL"
       api_key: "$API_KEY"
