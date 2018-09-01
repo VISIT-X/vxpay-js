@@ -8,10 +8,9 @@ cache:
   bundler: true
 
 stages:
-  - test
-  - build
-  - confirm
-  - deploy
+- test
+- build
+- deploy
 
 node_js:
 - 8
@@ -21,20 +20,14 @@ jobs:
   include:
 
   - stage: test
-    name: "ESLint & Unit tests"
-    script:
-    - npm run lint
-    - npm run test
+    name: "ESLint"
+    string: npm run lint
 
   - stage: build
-    name: "Build lib files & pack NPM tarball"
+    name: "Build, pack & confirm NPM package"
     script:
     - ./node_modules/.bin/webpack --mode production
     - npm pack
-
-  - stage: confirm
-    name: "Test install NPM package"
-    script:
     - VXPAY_JS_VER=$(node -p "require('./package.json').version")
     - echo "$VXPAY_JS_VER"
     - cd ../
