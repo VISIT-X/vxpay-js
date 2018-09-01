@@ -1,33 +1,50 @@
 language: node_js
 
 os:
-  - linux
-  - osx
+- linux
+- osx
 
 cache:
   bundler: true
+
+stages:
+  - test
+  - build
+  - confirm
+  - deploy
 
 node_js:
 - 8
 - node
 
-script:
-  - npm run lint
-  - npm run test
-  # build, pack and install
-  - ./node_modules/.bin/webpack --mode production
-  - npm pack
-  - VXPAY_JS_VER=$(node -p "require('./package.json').version")
-  - echo "$VXPAY_JS_VER"
-  - cd ../
-  - mkdir vxpay-js-integration
-  - cd vxpay-js-integration
-  - npm install "../vxpay-js/vxpay-js-$VXPAY_JS_VER.tgz"
-  - ls -l node_modules/vxpay-js/build/
-
 jobs:
   include:
-  - stage: npm release
+
+  - stage: test
+    name: "ESLint & Unit tests"
+    script:
+    - npm run lint
+    - npm run test
+
+  - stage: build
+    name: "Build lib files & pack NPM tarball"
+    script:
+    - ./node_modules/.bin/webpack --mode production
+    - npm pack
+
+  - stage: confirm
+    name: "Test install NPM package"
+    script:
+    - VXPAY_JS_VER=$(node -p "require('./package.json').version")
+    - echo "$VXPAY_JS_VER"
+    - cd ../
+    - mkdir vxpay-js-integration
+    - cd vxpay-js-integration
+    - npm install "../vxpay-js/vxpay-js-$VXPAY_JS_VER.tgz"
+    - ls -l node_modules/vxpay-js/build/
+
+  - stage: deploy
+    name: "Release NPM package on TAG"
     script: echo "Deploying to npm ..."
     deploy:
       provider: npm
