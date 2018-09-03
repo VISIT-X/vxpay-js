@@ -1,6 +1,6 @@
 {
   "name": "vxpay-js",
-  "version": "2.0.2",
+  "version": "2.1.2",
   "description": "Javascript library to initialize and handle VXPay iframe",
   "main": "build/vxpay.js",
   "author": "Igor Timoshenkov",
@@ -36,8 +36,7 @@
     "cover": "nyc --reporter=html --report-dir=build/coverage npm run test",
     "copy": "node copy-dist.js",
     "push": "npm run build && git push",
-    "lint": "eslint --ext .js src",
-    "prepublishOnly": "npm run build"
+    "lint": "eslint --ext .js src"
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
