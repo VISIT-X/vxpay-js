@@ -14,3 +14,5 @@ More information on the vxpay-js:
 1. [Frame messages reference](https://github.com/VISIT-X/vxpay-js/wiki/04-Messages-reference)
 1. [Samples](https://github.com/VISIT-X/vxpay-js/wiki/05-Samples)
 1. [Post message reference](https://github.com/VISIT-X/vxpay-js/wiki/04-Messages-reference)
+
+Please see [vxpay-js-react-example](https://github.com/VISIT-X/vxpay-js-react-example) for [React](https://github.com/facebook/react) integration example.
