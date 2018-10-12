@@ -45,6 +45,9 @@ jobs:
   - stage: deploy
     name: "Release NPM package on TAG"
     script: echo "Deploying to npm ..."
+    before_deploy:
+      # copy the build files to folder that is not ignored
+      - cp -R build/. dist/
     deploy:
       skip_cleanup: true
       provider: npm

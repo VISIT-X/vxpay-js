@@ -1,8 +1,8 @@
 {
   "name": "vxpay-js",
-  "version": "2.1.5",
+  "version": "2.1.6",
   "description": "Javascript library to initialize and handle VXPay iframe",
-  "main": "build/vxpay.min.js",
+  "main": "dist/vxpay.min.js",
   "author": "Igor Timoshenkov",
   "license": "LicenseRef-LICENSE",
   "repository": "https://github.com/VISIT-X/vxpay-js",
@@ -41,7 +41,7 @@
     "url-polyfill": "^1.0.14"
   },
   "files": [
-    "build/vxpay*.js"
+    "dist/vxpay*.js"
   ],
   "engines": {
     "node": ">=8.0",
