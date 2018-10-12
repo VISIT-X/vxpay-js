@@ -40,7 +40,7 @@ jobs:
     - mkdir vxpay-js-integration
     - cd vxpay-js-integration
     - npm install "../vxpay-js/vxpay-js-$VXPAY_JS_VER.tgz"
-    - ls -l node_modules/vxpay-js/build/
+    - ls -l node_modules/vxpay-js/dist/
 
   - stage: deploy
     name: "Release NPM package on TAG"
