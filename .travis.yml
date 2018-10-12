@@ -33,6 +33,8 @@ jobs:
     script:
     - npm run build
     - npm run copy
+    # copy the build files to folder that is not ignored
+    - cp -R build/. dist/
     - npm pack
     - VXPAY_JS_VER=$(node -p "require('./package.json').version")
     - echo "$VXPAY_JS_VER"
