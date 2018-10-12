@@ -33,8 +33,7 @@ jobs:
     script:
     - npm run build
     - npm run copy
-    # copy the build files to folder that is not ignored
-    - cp -R build/. dist/
+    - cp -R build/. dist/ # copy the build files to folder that is not ignored
     - npm pack
     - VXPAY_JS_VER=$(node -p "require('./package.json').version")
     - echo "$VXPAY_JS_VER"
@@ -48,8 +47,8 @@ jobs:
     name: "Release NPM package on TAG"
     script:
       - echo "Deploying to npm ..."
-      # copy the build files to folder that is not ignored
-      - cp -R build/. dist/
+      - npm run build
+      - cp -R build/. dist/ # copy the build files to folder that is not ignored
     deploy:
       skip_cleanup: true
       provider: npm
