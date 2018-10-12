@@ -12,5 +12,8 @@ files.forEach((file) => {
 	console.log('> Copied ' + file + ' from ' + src + ' to ' + dest + '.');
 });
 
+fs.createReadStream(path.resolve(__dirname, './build/vxpay.js')).pipe(fs.createWriteStream(path.resolve(__dirname, './vxpay.js')));
+console.log('> Copied `vxpay.js` from ./build/ to ./');
+
 console.log('> Done.');
 

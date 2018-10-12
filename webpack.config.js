@@ -2,19 +2,30 @@ const path = require('path'),
       webpack = require('webpack'),
       HtmlWebpackPlugin = require('html-webpack-plugin'),
       UglifyJsPlugin = require('uglifyjs-webpack-plugin'),
-      sources = ['babel-polyfill', 'url-polyfill', './src/main.js'];
+      sources = ['./src/main.js'];
 
 module.exports = {
 	entry: {
 		'vxpay': sources,
-		'vxpay.min': sources
+		'vxpay.min': sources,
 	},
 	output: {
 		path: path.resolve(__dirname, 'build'),
 		filename: '[name].js',
 		library: 'VX',
 		libraryTarget: 'umd',
-		umdNamedDefine: true
+		umdNamedDefine: true,
+	},
+	module: {
+		rules: [
+			{
+				test: /\.js$/,
+				exclude: /node_modules/,
+				use: {
+					loader: "babel-loader"
+				}
+			}
+		]
 	},
 	devServer: {
 		contentBase: path.resolve(__dirname, './docs'),
@@ -23,7 +34,9 @@ module.exports = {
 	stats: {
 		colors: true
 	},
-	devtool: 'source-map',
+	optimization: {
+		minimize: false,
+	},
 	plugins: [
 		new UglifyJsPlugin({
 			include: /\.min\.js$/

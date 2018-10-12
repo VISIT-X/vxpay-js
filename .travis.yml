@@ -24,12 +24,15 @@ jobs:
 
   - stage: lint
     name: "ESLint"
-    string: npm run lint
+    string:
+     - npm run lint
+     - npm run cover
 
   - stage: build
     name: "Build, pack & confirm NPM package"
     script:
-    - ./node_modules/.bin/webpack --mode production
+    - npm run build
+    - npm run copy
     - npm pack
     - VXPAY_JS_VER=$(node -p "require('./package.json').version")
     - echo "$VXPAY_JS_VER"
