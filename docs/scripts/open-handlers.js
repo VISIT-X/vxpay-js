@@ -10,14 +10,7 @@ let options = {
 				'width':  130,
 				'height': 28
 			},
-			'headerLogoRight':         {
-				'url':    'https://www.visit-x.net/assets/img/teaser/lucy-cat/lucycat_logo.png',
-				'width':  120,
-				'height': 59
-			},
 			'headerLogoWidth':         '500',
-			'background':              'https://www.visit-x.net/assets/img/teaser/lucy-cat/signup_lucycat_image.jpg',
-			'backgroundMobile':        'https://www.visit-x.net/assets/img/teaser/lucy-cat/mob_image_lucycat.jpg',
 			'points':                  [
 				'Deutschlands meistgesuchter Amateur',
 				'NEU auf VISIT-X',
@@ -26,12 +19,6 @@ let options = {
 			]
 		},
 		'payment': {
-			'logoRight':  {
-				'url':    'https://www.visit-x.net/assets/img/teaser/lucy-cat/payment_lucycat_logos.png',
-				'width':  98,
-				'height': 91
-			},
-			'background': 'https://www.visit-x.net/assets/img/teaser/lucy-cat/payment_bgimage.jpg',
 			'points':     [
 				'Deutschlands meistgesuchter Amateur',
 				'NEU auf VISIT-X',
