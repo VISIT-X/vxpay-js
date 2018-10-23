@@ -4,17 +4,26 @@ import VXPayPaymentRoutes from './../../Config/VXPayPaymentRoutes'
 class VXPayOpenOneClickCommand {
 	/**
 	 * @param {VXPay} vxpay
+	 * @param {Object} flowOptions
 	 * @return {VXPay}
 	 */
-	static run(vxpay) {
+	static run(vxpay, flowOptions = {}) {
 		vxpay.logger.log('VXPayOpenOneClickCommand()');
 
 		vxpay.paymentFrame
-			.then(frame => frame
-				.initSession()
-				.sendOptions(VXPayOpenOneClickCommand.PARAMS)
-				.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
-				.changeRoute(VXPayPaymentRoutes.ONE_CLICK));
+			.then(frame => {
+				frame
+					.initSession()
+					.sendOptions(VXPayOpenOneClickCommand.PARAMS);
+
+				if (flowOptions) {
+					frame.sendUpdateParams(flowOptions);
+				}
+
+				frame
+					.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
+					.changeRoute(VXPayPaymentRoutes.ONE_CLICK)
+			});
 
 		return vxpay;
 	}

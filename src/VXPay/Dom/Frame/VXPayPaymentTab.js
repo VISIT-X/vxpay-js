@@ -1,7 +1,8 @@
-import VXPayPaymentHooksConfig from './../../Config/VXPayPaymentHooksConfig'
-import VXPayEventListener      from './../../Event/VXPayEventListener'
-import VXPayIframe             from './../VXPayIframe'
-import VXPayHookRouter         from './../../Message/Hooks/VXPayHookRouter'
+import VXPayPaymentHooksConfig  from './../../Config/VXPayPaymentHooksConfig'
+import VXPayEventListener       from './../../Event/VXPayEventListener'
+import VXPayIframe              from './../VXPayIframe'
+import VXPayHookRouter          from './../../Message/Hooks/VXPayHookRouter'
+import VXPayUpdateParamsMessage from '../../Message/VXPayUpdateParamsMessage';
 
 /**
  * @link https://www.npmjs.com/package/es6-interface
@@ -19,6 +20,8 @@ class VXPayPaymentTab {
 		this._name     = name;
 		this._config   = config;
 		this._route    = VXPayPaymentTab.DEFAULT_ROUTE;
+		this._promise  = null;
+		this._window   = null;
 	}
 
 	/**
@@ -69,16 +72,20 @@ class VXPayPaymentTab {
 	 */
 	getNewTab() {
 		const that = this,
-			url  = this._config.getPaymentFrameUrl() + '#' + this._route;
+		      url  = this._config.getPaymentFrameUrl() + '#' + this._route;
 
-		return new Promise(resolve => {
-			if (that.hasOwnProperty('_window') && !that._window.closed) {
+		if (null == this._promise) {
+			this._promise = new Promise(resolve => {
+				if (null !== that._window && !that._window.closed) {
+					return resolve(that._window);
+				}
+
+				that._window = that._document.defaultView.open(url, that._name);
 				resolve(that._window);
-			}
+			});
+		}
 
-			that._window = that._document.defaultView.open(url, that._name);
-			resolve(that._window);
-		});
+		return this._promise;
 	}
 
 	/**
@@ -141,6 +148,31 @@ class VXPayPaymentTab {
 	 */
 	sendAdditionalOptions(options = {}) {
 		this._config.merge(options);
+		return this;
+	}
+
+	/**
+	 * @param {Object} params
+	 * @returns {VXPayPaymentTab}
+	 */
+	sendUpdateParams(params) {
+		this.postMessage(new VXPayUpdateParamsMessage(params));
+		return this;
+	}
+
+	/**
+	 * Override to add a before send hook
+	 * @param {String|VXPayMessage} message
+	 * @param {String} origin
+	 * @return {VXPayPaymentTab}
+	 */
+	postMessage(message, origin = '*') {
+		this._hooks.trigger(VXPayPaymentHooksConfig.ON_BEFORE_SEND, [message]);
+
+		if (this._window !== null) {
+			this._window.postMessage(message.toString(), origin);
+		}
+
 		return this;
 	}
 

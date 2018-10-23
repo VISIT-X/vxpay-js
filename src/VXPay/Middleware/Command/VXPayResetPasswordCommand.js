@@ -5,17 +5,27 @@ import VXPayPaymentRoutes from './../../Config/VXPayPaymentRoutes'
 export default class VXPayResetPasswordCommand {
 	/**
 	 * @param {VXPay} vxpay
+	 * @param {Object} flowOptions
 	 * @return {VXPay}
 	 */
-	static run(vxpay) {
+	static run(vxpay, flowOptions = {}) {
 		vxpay.logger.log('VXPayResetPasswordCommand()');
 
 		vxpay.paymentFrame
-			.then(frame => frame
-				.initSession()
-				.sendOptions(VXPayResetPasswordCommand.getParams(vxpay.config))
-				.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
-				.changeRoute(VXPayPaymentRoutes.PASSWORD_RESET));
+			.then(frame => {
+				frame
+					.initSession()
+					.sendOptions(VXPayResetPasswordCommand.getParams(vxpay.config));
+
+				if (flowOptions) {
+					frame.sendUpdateParams(flowOptions);
+				}
+
+				frame
+					.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
+					.changeRoute(VXPayPaymentRoutes.PASSWORD_RESET)
+
+			});
 
 		return vxpay;
 	}

@@ -53,6 +53,13 @@ class VXPayConfig {
 	}
 
 	/**
+	 * @param {string} ruri
+	 */
+	set ruri(ruri) {
+		this._urls.ruri = ruri;
+	}
+
+	/**
 	 * @return {string}
 	 */
 	get suri() {
