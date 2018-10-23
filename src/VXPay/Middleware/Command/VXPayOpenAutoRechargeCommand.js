@@ -4,17 +4,26 @@ import VXPayPaymentRoutes from './../../Config/VXPayPaymentRoutes'
 class VXPayOpenAutoRechargeCommand {
 	/**
 	 * @param {VXPay} vxpay
+	 * @param {Object} flowOptions
 	 * @return {VXPay}
 	 */
-	static run(vxpay) {
+	static run(vxpay, flowOptions = {}) {
 		vxpay.logger.log('VXPayOpenAutoRechargeCommand()');
 
 		vxpay.paymentFrame
-			.then(frame => frame
-				.initSession()
-				.sendOptions(VXPayOpenAutoRechargeCommand.PARAMS)
-				.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
-				.changeRoute(VXPayPaymentRoutes.AUTO_RECHARGE));
+			.then(frame => {
+				frame
+					.initSession()
+					.sendOptions(VXPayOpenAutoRechargeCommand.PARAMS);
+
+				if (flowOptions) {
+					frame.sendUpdateParams(flowOptions);
+				}
+
+				frame
+					.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
+					.changeRoute(VXPayPaymentRoutes.AUTO_RECHARGE)
+			});
 
 		return vxpay;
 	}

@@ -186,6 +186,15 @@ class VXPayPaymentFrame extends VXPayIframe {
 	}
 
 	/**
+	 * @param {Object} params
+	 * @returns {VXPayPaymentFrame}
+	 */
+	sendUpdateParams(params) {
+		this.postMessage(new VXPayUpdateParamsMessage(params));
+		return this;
+	}
+
+	/**
 	 * @param {String} route
 	 * @return {VXPayPaymentFrame}
 	 */

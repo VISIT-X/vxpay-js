@@ -71,15 +71,16 @@ export default class VXPay {
 	}
 
 	/**
+	 * @param {Object} flowOptions
 	 * @return {Promise<VXPay>}
 	 */
-	openLogin() {
+	openLogin(flowOptions = {}) {
 		this.logger.log('VXPay::openLogin');
 
 		return new Promise((resolve, reject) => {
 			return this._initPaymentFrame()
 				.then(VXPayWhenTokenTransferred)
-				.then(VXPayOpenLoginCommand)
+				.then(vxpay => VXPayOpenLoginCommand(vxpay, flowOptions))
 				.then(VXPayTriggerShowForTab)
 				.then(resolve)
 				.catch(reject)
@@ -87,13 +88,14 @@ export default class VXPay {
 	}
 
 	/**
+	 * @param {Object} flowOptions
 	 * @return {Promise<VXPay>}
 	 */
-	openSignUp() {
+	openSignUp(flowOptions = {}) {
 		return new Promise((resolve, reject) => {
 			return this._initPaymentFrame()
 				.then(VXPayWhenTokenTransferred)
-				.then(VXPayOpenSignUpCommand)
+				.then(vxpay => VXPayOpenSignUpCommand(vxpay, flowOptions))
 				.then(VXPayTriggerShowForTab)
 				.then(resolve)
 				.catch(reject)
@@ -115,22 +117,24 @@ export default class VXPay {
 	}
 
 	/**
+	 * @param {Object} flowOptions
 	 * @return {Promise<VXPay>}
 	 */
-	openSignUpOrLogin() {
+	openSignUpOrLogin(flowOptions = {}) {
 		return this._initHelperFrame()
 			.then(vxpay => vxpay.helperFrame.getLoginCookie())
-			.then(msg => msg.hasCookie ? this.openLogin() : this.openSignUp())
+			.then(msg => msg.hasCookie ? this.openLogin(flowOptions) : this.openSignUp(flowOptions))
 	}
 
 	/**
+	 * @param {Object} flowOptions
 	 * @return {Promise<VXPay>}
 	 */
-	openPayment() {
+	openPayment(flowOptions = {}) {
 		return new Promise((resolve, reject) => {
 			this._initPaymentFrame()
 				.then(VXPayWhenTokenTransferred)
-				.then(VXPayOpenPaymentCommand.run)
+				.then(vxpay => VXPayOpenPaymentCommand.run(vxpay, flowOptions))
 				.then(VXPayTriggerShowForTab)
 				.then(resolve)
 				.catch(reject)
@@ -138,13 +142,14 @@ export default class VXPay {
 	}
 
 	/**
+	 * @param {Object} flowOptions
 	 * @return {Promise<VXPay>}
 	 */
-	openAbo() {
+	openAbo(flowOptions = {}) {
 		return new Promise((resolve, reject) => {
 			this._initPaymentFrame()
 				.then(VXPayWhenTokenTransferred)
-				.then(VXPayOpenAboCommand)
+				.then(vxpay => VXPayOpenAboCommand(vxpay, flowOptions))
 				.then(VXPayTriggerShowForTab)
 				.then(resolve)
 				.catch(reject)
@@ -166,16 +171,14 @@ export default class VXPay {
 	}
 
 	/**
-	 * @note most times opens registration?
-	 * @note some times view-ready is not fired?
-	 *
+	 * @param {Object} flowOptions
 	 * @return {Promise<VXPay>}
 	 */
-	resetPassword() {
+	resetPassword(flowOptions = {}) {
 		return new Promise((resolve, reject) => {
 			this._initPaymentFrame()
 				.then(VXPayWhenTokenTransferred)
-				.then(VXPayResetPasswordCommand.run)
+				.then(vxpay => VXPayResetPasswordCommand.run(vxpay, flowOptions))
 				.then(VXPayTriggerShowForTab)
 				.then(resolve)
 				.catch(reject)
@@ -183,13 +186,14 @@ export default class VXPay {
 	}
 
 	/**
+	 * @param {Object} flowOptions
 	 * @return {Promise<VXPay>}
 	 */
-	lostPassword() {
+	lostPassword(flowOptions = {}) {
 		return new Promise((resolve, reject) => {
 			this._initPaymentFrame()
 				.then(VXPayWhenTokenTransferred)
-				.then(VXPayLostPasswordCommand.run)
+				.then(vxpay => VXPayLostPasswordCommand.run(vxpay, flowOptions))
 				.then(VXPayTriggerShowForTab)
 				.then(resolve)
 				.catch(reject)
@@ -211,13 +215,14 @@ export default class VXPay {
 	}
 
 	/**
+	 * @param {Object} flowOptions
 	 * @return {Promise<VXPay>}
 	 */
-	vipAboTrial() {
+	vipAboTrial(flowOptions = {}) {
 		return new Promise((resolve, reject) => {
 			this._initPaymentFrame()
 				.then(VXPayWhenTokenTransferred)
-				.then(VXPayOpenVipAboTrialCommand)
+				.then(vxpay => VXPayOpenVipAboTrialCommand(vxpay, flowOptions))
 				.then(VXPayTriggerShowForTab)
 				.then(resolve)
 				.catch(reject)
@@ -225,13 +230,14 @@ export default class VXPay {
 	}
 
 	/**
+	 * @param {Object} flowOptions
 	 * @return {Promise<VXPay>}
 	 */
-	premiumAbo() {
+	premiumAbo(flowOptions = {}) {
 		return new Promise((resolve, reject) => {
 			this._initPaymentFrame()
 				.then(VXPayWhenTokenTransferred)
-				.then(VXPayOpenPremiumAboCommand)
+				.then(vxpay => VXPayOpenPremiumAboCommand(vxpay, flowOptions))
 				.then(VXPayTriggerShowForTab)
 				.then(resolve)
 				.catch(reject)
@@ -239,13 +245,14 @@ export default class VXPay {
 	}
 
 	/**
+	 * @param {Object} flowOptions
 	 * @return {Promise<VXPay>}
 	 */
-	openAVS() {
+	openAVS(flowOptions = {}) {
 		return new Promise((resolve, reject) => {
 			this._initPaymentFrame()
 				.then(VXPayWhenTokenTransferred)
-				.then(VXPayOpenAVSCommand)
+				.then(vxpay => VXPayOpenAVSCommand(vxpay, flowOptions))
 				.then(VXPayTriggerShowForTab)
 				.then(resolve)
 				.catch(reject)
@@ -253,13 +260,14 @@ export default class VXPay {
 	}
 
 	/**
+	 * @param {Object} flowOptions
 	 * @return {Promise<VXPay>}
 	 */
-	openPromoCode() {
+	openPromoCode(flowOptions = {}) {
 		return new Promise((resolve, reject) => {
 			this._initPaymentFrame()
 				.then(VXPayWhenTokenTransferred)
-				.then(VXPayOpenPromoCodeCommand)
+				.then(vxpay => VXPayOpenPromoCodeCommand(vxpay, flowOptions))
 				.then(VXPayTriggerShowForTab)
 				.then(resolve)
 				.catch(reject)
@@ -267,13 +275,14 @@ export default class VXPay {
 	}
 
 	/**
+	 * @param {Object} flowOptions
 	 * @return {Promise<VXPay>}
 	 */
-	openScratchCard() {
+	openScratchCard(flowOptions = {}) {
 		return new Promise((resolve, reject) => {
 			this._initPaymentFrame()
 				.then(VXPayWhenTokenTransferred)
-				.then(VXPayOpenPromoCodeCommand)
+				.then(vxpay => VXPayOpenPromoCodeCommand(vxpay, flowOptions))
 				.then(VXPayTriggerShowForTab)
 				.then(resolve)
 				.catch(reject)
@@ -281,13 +290,14 @@ export default class VXPay {
 	}
 
 	/**
+	 * @param {Object} flowOptions
 	 * @return {Promise<VXPay>}
 	 */
-	openOneClick() {
+	openOneClick(flowOptions = {}) {
 		return new Promise((resolve, reject) => {
 			this._initPaymentFrame()
 				.then(VXPayWhenTokenTransferred)
-				.then(VXPayOpenOneClickCommand.run)
+				.then(vxpay => VXPayOpenOneClickCommand.run(vxpay, flowOptions))
 				.then(VXPayTriggerShowForTab)
 				.then(resolve)
 				.catch(reject)
@@ -295,13 +305,14 @@ export default class VXPay {
 	}
 
 	/**
+	 * @param {Object} flowOptions
 	 * @return {Promise<VXPay>}
 	 */
-	openAutoReCharge() {
+	openAutoReCharge(flowOptions = {}) {
 		return new Promise((resolve, reject) => {
 			this._initPaymentFrame()
 				.then(VXPayWhenTokenTransferred)
-				.then(VXPayOpenAutoRechargeCommand.run)
+				.then(vxpay => VXPayOpenAutoRechargeCommand.run(vxpay, flowOptions))
 				.then(VXPayTriggerShowForTab)
 				.then(resolve)
 				.catch(reject)
@@ -309,13 +320,14 @@ export default class VXPay {
 	}
 
 	/**
+	 * @param {Object} flowOptions
 	 * @return {Promise<VXPay>}
 	 */
-	openBalance() {
+	openBalance(flowOptions = {}) {
 		return new Promise((resolve, reject) => {
 			this._initPaymentFrame()
 				.then(VXPayWhenTokenTransferred)
-				.then(VXPayOpenOpenBalanceCommand)
+				.then(vxpay => VXPayOpenOpenBalanceCommand(vxpay, flowOptions))
 				.then(VXPayTriggerShowForTab)
 				.then(resolve)
 				.catch(reject)
