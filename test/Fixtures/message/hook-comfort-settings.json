@@ -1,0 +1,6 @@
+{
+	"type": "modalbox-hook",
+	"data": {
+		"hook": "comfortSettingsChanged"
+	}
+}

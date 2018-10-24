@@ -64,6 +64,24 @@ const VXPayHookRouter = (hooks, event) => {
 
 				case VXPayHookMessage.HOOK_FLOW_CHANGED:
 					return hooks.trigger(VXPayPaymentHooksConfig.ON_FLOW_CHANGE, [message]);
+
+				case VXPayHookMessage.HOOK_PAYMENT:
+					return hooks.trigger(VXPayPaymentHooksConfig.ON_PAYMENT, [message]);
+
+				case VXPayHookMessage.HOOK_SIGNUP:
+					return hooks.trigger(VXPayPaymentHooksConfig.ON_SIGNUP, [message]);
+
+				case VXPayHookMessage.HOOK_COMFORT_SETTINGS_CHANGED:
+					return hooks.trigger(VXPayPaymentHooksConfig.ON_COMFORT_SETTINGS_CHANGE, [message]);
+
+				case VXPayHookMessage.HOOK_EMAIL_VERIFIED:
+					return hooks.trigger(VXPayPaymentHooksConfig.ON_EMAIL_VERIFIED, [message]);
+
+				case VXPayHookMessage.HOOK_EMAIL_NOT_VERIFIED:
+					return hooks.trigger(VXPayPaymentHooksConfig.ON_EMAIL_NOT_VERIFIED, [message]);
+
+				case VXPayHookMessage.HOOK_PASSWORD_CHANGED:
+					return hooks.trigger(VXPayPaymentHooksConfig.ON_PASSWORD_CHANGED, [message]);
 			}
 	}
 };
