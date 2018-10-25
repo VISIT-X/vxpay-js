@@ -1,25 +1,31 @@
-import sinon                          from 'sinon'
-import {assert}                       from 'chai'
-import {describe, it}                 from 'mocha'
-import VXPayPaymentHooksConfig        from './../../src/VXPay/Config/VXPayPaymentHooksConfig'
-import VXPayMessageFactory            from './../../src/VXPay/Message/VXPayMessageFactory'
-import VXPayHookRouter                from './../../src/VXPay/Message/Hooks/VXPayHookRouter'
-import VXPayTestFx                    from './../Fixtures/VXPayTestFx'
-import VXPayHasSessionCookieMessage   from './../../src/VXPay/Message/VXPayHasSessionCookieMessage'
-import VXPayIframeReadyMessage        from './../../src/VXPay/Message/VXPayIframeReadyMessage'
-import VXPayContentLoadedMessage      from './../../src/VXPay/Message/VXPayContentLoadedMessage'
-import VXPayViewReadyMessage          from './../../src/VXPay/Message/VXPayViewReadyMessage'
-import VXPayIframeCloseMessage        from './../../src/VXPay/Message/VXPayIframeCloseMessage'
-import VXPaySuccessMessage            from './../../src/VXPay/Message/VXPaySuccessMessage'
-import VXPayHookMessage               from './../../src/VXPay/Message/Hooks/VXPayHookMessage'
-import VXPayTransferTokenMessage      from './../../src/VXPay/Message/VXPayTransferTokenMessage'
-import VXPayAVSStatusMessage          from './../../src/VXPay/Message/Actions/VXPayAVSStatusMessage'
-import VXPayAVSStatus                 from './../../src/VXPay/Model/VXPayAVSStatus'
-import VXPayIsLoggedInResponseMessage from './../../src/VXPay/Message/Actions/VXPayIsLoggedInResponseMessage'
-import VXPayLoggedOutMessage          from './../../src/VXPay/Message/Actions/VXPayLoggedOutMessage'
-import VXPayActiveAbosMessage         from './../../src/VXPay/Message/Actions/VXPayActiveAbosMessage'
-import VXPayBalanceMessage            from './../../src/VXPay/Message/Actions/VXPayBalanceMessage'
-import VXPayFlowChangedHookMessage    from './../../src/VXPay/Message/Hooks/VXPayFlowChangedMessage'
+import sinon                          from 'sinon';
+import {assert}                       from 'chai';
+import {describe, it}                 from 'mocha';
+import VXPayPaymentHooksConfig        from './../../src/VXPay/Config/VXPayPaymentHooksConfig';
+import VXPayMessageFactory            from './../../src/VXPay/Message/VXPayMessageFactory';
+import VXPayHookRouter                from './../../src/VXPay/Message/Hooks/VXPayHookRouter';
+import VXPayTestFx                    from './../Fixtures/VXPayTestFx';
+import VXPayHasSessionCookieMessage   from './../../src/VXPay/Message/VXPayHasSessionCookieMessage';
+import VXPayIframeReadyMessage        from './../../src/VXPay/Message/VXPayIframeReadyMessage';
+import VXPayContentLoadedMessage      from './../../src/VXPay/Message/VXPayContentLoadedMessage';
+import VXPayViewReadyMessage          from './../../src/VXPay/Message/VXPayViewReadyMessage';
+import VXPayIframeCloseMessage        from './../../src/VXPay/Message/VXPayIframeCloseMessage';
+import VXPaySuccessMessage            from './../../src/VXPay/Message/VXPaySuccessMessage';
+import VXPayHookMessage               from './../../src/VXPay/Message/Hooks/VXPayHookMessage';
+import VXPayTransferTokenMessage      from './../../src/VXPay/Message/VXPayTransferTokenMessage';
+import VXPayAVSStatusMessage          from './../../src/VXPay/Message/Actions/VXPayAVSStatusMessage';
+import VXPayAVSStatus                 from './../../src/VXPay/Model/VXPayAVSStatus';
+import VXPayIsLoggedInResponseMessage from './../../src/VXPay/Message/Actions/VXPayIsLoggedInResponseMessage';
+import VXPayLoggedOutMessage                  from './../../src/VXPay/Message/Actions/VXPayLoggedOutMessage';
+import VXPayActiveAbosMessage                 from './../../src/VXPay/Message/Actions/VXPayActiveAbosMessage';
+import VXPayBalanceMessage                    from './../../src/VXPay/Message/Actions/VXPayBalanceMessage';
+import VXPayFlowChangedHookMessage            from './../../src/VXPay/Message/Hooks/VXPayFlowChangedMessage';
+import VXPayHookPaymentMessage                from '../../src/VXPay/Message/Hooks/VXPayHookPaymentMessage';
+import VXPayHookSignupMessage                 from '../../src/VXPay/Message/Hooks/VXPayHookSignupMessage';
+import VXPayHookComfortSettingsChangedMessage from '../../src/VXPay/Message/Hooks/VXPayHookComfortSettingsChangedMessage';
+import VXPayHookEmailVerifiedMessage          from '../../src/VXPay/Message/Hooks/VXPayHookEmailVerifiedMessage';
+import VXPayHookEmailNotVerifiedMessage       from '../../src/VXPay/Message/Hooks/VXPayHookEmailNotVerifiedMessage';
+import VXPayHookPasswordChangedMessage        from '../../src/VXPay/Message/Hooks/VXPayHookPasswordChangedMessage';
 
 describe('VXPayHookRouter', () => {
 	it('Will parse event data', () => {
@@ -51,7 +57,7 @@ describe('VXPayHookRouter', () => {
 
 		trigger.restore();
 
-		sinon.assert.calledWith(trigger, VXPayPaymentHooksConfig.ON_ANY, [msgInstance])
+		sinon.assert.calledWith(trigger, VXPayPaymentHooksConfig.ON_ANY, [msgInstance]);
 	});
 	it('Will trigger `onAny` & `onIframeReady` on ready iframe', () => {
 		const config      = new VXPayPaymentHooksConfig(),
@@ -217,5 +223,71 @@ describe('VXPayHookRouter', () => {
 
 		sinon.assert.calledWith(trigger, VXPayPaymentHooksConfig.ON_ANY, [msgInstance]);
 		sinon.assert.calledWith(trigger, VXPayPaymentHooksConfig.ON_FLOW_CHANGE, [msgInstance]);
+	});
+	it('Will trigger `onAny` && `onPayment` on corresponding messages', () => {
+		const config      = new VXPayPaymentHooksConfig(),
+		      eventString = VXPayTestFx.getMessage('hook-payment'),
+		      msgInstance = new VXPayHookPaymentMessage(),
+		      trigger     = sinon.spy(config, 'trigger');
+
+		VXPayHookRouter(config, {data: eventString});
+
+		sinon.assert.calledWith(trigger, VXPayPaymentHooksConfig.ON_ANY, [msgInstance]);
+		sinon.assert.calledWith(trigger, VXPayPaymentHooksConfig.ON_PAYMENT, [msgInstance]);
+	});
+	it('Will trigger `onAny` && `onSignup` on corresponding messages', () => {
+		const config      = new VXPayPaymentHooksConfig(),
+		      eventString = VXPayTestFx.getMessage('hook-signup'),
+		      msgInstance = new VXPayHookSignupMessage(),
+		      trigger     = sinon.spy(config, 'trigger');
+
+		VXPayHookRouter(config, {data: eventString});
+
+		sinon.assert.calledWith(trigger, VXPayPaymentHooksConfig.ON_ANY, [msgInstance]);
+		sinon.assert.calledWith(trigger, VXPayPaymentHooksConfig.ON_SIGNUP, [msgInstance]);
+	});
+	it('Will trigger `onAny` && `onComfortSettingsChanged` on corresponding messages', () => {
+		const config      = new VXPayPaymentHooksConfig(),
+		      eventString = VXPayTestFx.getMessage('hook-comfort-settings'),
+		      msgInstance = new VXPayHookComfortSettingsChangedMessage(),
+		      trigger     = sinon.spy(config, 'trigger');
+
+		VXPayHookRouter(config, {data: eventString});
+
+		sinon.assert.calledWith(trigger, VXPayPaymentHooksConfig.ON_ANY, [msgInstance]);
+		sinon.assert.calledWith(trigger, VXPayPaymentHooksConfig.ON_COMFORT_SETTINGS_CHANGE, [msgInstance]);
+	});
+	it('Will trigger `onAny` && `onEmailVerified` on corresponding messages', () => {
+		const config      = new VXPayPaymentHooksConfig(),
+		      eventString = VXPayTestFx.getMessage('hook-email-verified'),
+		      msgInstance = new VXPayHookEmailVerifiedMessage(),
+		      trigger     = sinon.spy(config, 'trigger');
+
+		VXPayHookRouter(config, {data: eventString});
+
+		sinon.assert.calledWith(trigger, VXPayPaymentHooksConfig.ON_ANY, [msgInstance]);
+		sinon.assert.calledWith(trigger, VXPayPaymentHooksConfig.ON_EMAIL_VERIFIED, [msgInstance]);
+	});
+	it('Will trigger `onAny` && `onEmailNotVerified` on corresponding messages', () => {
+		const config      = new VXPayPaymentHooksConfig(),
+		      eventString = VXPayTestFx.getMessage('hook-email-not-verified'),
+		      msgInstance = new VXPayHookEmailNotVerifiedMessage(),
+		      trigger     = sinon.spy(config, 'trigger');
+
+		VXPayHookRouter(config, {data: eventString});
+
+		sinon.assert.calledWith(trigger, VXPayPaymentHooksConfig.ON_ANY, [msgInstance]);
+		sinon.assert.calledWith(trigger, VXPayPaymentHooksConfig.ON_EMAIL_NOT_VERIFIED, [msgInstance]);
+	});
+	it('Will trigger `onAny` && `onPasswordChanged` on corresponding messages', () => {
+		const config      = new VXPayPaymentHooksConfig(),
+		      eventString = VXPayTestFx.getMessage('hook-password-changed'),
+		      msgInstance = new VXPayHookPasswordChangedMessage(),
+		      trigger     = sinon.spy(config, 'trigger');
+
+		VXPayHookRouter(config, {data: eventString});
+
+		sinon.assert.calledWith(trigger, VXPayPaymentHooksConfig.ON_ANY, [msgInstance]);
+		sinon.assert.calledWith(trigger, VXPayPaymentHooksConfig.ON_PASSWORD_CHANGED, [msgInstance]);
 	});
 });

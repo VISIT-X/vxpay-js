@@ -1,21 +1,27 @@
-import VXPayHooksConfig from './VXPayHooksConfig'
+import VXPayHooksConfig from './VXPayHooksConfig';
 
 class VXPayPaymentHooksConfig extends VXPayHooksConfig {
 	constructor() {
 		super();
-		this._onViewReady     = [];
-		this._onContentLoaded = [];
-		this._onClose         = [];
-		this._onSuccess       = [];
-		this._onIframeReady   = [];
-		this._onLogin         = [];
-		this._onLogout        = [];
-		this._onFlowChange    = [];
-		this._onIsLoggedIn    = [];
-		this._onTransferToken = [];
-		this._onAVSStatus     = [];
-		this._onBalance       = [];
-		this._onActiveAbos    = [];
+		this._onViewReady              = [];
+		this._onContentLoaded          = [];
+		this._onClose                  = [];
+		this._onSuccess                = [];
+		this._onIframeReady            = [];
+		this._onLogin                  = [];
+		this._onLogout                 = [];
+		this._onFlowChange             = [];
+		this._onIsLoggedIn             = [];
+		this._onTransferToken          = [];
+		this._onAVSStatus              = [];
+		this._onBalance                = [];
+		this._onActiveAbos             = [];
+		this._onPayment                = [];
+		this._onSignup                 = [];
+		this._onComfortSettingsChanged = [];
+		this._onEmailVerified          = [];
+		this._onEmailNotVerified       = [];
+		this._onPasswordChanged        = [];
 	}
 
 	/**
@@ -180,20 +186,80 @@ class VXPayPaymentHooksConfig extends VXPayHooksConfig {
 		this._onContentLoaded.push(handler);
 		return this;
 	}
+
+	/**
+	 * @param {Function} handler
+	 * @return {VXPayPaymentHooksConfig}
+	 */
+	onPayment(handler) {
+		this._onPayment.push(handler);
+		return this;
+	}
+
+	/**
+	 * @param {Function} handler
+	 * @return {VXPayPaymentHooksConfig}
+	 */
+	onSignup(handler) {
+		this._onSignup.push(handler);
+		return this;
+	}
+
+	/**
+	 * @param {Function} handler
+	 * @return {VXPayPaymentHooksConfig}
+	 */
+	onComfortSettingsChanged(handler) {
+		this._onComfortSettingsChanged.push(handler);
+		return this;
+	}
+
+	/**
+	 * @param {Function} handler
+	 * @return {VXPayPaymentHooksConfig}
+	 */
+	onEmailVerified(handler) {
+		this._onEmailVerified.push(handler);
+		return this;
+	}
+
+	/**
+	 * @param {Function} handler
+	 * @return {VXPayPaymentHooksConfig}
+	 */
+	onEmailNotVerified(handler) {
+		this._onEmailNotVerified.push(handler);
+		return this;
+	}
+
+	/**
+	 * @param {Function} handler
+	 * @return {VXPayPaymentHooksConfig}
+	 */
+	onPasswordChanged(handler) {
+		this._onPasswordChanged.push(handler);
+		return this;
+	}
 }
 
-VXPayPaymentHooksConfig.ON_VIEW_READY     = 'onViewReady';
-VXPayPaymentHooksConfig.ON_IFRAME_READY   = 'onIframeReady';
-VXPayPaymentHooksConfig.ON_CONTENT_LOADED = 'onContentLoaded';
-VXPayPaymentHooksConfig.ON_CLOSE          = 'onClose';
-VXPayPaymentHooksConfig.ON_SUCCESS        = 'onSuccess';
-VXPayPaymentHooksConfig.ON_LOGIN          = 'onLogin';
-VXPayPaymentHooksConfig.ON_LOGOUT         = 'onLogout';
-VXPayPaymentHooksConfig.ON_FLOW_CHANGE    = 'onFlowChange';
-VXPayPaymentHooksConfig.ON_IS_LOGGED_IN   = 'onIsLoggedIn';
-VXPayPaymentHooksConfig.ON_TRANSFER_TOKEN = 'onTransferToken';
-VXPayPaymentHooksConfig.ON_AVS_STATUS     = 'onAVSStatus';
-VXPayPaymentHooksConfig.ON_BALANCE        = 'onBalance';
-VXPayPaymentHooksConfig.ON_ACTIVE_ABOS    = 'onActiveAbos';
+VXPayPaymentHooksConfig.ON_VIEW_READY              = 'onViewReady';
+VXPayPaymentHooksConfig.ON_IFRAME_READY            = 'onIframeReady';
+VXPayPaymentHooksConfig.ON_CONTENT_LOADED          = 'onContentLoaded';
+VXPayPaymentHooksConfig.ON_CLOSE                   = 'onClose';
+VXPayPaymentHooksConfig.ON_SUCCESS                 = 'onSuccess';
+VXPayPaymentHooksConfig.ON_LOGIN                   = 'onLogin';
+VXPayPaymentHooksConfig.ON_LOGOUT                  = 'onLogout';
+VXPayPaymentHooksConfig.ON_FLOW_CHANGE             = 'onFlowChange';
+VXPayPaymentHooksConfig.ON_IS_LOGGED_IN            = 'onIsLoggedIn';
+VXPayPaymentHooksConfig.ON_TRANSFER_TOKEN          = 'onTransferToken';
+VXPayPaymentHooksConfig.ON_AVS_STATUS              = 'onAVSStatus';
+VXPayPaymentHooksConfig.ON_BALANCE                 = 'onBalance';
+VXPayPaymentHooksConfig.ON_ACTIVE_ABOS             = 'onActiveAbos';
+VXPayPaymentHooksConfig.ON_PAYMENT                 = 'onPayment';
+VXPayPaymentHooksConfig.ON_SIGNUP                  = 'onSignup';
+VXPayPaymentHooksConfig.ON_COMFORT_SETTINGS_CHANGE = 'onComfortSettingsChanged';
+VXPayPaymentHooksConfig.ON_EMAIL_VERIFIED          = 'onEmailVerified';
+VXPayPaymentHooksConfig.ON_EMAIL_NOT_VERIFIED      = 'onEmailNotVerified';
+VXPayPaymentHooksConfig.ON_PASSWORD_CHANGED        = 'onPasswordChanged';
 
 export default VXPayPaymentHooksConfig;
