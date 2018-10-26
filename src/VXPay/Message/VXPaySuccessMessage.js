@@ -34,7 +34,7 @@ VXPaySuccessMessage.USER_DATA_STRUCT = {
 	'transferToken':  'TT_7a9523c9-5555-4c48-5555-91cc2465f484',
 	'availableMoney': 12.34,
 	'fsk18':          false,
-	'uhash':          null
+	'uhash':          ''
 };
 
 export default VXPaySuccessMessage;

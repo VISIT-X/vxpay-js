@@ -14,5 +14,10 @@ describe('VXPaySuccessMessage', () => {
 			const successMessage = new VXPaySuccessMessage({uhash: uHash});
 			assert.equal(uHash, successMessage.user.uhash);
 		});
+		it('`uhash` should have consistent type', () => {
+			const successMessage = new VXPaySuccessMessage({availableMoney: 12.55});
+			assert.equal(12.55, successMessage.user.balance);
+			assert.equal('', successMessage.user.uhash);
+		});
 	});
 });

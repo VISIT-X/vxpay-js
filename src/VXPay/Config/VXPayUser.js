@@ -4,7 +4,7 @@ class VXPayUser {
 		this._fsk18    = false;
 		this._nickname = '';
 		this._userId   = NaN;
-		this._uhash    = null;
+		this._uhash    = '';
 	}
 
 	/**
@@ -64,14 +64,14 @@ class VXPayUser {
 	}
 
 	/**
-	 * @return {String|Null}
+	 * @return {String}
 	 */
 	get uhash() {
 		return this._uhash;
 	}
 
 	/**
-	 * @param {String|Null} value
+	 * @param {String} value
 	 */
 	set uhash(value) {
 		this._uhash = value;
