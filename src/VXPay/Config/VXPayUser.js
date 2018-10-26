@@ -1,9 +1,10 @@
 class VXPayUser {
 	constructor() {
-		this._balance = NaN;
-		this._fsk18 = false;
+		this._balance  = NaN;
+		this._fsk18    = false;
 		this._nickname = '';
-		this._userId = NaN;
+		this._userId   = NaN;
+		this._uhash    = '';
 	}
 
 	/**
@@ -60,6 +61,20 @@ class VXPayUser {
 	 */
 	set userId(value) {
 		this._userId = value;
+	}
+
+	/**
+	 * @return {String}
+	 */
+	get uhash() {
+		return this._uhash;
+	}
+
+	/**
+	 * @param {String} value
+	 */
+	set uhash(value) {
+		this._uhash = value;
 	}
 }
 
