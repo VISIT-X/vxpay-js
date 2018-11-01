@@ -1,10 +1,6 @@
 export default class VXPayState {
 	constructor() {
-		this._isFrameReady = false;
-		this._token = undefined;
-		this._isContentLoaded = false;
-		this._isSessionInitialized = false;
-		this._isFrameInProgress = false;
+		this.reset();
 	}
 
 	/**
@@ -74,7 +70,7 @@ export default class VXPayState {
 	 * @return {void}
 	 */
 	markFrameReady() {
-		this._isFrameReady = true;
+		this._isFrameReady      = true;
 		this._isFrameInProgress = false;
 	}
 
@@ -101,5 +97,13 @@ export default class VXPayState {
 
 	markSessionInitialized() {
 		this._isSessionInitialized = true;
+	}
+
+	reset() {
+		this._isFrameReady         = false;
+		this._token                = undefined;
+		this._isContentLoaded      = false;
+		this._isSessionInitialized = false;
+		this._isFrameInProgress    = false;
 	}
 }

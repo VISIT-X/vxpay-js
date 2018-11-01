@@ -218,6 +218,11 @@ class VXPayPaymentTab {
 			this._window.close();
 		}
 
+		// reset internal state
+		this._loaded   = false;
+		this._route    = VXPayPaymentTab.DEFAULT_ROUTE;
+		this._promise  = null;
+
 		return this;
 	}
 }
