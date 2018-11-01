@@ -1,7 +1,7 @@
-import VXPayPaymentHooksConfig  from './../../Config/VXPayPaymentHooksConfig'
-import VXPayEventListener       from './../../Event/VXPayEventListener'
-import VXPayIframe              from './../VXPayIframe'
-import VXPayHookRouter          from './../../Message/Hooks/VXPayHookRouter'
+import VXPayPaymentHooksConfig  from './../../Config/VXPayPaymentHooksConfig';
+import VXPayEventListener       from './../../Event/VXPayEventListener';
+import VXPayIframe              from './../VXPayIframe';
+import VXPayHookRouter          from './../../Message/Hooks/VXPayHookRouter';
 import VXPayUpdateParamsMessage from '../../Message/VXPayUpdateParamsMessage';
 
 /**
@@ -64,15 +64,15 @@ class VXPayPaymentTab {
 	 */
 	triggerLoad() {
 		this.getNewTab()
-			.then(this.startListening.bind(this))
+			.then(this.startListening.bind(this));
 	}
 
 	/**
 	 * @return {Promise<Window>}
 	 */
 	getNewTab() {
-		const that = this,
-		      url  = this._config.getPaymentFrameUrl() + '#' + this._route;
+		const that = this;
+		const url  = this._config.getPaymentFrameUrl() + '#' + this._route;
 
 		if (null == this._promise) {
 			this._promise = new Promise(resolve => {
@@ -219,9 +219,9 @@ class VXPayPaymentTab {
 		}
 
 		// reset internal state
-		this._loaded   = false;
-		this._route    = VXPayPaymentTab.DEFAULT_ROUTE;
-		this._promise  = null;
+		this._loaded  = false;
+		this._route   = VXPayPaymentTab.DEFAULT_ROUTE;
+		this._promise = null;
 
 		return this;
 	}

@@ -26,6 +26,10 @@ jobs:
     name: "ESLint"
     string:
      - npm run lint
+
+  - stage: test
+    name: "Mocha tests"
+    string:
      - npm run cover
 
   - stage: build
