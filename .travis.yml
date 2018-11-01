@@ -24,13 +24,7 @@ jobs:
 
   - stage: lint
     name: "ESLint"
-    string:
-     - npm run lint
-
-  - stage: test
-    name: "Mocha tests"
-    string:
-     - npm run cover
+    script: npm run lint
 
   - stage: build
     name: "Build, pack & confirm NPM package"
