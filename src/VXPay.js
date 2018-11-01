@@ -66,7 +66,7 @@ export default class VXPay {
 	 * @private
 	 */
 	_initPaymentFrame(triggerLoad = true) {
-		this.logger.log('VXPay::_initPaymentFrame');
+		this.logger.log('VXPay::_initPaymentFrame', triggerLoad);
 		return new Promise(resolve => VXPayInitPaymentMiddleware(this, resolve, triggerLoad))
 	}
 

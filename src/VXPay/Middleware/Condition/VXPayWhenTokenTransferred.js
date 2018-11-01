@@ -9,7 +9,7 @@ const VXPayWhenTokenTransferred = (vxpay) => {
 	return new Promise((resolve, reject) => {
 		try {
 			// do we have the token already?
-			if (vxpay.state.hasToken || vxpay.config.enableTab) {
+			if (vxpay.state.hasToken) {
 				resolve(vxpay);
 			} else {
 				// otherwise - wait for it

@@ -11,7 +11,7 @@ import VXPayLogger       from './../../VXPayLogger'
  * @constructor
  */
 const VXPayInitPaymentMiddleware = (vxpay, resolve, load = true) => {
-	vxpay.logger.log('VXPayInitPaymentMiddleware()');
+	vxpay.logger.log('VXPayInitPaymentMiddleware()', load);
 
 	// check already initialized
 	if (vxpay.state.isContentLoaded) {
@@ -21,12 +21,12 @@ const VXPayInitPaymentMiddleware = (vxpay, resolve, load = true) => {
 
 	// or in progress
 	if (vxpay.state.isFrameInProgress && !load) {
-		vxpay.logger.log('VXPayInitPaymentMiddleware() - already in progress, resolve ...');
+		vxpay.logger.log('VXPayInitPaymentMiddleware() - already in progress, resolve ...', vxpay);
 		return resolve(vxpay);
 	}
 
 	// tab or frame?
-	vxpay.state.isFrameInProgress = true;
+	vxpay.state.isFrameInProgress = load;
 	if (!vxpay.hasOwnProperty('_paymentFrame')) {
 		vxpay._paymentFrame = vxpay.config.enableTab
 			? new VXPayPaymentTab(vxpay.window.document, VXPayPaymentTab.NAME, vxpay.config)
@@ -56,11 +56,13 @@ const VXPayInitPaymentMiddleware = (vxpay, resolve, load = true) => {
 			.onViewReady(vxpay._paymentFrame.setVisible.bind(vxpay._paymentFrame))
 			.onViewReady(vxpay._paymentFrame.show.bind(vxpay._paymentFrame))
 			.onSuccess(vxpay._paymentFrame.hide.bind(vxpay._paymentFrame))
+			.onSuccess(vxpay.state.reset)
 			.onClose(vxpay._paymentFrame.hide.bind(vxpay._paymentFrame))
+			.onClose(vxpay.state.reset)
 			.onContentLoaded(() => resolve(vxpay));
 
 		// trigger load if not tab
-		if (!vxpay.config.enableTab && load) {
+		if (load) {
 			vxpay.logger.log('VXPayInitPaymentMiddleware() - not loaded yet, trigger load');
 			vxpay._paymentFrame.url = vxpay.config.getPaymentFrameUrl();
 			vxpay._paymentFrame.triggerLoad();

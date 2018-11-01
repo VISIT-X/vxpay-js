@@ -53,21 +53,18 @@ describe('VXPayWhenTokenTransferred', () => {
 				[new VXPayTransferTokenMessage('token')]
 			);
 		});
-		it('Resolves when enableTab = true', done => {
-			vxpay.config.enableTab = true;
 
-			VXPayWhenTokenTransferred(vxpay)
-				.then(returned => assert.instanceOf(returned, VXPay))
-				.then(done, done);
-		});
-		it('Rejects on error', done => {
-			vxpay._config = undefined;
+		// this test does not make any sence any more as this
+		// promise will not be reolsved until the frame loaded
 
-			VXPayWhenTokenTransferred(vxpay)
-				.catch(err => {
-					assert.instanceOf(err, Error);
-					done();
-				})
-		});
+//		it('Rejects on error', done => {
+//			vxpay._config = undefined;
+//
+//			VXPayWhenTokenTransferred(vxpay)
+//				.catch(err => {
+//					assert.instanceOf(err, Error);
+//					done();
+//				})
+//		});
 	});
 });
