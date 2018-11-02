@@ -68,25 +68,23 @@ class VXPayPaymentTab {
 	 * Open the window
 	 */
 	triggerLoad() {
-		this.getNewTab()
-			.then(this.startListening.bind(this));
+		this.getNewTab().startListening(this._window);
 	}
 
 	/**
-	 * @return {Promise<Window>}
+	 * @return {VXPayPaymentTab}
 	 */
 	getNewTab() {
 		const that = this;
 		const url  = this._config.getPaymentFrameUrl() + '#' + this._route;
 
-		return new Promise(resolve => {
-			if (null !== that._window && !that._window.closed) {
-				return resolve(that._window);
-			}
+		if (null !== that._window && !that._window.closed) {
+			return this;
+		}
 
-			that._window = that._document.defaultView.open(url, that._name);
-			resolve(that._window);
-		});
+		that._window = that._document.defaultView.open(url, that._name);
+
+		return this;
 	}
 
 	/**
