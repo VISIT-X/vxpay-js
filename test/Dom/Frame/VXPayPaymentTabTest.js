@@ -1,29 +1,31 @@
-import {assert}                from 'chai'
-import sinon                   from 'sinon'
-import {describe, it}          from 'mocha'
-import {given}                 from 'mocha-testdata'
-import VXPayPaymentTab         from './../../../src/VXPay/Dom/Frame/VXPayPaymentTab'
-import VXPayTestFx             from './../../Fixtures/VXPayTestFx'
-import VXPayConfig             from './../../../src/VXPay/VXPayConfig'
-import VXPayPaymentHooksConfig from './../../../src/VXPay/Config/VXPayPaymentHooksConfig'
-import VXPayLanguage           from './../../../src/VXPay/VXPayLanguage'
-import VXPayFlow               from './../../../src/VXPay/Config/VXPayFlow'
-import VXPayPaymentRoutes      from "../../../src/VXPay/Config/VXPayPaymentRoutes";
+import {assert}                   from 'chai';
+import sinon                      from 'sinon';
+import {describe, it, beforeEach} from 'mocha';
+import {given}                    from 'mocha-testdata';
+import VXPayPaymentTab            from './../../../src/VXPay/Dom/Frame/VXPayPaymentTab';
+import VXPayTestFx                from './../../Fixtures/VXPayTestFx';
+import VXPayConfig                from './../../../src/VXPay/VXPayConfig';
+import VXPayPaymentHooksConfig    from './../../../src/VXPay/Config/VXPayPaymentHooksConfig';
+import VXPayLanguage              from './../../../src/VXPay/VXPayLanguage';
+import VXPayFlow                  from './../../../src/VXPay/Config/VXPayFlow';
+import VXPayPaymentRoutes         from '../../../src/VXPay/Config/VXPayPaymentRoutes';
+import VXPayPaymentFrame          from '../../../src/VXPay/Dom/Frame/VXPayPaymentFrame';
 
 describe('VXPayPaymentTab', () => {
 
 	/** @var {VXPayPaymentTab} */
-	let tab,
-	    /** @var {VXPayConfig} */
-	    config,
-	    /** @var {Document} */
-	    doc;
+	let tab;
+
+	/** @var {VXPayConfig} */
+	let config;
+
+	/** @var {Document} */
+	let doc;
 
 	beforeEach(done => {
 		doc    = VXPayTestFx.getDocument();
 		config = new VXPayConfig(doc.defaultView);
-
-		tab = new VXPayPaymentTab(doc, 'test', config);
+		tab    = new VXPayPaymentTab(doc, 'test', config);
 		done();
 	});
 
@@ -36,7 +38,11 @@ describe('VXPayPaymentTab', () => {
 			assert.equal(tab.document, doc);
 			assert.equal(tab.name, 'test');
 			assert.isFalse(tab.loaded);
-		})
+		});
+		it('Should setup a communication frame when constructed', () => {
+			// check constructs communication tube
+			assert.instanceOf(tab._invisibleFrame, VXPayPaymentFrame);
+		});
 	});
 	describe('#sendOptions()', () => {
 		it('Should update the config', () => {
@@ -57,7 +63,7 @@ describe('VXPayPaymentTab', () => {
 
 			// cleanup
 			tab._config.merge.restore();
-		})
+		});
 	});
 	describe('#changeRoute', () => {
 		it('Changes route to default with no param', () => {
@@ -81,13 +87,14 @@ describe('VXPayPaymentTab', () => {
 
 			try {
 				tab.triggerLoad();
-			} catch (err) { /* ignore */ }
+			} catch (err) { /* ignore */
+			}
 		});
 		it('Should start listening for postMessage-s', done => {
 			const window = VXPayTestFx.getWindow();
 
 			// re-define functions to mock
-			tab.getNewTab = () => new Promise(resolve => resolve(window));
+			tab.getNewTab      = () => new Promise(resolve => resolve(window));
 			tab.startListening = (wnd) => {
 				assert.equal(wnd, window);
 				done();
@@ -95,7 +102,8 @@ describe('VXPayPaymentTab', () => {
 
 			try {
 				tab.triggerLoad();
-			} catch (err) { /* ignore */ }
+			} catch (err) { /* ignore */
+			}
 		});
 	});
 	describe('#getNewTab()', () => {
@@ -131,5 +139,5 @@ describe('VXPayPaymentTab', () => {
 				done();
 			});
 		});
-	})
+	});
 });
