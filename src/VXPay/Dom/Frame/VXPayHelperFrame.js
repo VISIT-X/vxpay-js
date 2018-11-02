@@ -1,9 +1,9 @@
-import VXPayIframe                  from './../VXPayIframe'
-import VXPayHasSessionCookieMessage from './../../Message/VXPayHasSessionCookieMessage'
-import VXPayMessageFactory          from './../../Message/VXPayMessageFactory'
-import VXPayEventListener           from './../../Event/VXPayEventListener'
-import VXPayHelperHooksConfig       from './../../Config/VXPayHelperHooksConfig'
-import VXPayHooksConfig             from './../../Config/VXPayHooksConfig'
+import VXPayIframe                  from './../VXPayIframe';
+import VXPayHasSessionCookieMessage from './../../Message/VXPayHasSessionCookieMessage';
+import VXPayMessageFactory          from './../../Message/VXPayMessageFactory';
+import VXPayEventListener           from './../../Event/VXPayEventListener';
+import VXPayHelperHooksConfig       from './../../Config/VXPayHelperHooksConfig';
+import VXPayHooksConfig             from './../../Config/VXPayHooksConfig';
 
 class VXPayHelperFrame extends VXPayIframe {
 	/**
@@ -15,9 +15,9 @@ class VXPayHelperFrame extends VXPayIframe {
 	constructor(document, url, id = VXPayHelperFrame.NAME, style = VXPayHelperFrame.STYLE_DEFAULT) {
 		// init the frame
 		super(document, url, id, style);
-		this._cookieMsg = null;
+		this._cookieMsg  = null;
 		this._frame.name = 'vxpay-helper';
-		this._hooks = new VXPayHelperHooksConfig();
+		this._hooks      = new VXPayHelperHooksConfig();
 	}
 
 	/**
@@ -40,7 +40,7 @@ class VXPayHelperFrame extends VXPayIframe {
 		}
 
 		// trigger hook
-		this._hooks.trigger(VXPayHooksConfig.ON_ANY, [this._cookieMsg]);
+		this._hooks.trigger(VXPayHooksConfig.ON_ANY, [this._cookieMsg], this._frame.id + '<VXPayHelperFrame>');
 
 		// otherwise - not logged in
 		resolve(this._cookieMsg);
@@ -59,13 +59,13 @@ class VXPayHelperFrame extends VXPayIframe {
 				VXPayIframe.EVENT_MESSAGE,
 				this._frame.ownerDocument.defaultView,
 				this._cookieMessageHandler.bind(this, resolve, reject)
-			)
-		})
+			);
+		});
 	}
 
 	_markLoaded() {
 		super._markLoaded();
-		this._hooks.trigger(VXPayHelperHooksConfig.ON_LOAD);
+		this._hooks.trigger(VXPayHelperHooksConfig.ON_LOAD, [], this._frame.id + '<VXPayHelperFrame>');
 	}
 
 	/**
@@ -74,7 +74,7 @@ class VXPayHelperFrame extends VXPayIframe {
 	 * @param {String} origin
 	 */
 	postMessage(message, origin = '*') {
-		this._hooks.trigger(VXPayHelperHooksConfig.ON_BEFORE_SEND, [message]);
+		this._hooks.trigger(VXPayHelperHooksConfig.ON_BEFORE_SEND, [message], this._frame.id + '<VXPayHelperFrame>');
 		super.postMessage(message, origin);
 	}
 
@@ -102,4 +102,4 @@ VXPayHelperFrame.STYLE_DEFAULT = {display: 'none'};
 
 VXPayHelperFrame.NAME = 'vx-helper-frame-payment';
 
-export default VXPayHelperFrame
+export default VXPayHelperFrame;

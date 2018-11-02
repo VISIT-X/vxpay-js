@@ -97,7 +97,7 @@ class VXPayPaymentFrame extends VXPayIframe {
 		VXPayEventListener.addEvent(
 			VXPayIframe.EVENT_MESSAGE,
 			this._frame.ownerDocument.defaultView,
-			(event) => VXPayHookRouter(this._hooks, event)
+			(event) => VXPayHookRouter(this._hooks, event, this._frame.id + '<VXPayPaymentFrame>')
 		);
 
 		VXPayEventListener.addEvent(
@@ -114,7 +114,7 @@ class VXPayPaymentFrame extends VXPayIframe {
 		VXPayEventListener.removeEvent(
 			VXPayIframe.EVENT_MESSAGE,
 			this._frame.ownerDocument.defaultView,
-			(event) => VXPayHookRouter(this._hooks, event)
+			(event) => VXPayHookRouter(this._hooks, event, this._frame.id + '<VXPayPaymentFrame>')
 		);
 
 		VXPayEventListener.removeEvent(
@@ -130,7 +130,7 @@ class VXPayPaymentFrame extends VXPayIframe {
 	 */
 	_markLoaded() {
 		super._markLoaded();
-		return this._hooks.trigger(VXPayPaymentHooksConfig.ON_LOAD);
+		return this._hooks.trigger(VXPayPaymentHooksConfig.ON_LOAD, this._frame.id + '<VXPayPaymentFrame>');
 	}
 
 	/**
@@ -140,7 +140,7 @@ class VXPayPaymentFrame extends VXPayIframe {
 	 * @return {VXPayPaymentFrame}
 	 */
 	postMessage(message, origin = '*') {
-		this._hooks.trigger(VXPayPaymentHooksConfig.ON_BEFORE_SEND, [message]);
+		this._hooks.trigger(VXPayPaymentHooksConfig.ON_BEFORE_SEND, [message], this._frame.id + '<VXPayPaymentFrame>');
 
 		if (this._frame.contentWindow !== null) {
 			this._frame.contentWindow.postMessage(message.toString(), origin);

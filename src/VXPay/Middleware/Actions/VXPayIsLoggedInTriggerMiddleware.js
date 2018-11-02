@@ -1,4 +1,5 @@
-import VXPayIsLoggedInActionMessage from './../../Message/Actions/VXPayIsLoggedInActionMessage'
+import VXPayIsLoggedInActionMessage   from './../../Message/Actions/VXPayIsLoggedInActionMessage'
+import VXPayIsLoggedInResponseMessage from '../../Message/Actions/VXPayIsLoggedInResponseMessage';
 
 /**
  * @param {VXPay} vxpay
@@ -8,15 +9,23 @@ import VXPayIsLoggedInActionMessage from './../../Message/Actions/VXPayIsLoggedI
  */
 const VXPayIsLoggedInTriggerMiddleware = (vxpay, resolve, reject) => {
 	try {
-		vxpay.hooks.then(hooks => {
-			// is hook setup?
-			if (!hooks.hasOnIsLoggedIn(resolve)) {
-				hooks.onIsLoggedIn(resolve);
-			}
-		});
+		// when the main frame is loaded - send post message
+		if (vxpay.state.isContentLoaded) {
+			vxpay.hooks.then(hooks => {
+				// is hook setup?
+				if (!hooks.hasOnIsLoggedIn(resolve)) {
+					hooks.onIsLoggedIn(resolve);
+				}
+			});
 
-		// trigger post message
-		vxpay.paymentFrame.then(frame => frame.postMessage(new VXPayIsLoggedInActionMessage));
+			vxpay.paymentFrame.then(frame => frame.postMessage(new VXPayIsLoggedInActionMessage));
+		} else {
+			// otherwise - rely on cookie
+			vxpay.initHelperFrame()
+				.then(vxpay => vxpay.helperFrame.getLoginCookie())
+				.then(msg => resolve(new VXPayIsLoggedInResponseMessage(msg.hasCookie)))
+				.catch(err => reject(err));
+		}
 	} catch (err) {
 		reject(err);
 	}
