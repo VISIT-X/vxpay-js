@@ -38,7 +38,7 @@ class VXPayHooksConfig {
 	 * @param {String|undefined} sourceTab
 	 * @return {boolean}
 	 */
-	trigger(hook, callbackArguments = [], sourceTab = undefined) {
+	trigger(hook, callbackArguments = [], sourceTab = undefined) { /* eslint-disable-line no-unused-vars  */
 		const name = '_' + hook;
 
 		if (!this.hasOwnProperty(name)) {
