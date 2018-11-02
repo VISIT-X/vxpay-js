@@ -79,18 +79,14 @@ class VXPayPaymentTab {
 		const that = this;
 		const url  = this._config.getPaymentFrameUrl() + '#' + this._route;
 
-		if (null == this._promise) {
-			this._promise = new Promise(resolve => {
-				if (null !== that._window && !that._window.closed) {
-					return resolve(that._window);
-				}
+		return new Promise(resolve => {
+			if (null !== that._window && !that._window.closed) {
+				return resolve(that._window);
+			}
 
-				that._window = that._document.defaultView.open(url, that._name);
-				resolve(that._window);
-			});
-		}
-
-		return this._promise;
+			that._window = that._document.defaultView.open(url, that._name);
+			resolve(that._window);
+		});
 	}
 
 	/**

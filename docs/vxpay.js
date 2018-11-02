@@ -74,7 +74,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "98d63706825b45d235ff";
+/******/ 	var hotCurrentHash = "3503bf54f143fbadfee6";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -5299,18 +5299,14 @@ function () {
 
       var url = this._config.getPaymentFrameUrl() + '#' + this._route;
 
-      if (null == this._promise) {
-        this._promise = new Promise(function (resolve) {
-          if (null !== that._window && !that._window.closed) {
-            return resolve(that._window);
-          }
+      return new Promise(function (resolve) {
+        if (null !== that._window && !that._window.closed) {
+          return resolve(that._window);
+        }
 
-          that._window = that._document.defaultView.open(url, that._name);
-          resolve(that._window);
-        });
-      }
-
-      return this._promise;
+        that._window = that._document.defaultView.open(url, that._name);
+        resolve(that._window);
+      });
     }
     /**
      * @return {VXPayPaymentHooksConfig}
