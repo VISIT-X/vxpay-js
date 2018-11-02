@@ -74,7 +74,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "ccaf98463336dee13b63";
+/******/ 	var hotCurrentHash = "98d63706825b45d235ff";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -2701,6 +2701,12 @@ function (_VXPayMessage) {
 VXPayHookMessage_VXPayHookMessage.HOOK_UNKNOWN = 'dummy-unknown';
 VXPayHookMessage_VXPayHookMessage.HOOK_FLOW_CHANGED = 'flowChanged';
 VXPayHookMessage_VXPayHookMessage.HOOK_LOGIN = 'login';
+VXPayHookMessage_VXPayHookMessage.HOOK_PAYMENT = 'payment';
+VXPayHookMessage_VXPayHookMessage.HOOK_SIGNUP = 'signup';
+VXPayHookMessage_VXPayHookMessage.HOOK_COMFORT_SETTINGS_CHANGED = 'comfortSettingsChanged';
+VXPayHookMessage_VXPayHookMessage.HOOK_EMAIL_VERIFIED = 'emailVerified';
+VXPayHookMessage_VXPayHookMessage.HOOK_EMAIL_NOT_VERIFIED = 'emailNotVerified';
+VXPayHookMessage_VXPayHookMessage.HOOK_PASSWORD_CHANGED = 'passwordChanged';
 /* harmony default export */ var Hooks_VXPayHookMessage = (VXPayHookMessage_VXPayHookMessage);
 // CONCATENATED MODULE: ./src/VXPay/Message/Hooks/VXPayFlowChangedMessage.js
 function VXPayFlowChangedMessage_typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { VXPayFlowChangedMessage_typeof = function _typeof(obj) { return typeof obj; }; } else { VXPayFlowChangedMessage_typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return VXPayFlowChangedMessage_typeof(obj); }
@@ -2778,12 +2784,210 @@ function (_VXPayHookMessage) {
 }(Hooks_VXPayHookMessage);
 
 
+// CONCATENATED MODULE: ./src/VXPay/Message/Hooks/VXPayHookPaymentMessage.js
+function VXPayHookPaymentMessage_typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { VXPayHookPaymentMessage_typeof = function _typeof(obj) { return typeof obj; }; } else { VXPayHookPaymentMessage_typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return VXPayHookPaymentMessage_typeof(obj); }
+
+function VXPayHookPaymentMessage_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function VXPayHookPaymentMessage_possibleConstructorReturn(self, call) { if (call && (VXPayHookPaymentMessage_typeof(call) === "object" || typeof call === "function")) { return call; } return VXPayHookPaymentMessage_assertThisInitialized(self); }
+
+function VXPayHookPaymentMessage_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function VXPayHookPaymentMessage_getPrototypeOf(o) { VXPayHookPaymentMessage_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return VXPayHookPaymentMessage_getPrototypeOf(o); }
+
+function VXPayHookPaymentMessage_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) VXPayHookPaymentMessage_setPrototypeOf(subClass, superClass); }
+
+function VXPayHookPaymentMessage_setPrototypeOf(o, p) { VXPayHookPaymentMessage_setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return VXPayHookPaymentMessage_setPrototypeOf(o, p); }
+
+
+
+var VXPayHookPaymentMessage_VXPayHookPaymentMessage =
+/*#__PURE__*/
+function (_VXPayHookMessage) {
+  VXPayHookPaymentMessage_inherits(VXPayHookPaymentMessage, _VXPayHookMessage);
+
+  function VXPayHookPaymentMessage() {
+    VXPayHookPaymentMessage_classCallCheck(this, VXPayHookPaymentMessage);
+
+    return VXPayHookPaymentMessage_possibleConstructorReturn(this, VXPayHookPaymentMessage_getPrototypeOf(VXPayHookPaymentMessage).call(this, Hooks_VXPayHookMessage.HOOK_PAYMENT));
+  }
+
+  return VXPayHookPaymentMessage;
+}(Hooks_VXPayHookMessage);
+
+
+// CONCATENATED MODULE: ./src/VXPay/Message/Hooks/VXPayHookSignupMessage.js
+function VXPayHookSignupMessage_typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { VXPayHookSignupMessage_typeof = function _typeof(obj) { return typeof obj; }; } else { VXPayHookSignupMessage_typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return VXPayHookSignupMessage_typeof(obj); }
+
+function VXPayHookSignupMessage_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function VXPayHookSignupMessage_possibleConstructorReturn(self, call) { if (call && (VXPayHookSignupMessage_typeof(call) === "object" || typeof call === "function")) { return call; } return VXPayHookSignupMessage_assertThisInitialized(self); }
+
+function VXPayHookSignupMessage_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function VXPayHookSignupMessage_getPrototypeOf(o) { VXPayHookSignupMessage_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return VXPayHookSignupMessage_getPrototypeOf(o); }
+
+function VXPayHookSignupMessage_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) VXPayHookSignupMessage_setPrototypeOf(subClass, superClass); }
+
+function VXPayHookSignupMessage_setPrototypeOf(o, p) { VXPayHookSignupMessage_setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return VXPayHookSignupMessage_setPrototypeOf(o, p); }
+
+
+
+var VXPayHookSignupMessage_VXPayHookSignupMessage =
+/*#__PURE__*/
+function (_VXPayHookMessage) {
+  VXPayHookSignupMessage_inherits(VXPayHookSignupMessage, _VXPayHookMessage);
+
+  function VXPayHookSignupMessage() {
+    VXPayHookSignupMessage_classCallCheck(this, VXPayHookSignupMessage);
+
+    return VXPayHookSignupMessage_possibleConstructorReturn(this, VXPayHookSignupMessage_getPrototypeOf(VXPayHookSignupMessage).call(this, Hooks_VXPayHookMessage.HOOK_SIGNUP));
+  }
+
+  return VXPayHookSignupMessage;
+}(Hooks_VXPayHookMessage);
+
+
+// CONCATENATED MODULE: ./src/VXPay/Message/Hooks/VXPayHookComfortSettingsChangedMessage.js
+function VXPayHookComfortSettingsChangedMessage_typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { VXPayHookComfortSettingsChangedMessage_typeof = function _typeof(obj) { return typeof obj; }; } else { VXPayHookComfortSettingsChangedMessage_typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return VXPayHookComfortSettingsChangedMessage_typeof(obj); }
+
+function VXPayHookComfortSettingsChangedMessage_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function VXPayHookComfortSettingsChangedMessage_possibleConstructorReturn(self, call) { if (call && (VXPayHookComfortSettingsChangedMessage_typeof(call) === "object" || typeof call === "function")) { return call; } return VXPayHookComfortSettingsChangedMessage_assertThisInitialized(self); }
+
+function VXPayHookComfortSettingsChangedMessage_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function VXPayHookComfortSettingsChangedMessage_getPrototypeOf(o) { VXPayHookComfortSettingsChangedMessage_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return VXPayHookComfortSettingsChangedMessage_getPrototypeOf(o); }
+
+function VXPayHookComfortSettingsChangedMessage_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) VXPayHookComfortSettingsChangedMessage_setPrototypeOf(subClass, superClass); }
+
+function VXPayHookComfortSettingsChangedMessage_setPrototypeOf(o, p) { VXPayHookComfortSettingsChangedMessage_setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return VXPayHookComfortSettingsChangedMessage_setPrototypeOf(o, p); }
+
+
+
+var VXPayHookComfortSettingsChangedMessage_VXPayHookComfortSettingsChangedMessage =
+/*#__PURE__*/
+function (_VXPayHookMessage) {
+  VXPayHookComfortSettingsChangedMessage_inherits(VXPayHookComfortSettingsChangedMessage, _VXPayHookMessage);
+
+  function VXPayHookComfortSettingsChangedMessage() {
+    VXPayHookComfortSettingsChangedMessage_classCallCheck(this, VXPayHookComfortSettingsChangedMessage);
+
+    return VXPayHookComfortSettingsChangedMessage_possibleConstructorReturn(this, VXPayHookComfortSettingsChangedMessage_getPrototypeOf(VXPayHookComfortSettingsChangedMessage).call(this, Hooks_VXPayHookMessage.HOOK_COMFORT_SETTINGS_CHANGED));
+  }
+
+  return VXPayHookComfortSettingsChangedMessage;
+}(Hooks_VXPayHookMessage);
+
+
+// CONCATENATED MODULE: ./src/VXPay/Message/Hooks/VXPayHookEmailVerifiedMessage.js
+function VXPayHookEmailVerifiedMessage_typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { VXPayHookEmailVerifiedMessage_typeof = function _typeof(obj) { return typeof obj; }; } else { VXPayHookEmailVerifiedMessage_typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return VXPayHookEmailVerifiedMessage_typeof(obj); }
+
+function VXPayHookEmailVerifiedMessage_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function VXPayHookEmailVerifiedMessage_possibleConstructorReturn(self, call) { if (call && (VXPayHookEmailVerifiedMessage_typeof(call) === "object" || typeof call === "function")) { return call; } return VXPayHookEmailVerifiedMessage_assertThisInitialized(self); }
+
+function VXPayHookEmailVerifiedMessage_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function VXPayHookEmailVerifiedMessage_getPrototypeOf(o) { VXPayHookEmailVerifiedMessage_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return VXPayHookEmailVerifiedMessage_getPrototypeOf(o); }
+
+function VXPayHookEmailVerifiedMessage_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) VXPayHookEmailVerifiedMessage_setPrototypeOf(subClass, superClass); }
+
+function VXPayHookEmailVerifiedMessage_setPrototypeOf(o, p) { VXPayHookEmailVerifiedMessage_setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return VXPayHookEmailVerifiedMessage_setPrototypeOf(o, p); }
+
+
+
+var VXPayHookEmailVerifiedMessage_VXPayHookEmailVerifiedMessage =
+/*#__PURE__*/
+function (_VXPayHookMessage) {
+  VXPayHookEmailVerifiedMessage_inherits(VXPayHookEmailVerifiedMessage, _VXPayHookMessage);
+
+  function VXPayHookEmailVerifiedMessage() {
+    VXPayHookEmailVerifiedMessage_classCallCheck(this, VXPayHookEmailVerifiedMessage);
+
+    return VXPayHookEmailVerifiedMessage_possibleConstructorReturn(this, VXPayHookEmailVerifiedMessage_getPrototypeOf(VXPayHookEmailVerifiedMessage).call(this, Hooks_VXPayHookMessage.HOOK_EMAIL_VERIFIED));
+  }
+
+  return VXPayHookEmailVerifiedMessage;
+}(Hooks_VXPayHookMessage);
+
+
+// CONCATENATED MODULE: ./src/VXPay/Message/Hooks/VXPayHookEmailNotVerifiedMessage.js
+function VXPayHookEmailNotVerifiedMessage_typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { VXPayHookEmailNotVerifiedMessage_typeof = function _typeof(obj) { return typeof obj; }; } else { VXPayHookEmailNotVerifiedMessage_typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return VXPayHookEmailNotVerifiedMessage_typeof(obj); }
+
+function VXPayHookEmailNotVerifiedMessage_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function VXPayHookEmailNotVerifiedMessage_possibleConstructorReturn(self, call) { if (call && (VXPayHookEmailNotVerifiedMessage_typeof(call) === "object" || typeof call === "function")) { return call; } return VXPayHookEmailNotVerifiedMessage_assertThisInitialized(self); }
+
+function VXPayHookEmailNotVerifiedMessage_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function VXPayHookEmailNotVerifiedMessage_getPrototypeOf(o) { VXPayHookEmailNotVerifiedMessage_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return VXPayHookEmailNotVerifiedMessage_getPrototypeOf(o); }
+
+function VXPayHookEmailNotVerifiedMessage_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) VXPayHookEmailNotVerifiedMessage_setPrototypeOf(subClass, superClass); }
+
+function VXPayHookEmailNotVerifiedMessage_setPrototypeOf(o, p) { VXPayHookEmailNotVerifiedMessage_setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return VXPayHookEmailNotVerifiedMessage_setPrototypeOf(o, p); }
+
+
+
+var VXPayHookEmailNotVerifiedMessage_VXPayHookEmailNotVerifiedMessage =
+/*#__PURE__*/
+function (_VXPayHookMessage) {
+  VXPayHookEmailNotVerifiedMessage_inherits(VXPayHookEmailNotVerifiedMessage, _VXPayHookMessage);
+
+  function VXPayHookEmailNotVerifiedMessage() {
+    VXPayHookEmailNotVerifiedMessage_classCallCheck(this, VXPayHookEmailNotVerifiedMessage);
+
+    return VXPayHookEmailNotVerifiedMessage_possibleConstructorReturn(this, VXPayHookEmailNotVerifiedMessage_getPrototypeOf(VXPayHookEmailNotVerifiedMessage).call(this, Hooks_VXPayHookMessage.HOOK_EMAIL_NOT_VERIFIED));
+  }
+
+  return VXPayHookEmailNotVerifiedMessage;
+}(Hooks_VXPayHookMessage);
+
+
+// CONCATENATED MODULE: ./src/VXPay/Message/Hooks/VXPayHookPasswordChangedMessage.js
+function VXPayHookPasswordChangedMessage_typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { VXPayHookPasswordChangedMessage_typeof = function _typeof(obj) { return typeof obj; }; } else { VXPayHookPasswordChangedMessage_typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return VXPayHookPasswordChangedMessage_typeof(obj); }
+
+function VXPayHookPasswordChangedMessage_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function VXPayHookPasswordChangedMessage_possibleConstructorReturn(self, call) { if (call && (VXPayHookPasswordChangedMessage_typeof(call) === "object" || typeof call === "function")) { return call; } return VXPayHookPasswordChangedMessage_assertThisInitialized(self); }
+
+function VXPayHookPasswordChangedMessage_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function VXPayHookPasswordChangedMessage_getPrototypeOf(o) { VXPayHookPasswordChangedMessage_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return VXPayHookPasswordChangedMessage_getPrototypeOf(o); }
+
+function VXPayHookPasswordChangedMessage_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) VXPayHookPasswordChangedMessage_setPrototypeOf(subClass, superClass); }
+
+function VXPayHookPasswordChangedMessage_setPrototypeOf(o, p) { VXPayHookPasswordChangedMessage_setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return VXPayHookPasswordChangedMessage_setPrototypeOf(o, p); }
+
+
+
+var VXPayHookPasswordChangedMessage_VXPayHookPasswordChangedMessage =
+/*#__PURE__*/
+function (_VXPayHookMessage) {
+  VXPayHookPasswordChangedMessage_inherits(VXPayHookPasswordChangedMessage, _VXPayHookMessage);
+
+  function VXPayHookPasswordChangedMessage() {
+    VXPayHookPasswordChangedMessage_classCallCheck(this, VXPayHookPasswordChangedMessage);
+
+    return VXPayHookPasswordChangedMessage_possibleConstructorReturn(this, VXPayHookPasswordChangedMessage_getPrototypeOf(VXPayHookPasswordChangedMessage).call(this, Hooks_VXPayHookMessage.HOOK_PASSWORD_CHANGED));
+  }
+
+  return VXPayHookPasswordChangedMessage;
+}(Hooks_VXPayHookMessage);
+
+
 // CONCATENATED MODULE: ./src/VXPay/Message/Hooks/VXPayHookMessageFactory.js
 function VXPayHookMessageFactory_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function VXPayHookMessageFactory_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function VXPayHookMessageFactory_createClass(Constructor, protoProps, staticProps) { if (protoProps) VXPayHookMessageFactory_defineProperties(Constructor.prototype, protoProps); if (staticProps) VXPayHookMessageFactory_defineProperties(Constructor, staticProps); return Constructor; }
+
+
+
+
+
+
 
 
 
@@ -2816,6 +3020,24 @@ function () {
 
         case Hooks_VXPayHookMessage.HOOK_LOGIN:
           return new VXPayLoggedInMessage_VXPayLoggedInMessage();
+
+        case Hooks_VXPayHookMessage.HOOK_PAYMENT:
+          return new VXPayHookPaymentMessage_VXPayHookPaymentMessage();
+
+        case Hooks_VXPayHookMessage.HOOK_SIGNUP:
+          return new VXPayHookSignupMessage_VXPayHookSignupMessage();
+
+        case Hooks_VXPayHookMessage.HOOK_COMFORT_SETTINGS_CHANGED:
+          return new VXPayHookComfortSettingsChangedMessage_VXPayHookComfortSettingsChangedMessage();
+
+        case Hooks_VXPayHookMessage.HOOK_EMAIL_VERIFIED:
+          return new VXPayHookEmailVerifiedMessage_VXPayHookEmailVerifiedMessage();
+
+        case Hooks_VXPayHookMessage.HOOK_EMAIL_NOT_VERIFIED:
+          return new VXPayHookEmailNotVerifiedMessage_VXPayHookEmailNotVerifiedMessage();
+
+        case Hooks_VXPayHookMessage.HOOK_PASSWORD_CHANGED:
+          return new VXPayHookPasswordChangedMessage_VXPayHookPasswordChangedMessage();
 
         default:
           return new Hooks_VXPayHookMessage();
@@ -3021,6 +3243,7 @@ function () {
     this._fsk18 = false;
     this._nickname = '';
     this._userId = NaN;
+    this._uhash = '';
   }
   /**
    * @return {Number|NaN}
@@ -3087,6 +3310,22 @@ function () {
     set: function set(value) {
       this._userId = value;
     }
+    /**
+     * @return {String}
+     */
+
+  }, {
+    key: "uhash",
+    get: function get() {
+      return this._uhash;
+    }
+    /**
+     * @param {String} value
+     */
+    ,
+    set: function set(value) {
+      this._uhash = value;
+    }
   }]);
 
   return VXPayUser;
@@ -3133,6 +3372,7 @@ function (_VXPayMessage) {
     _this.user.nickname = data.screenname || '';
     _this.user.fsk18 = data.fsk18 || false;
     _this.user.userId = data.userId || NaN;
+    _this.user.uhash = data.uhash || '';
     return _this;
   }
 
@@ -3145,18 +3385,18 @@ function (_VXPayMessage) {
 
 
 VXPaySuccessMessage_VXPaySuccessMessage.USER_DATA_STRUCT = {
-  "success": true,
-  "userFromLogin": false,
-  "userFromSignup": false,
-  "flow": "login",
-  "hostId": null,
-  "screenname": "user123",
-  "userId": 9876789087,
-  "isLoggedIn": true,
-  "transferToken": "TT_7a9523c9-5555-4c48-5555-91cc2465f484",
-  "availableMoney": 12.34,
-  "fsk18": false,
-  "uhash": null
+  'success': true,
+  'userFromLogin': false,
+  'userFromSignup': false,
+  'flow': 'login',
+  'hostId': null,
+  'screenname': 'user123',
+  'userId': 9876789087,
+  'isLoggedIn': true,
+  'transferToken': 'TT_7a9523c9-5555-4c48-5555-91cc2465f484',
+  'availableMoney': 12.34,
+  'fsk18': false,
+  'uhash': ''
 };
 /* harmony default export */ var Message_VXPaySuccessMessage = (VXPaySuccessMessage_VXPaySuccessMessage);
 // CONCATENATED MODULE: ./src/VXPay/Message/Actions/VXPayIsLoggedInResponseMessage.js
@@ -3879,6 +4119,7 @@ function () {
     /**
      * @param {String} hook
      * @param {Array} callbackArguments
+     * @param {String|undefined} sourceTab
      * @return {boolean}
      */
 
@@ -3886,6 +4127,9 @@ function () {
     key: "trigger",
     value: function trigger(hook) {
       var callbackArguments = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+      var sourceTab = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : undefined;
+
+      /* eslint-disable-line no-unused-vars  */
       var name = '_' + hook;
 
       if (!this.hasOwnProperty(name)) {
@@ -4024,7 +4268,7 @@ function (_VXPayIframe) {
       } // trigger hook
 
 
-      this._hooks.trigger(Config_VXPayHooksConfig.ON_ANY, [this._cookieMsg]); // otherwise - not logged in
+      this._hooks.trigger(Config_VXPayHooksConfig.ON_ANY, [this._cookieMsg], this._frame.id + '<VXPayHelperFrame>'); // otherwise - not logged in
 
 
       resolve(this._cookieMsg);
@@ -4051,7 +4295,7 @@ function (_VXPayIframe) {
     value: function _markLoaded() {
       _get(VXPayHelperFrame_getPrototypeOf(VXPayHelperFrame.prototype), "_markLoaded", this).call(this);
 
-      this._hooks.trigger(Config_VXPayHelperHooksConfig.ON_LOAD);
+      this._hooks.trigger(Config_VXPayHelperHooksConfig.ON_LOAD, [], this._frame.id + '<VXPayHelperFrame>');
     }
     /**
      * Override to add a before send hook
@@ -4064,7 +4308,7 @@ function (_VXPayIframe) {
     value: function postMessage(message) {
       var origin = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '*';
 
-      this._hooks.trigger(Config_VXPayHelperHooksConfig.ON_BEFORE_SEND, [message]);
+      this._hooks.trigger(Config_VXPayHelperHooksConfig.ON_BEFORE_SEND, [message], this._frame.id + '<VXPayHelperFrame>');
 
       _get(VXPayHelperFrame_getPrototypeOf(VXPayHelperFrame.prototype), "postMessage", this).call(this, message, origin);
     }
@@ -4268,6 +4512,12 @@ function (_VXPayHooksConfig) {
     _this._onAVSStatus = [];
     _this._onBalance = [];
     _this._onActiveAbos = [];
+    _this._onPayment = [];
+    _this._onSignup = [];
+    _this._onComfortSettingsChanged = [];
+    _this._onEmailVerified = [];
+    _this._onEmailNotVerified = [];
+    _this._onPasswordChanged = [];
     return _this;
   }
   /**
@@ -4484,6 +4734,78 @@ function (_VXPayHooksConfig) {
 
       return this;
     }
+    /**
+     * @param {Function} handler
+     * @return {VXPayPaymentHooksConfig}
+     */
+
+  }, {
+    key: "onPayment",
+    value: function onPayment(handler) {
+      this._onPayment.push(handler);
+
+      return this;
+    }
+    /**
+     * @param {Function} handler
+     * @return {VXPayPaymentHooksConfig}
+     */
+
+  }, {
+    key: "onSignup",
+    value: function onSignup(handler) {
+      this._onSignup.push(handler);
+
+      return this;
+    }
+    /**
+     * @param {Function} handler
+     * @return {VXPayPaymentHooksConfig}
+     */
+
+  }, {
+    key: "onComfortSettingsChanged",
+    value: function onComfortSettingsChanged(handler) {
+      this._onComfortSettingsChanged.push(handler);
+
+      return this;
+    }
+    /**
+     * @param {Function} handler
+     * @return {VXPayPaymentHooksConfig}
+     */
+
+  }, {
+    key: "onEmailVerified",
+    value: function onEmailVerified(handler) {
+      this._onEmailVerified.push(handler);
+
+      return this;
+    }
+    /**
+     * @param {Function} handler
+     * @return {VXPayPaymentHooksConfig}
+     */
+
+  }, {
+    key: "onEmailNotVerified",
+    value: function onEmailNotVerified(handler) {
+      this._onEmailNotVerified.push(handler);
+
+      return this;
+    }
+    /**
+     * @param {Function} handler
+     * @return {VXPayPaymentHooksConfig}
+     */
+
+  }, {
+    key: "onPasswordChanged",
+    value: function onPasswordChanged(handler) {
+      this._onPasswordChanged.push(handler);
+
+      return this;
+    }
   }]);
 
   return VXPayPaymentHooksConfig;
@@ -4502,6 +4824,12 @@ VXPayPaymentHooksConfig.ON_TRANSFER_TOKEN = 'onTransferToken';
 VXPayPaymentHooksConfig.ON_AVS_STATUS = 'onAVSStatus';
 VXPayPaymentHooksConfig.ON_BALANCE = 'onBalance';
 VXPayPaymentHooksConfig.ON_ACTIVE_ABOS = 'onActiveAbos';
+VXPayPaymentHooksConfig.ON_PAYMENT = 'onPayment';
+VXPayPaymentHooksConfig.ON_SIGNUP = 'onSignup';
+VXPayPaymentHooksConfig.ON_COMFORT_SETTINGS_CHANGE = 'onComfortSettingsChanged';
+VXPayPaymentHooksConfig.ON_EMAIL_VERIFIED = 'onEmailVerified';
+VXPayPaymentHooksConfig.ON_EMAIL_NOT_VERIFIED = 'onEmailNotVerified';
+VXPayPaymentHooksConfig.ON_PASSWORD_CHANGED = 'onPasswordChanged';
 /* harmony default export */ var Config_VXPayPaymentHooksConfig = (VXPayPaymentHooksConfig);
 // CONCATENATED MODULE: ./src/VXPay/Message/Hooks/VXPayHookRouter.js
 
@@ -4512,12 +4840,15 @@ VXPayPaymentHooksConfig.ON_ACTIVE_ABOS = 'onActiveAbos';
 /**
  * @param {VXPayPaymentHooksConfig} hooks
  * @param {MessageEvent|Object} event
+ * @param {String|undefined} sourceTab
  * @return {boolean}
  * @throws {TypeError}
  * @constructor
  */
 
 var VXPayHookRouter_VXPayHookRouter = function VXPayHookRouter(hooks, event) {
+  var sourceTab = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : undefined;
+
   // origin check
   if (event.origin && Dom_VXPayIframe.ORIGIN_VX.indexOf(event.origin) === -1) {
     return false;
@@ -4526,49 +4857,67 @@ var VXPayHookRouter_VXPayHookRouter = function VXPayHookRouter(hooks, event) {
 
   var message = VXPayMessageFactory_VXPayMessageFactory.fromJson(event.data); // route any
 
-  hooks.trigger(Config_VXPayPaymentHooksConfig.ON_ANY, [message]);
+  hooks.trigger(Config_VXPayPaymentHooksConfig.ON_ANY, [message], sourceTab);
 
   switch (message.type) {
     case VXPay_VXPayMessage.TYPE_TRANSFER_TOKEN:
-      return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_TRANSFER_TOKEN, [message]);
+      return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_TRANSFER_TOKEN, [message], sourceTab);
 
     case VXPay_VXPayMessage.TYPE_AVS_STATUS:
-      return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_AVS_STATUS, [message]);
+      return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_AVS_STATUS, [message], sourceTab);
 
     case VXPay_VXPayMessage.TYPE_BALANCE:
-      return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_BALANCE, [message]);
+      return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_BALANCE, [message], sourceTab);
 
     case VXPay_VXPayMessage.TYPE_ACTIVE_ABOS:
-      return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_ACTIVE_ABOS, [message]);
+      return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_ACTIVE_ABOS, [message], sourceTab);
 
     case VXPay_VXPayMessage.TYPE_IFRAME_READY:
-      return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_IFRAME_READY, [message]);
+      return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_IFRAME_READY, [message], sourceTab);
 
     case VXPay_VXPayMessage.TYPE_CONTENT_LOADED:
-      return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_CONTENT_LOADED, [message]);
+      return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_CONTENT_LOADED, [message], sourceTab);
 
     case VXPay_VXPayMessage.TYPE_VIEW_READY:
-      return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_VIEW_READY, [message]);
+      return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_VIEW_READY, [message], sourceTab);
 
     case VXPay_VXPayMessage.TYPE_IFRAME_CLOSE:
-      return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_CLOSE, [message]);
+      return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_CLOSE, [message], sourceTab);
 
     case VXPay_VXPayMessage.TYPE_SUCCESS:
-      return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_SUCCESS, [message]);
+      return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_SUCCESS, [message], sourceTab);
 
     case VXPay_VXPayMessage.TYPE_IS_LOGGED_IN:
-      return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_IS_LOGGED_IN, [message]);
+      return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_IS_LOGGED_IN, [message], sourceTab);
 
     case VXPay_VXPayMessage.TYPE_LOGGED_OUT:
-      return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_LOGOUT, [message]);
+      return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_LOGOUT, [message], sourceTab);
 
     case VXPay_VXPayMessage.TYPE_HOOK:
       switch (message.hook) {
         case Hooks_VXPayHookMessage.HOOK_LOGIN:
-          return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_LOGIN, [message]);
+          return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_LOGIN, [message], sourceTab);
 
         case Hooks_VXPayHookMessage.HOOK_FLOW_CHANGED:
-          return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_FLOW_CHANGE, [message]);
+          return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_FLOW_CHANGE, [message], sourceTab);
+
+        case Hooks_VXPayHookMessage.HOOK_PAYMENT:
+          return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_PAYMENT, [message], sourceTab);
+
+        case Hooks_VXPayHookMessage.HOOK_SIGNUP:
+          return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_SIGNUP, [message], sourceTab);
+
+        case Hooks_VXPayHookMessage.HOOK_COMFORT_SETTINGS_CHANGED:
+          return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_COMFORT_SETTINGS_CHANGE, [message], sourceTab);
+
+        case Hooks_VXPayHookMessage.HOOK_EMAIL_VERIFIED:
+          return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_EMAIL_VERIFIED, [message], sourceTab);
+
+        case Hooks_VXPayHookMessage.HOOK_EMAIL_NOT_VERIFIED:
+          return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_EMAIL_NOT_VERIFIED, [message], sourceTab);
+
+        case Hooks_VXPayHookMessage.HOOK_PASSWORD_CHANGED:
+          return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_PASSWORD_CHANGED, [message], sourceTab);
       }
 
   }
@@ -4712,7 +5061,7 @@ function (_VXPayIframe) {
       var _this2 = this;
 
       Event_VXPayEventListener.addEvent(Dom_VXPayIframe.EVENT_MESSAGE, this._frame.ownerDocument.defaultView, function (event) {
-        return Hooks_VXPayHookRouter(_this2._hooks, event);
+        return Hooks_VXPayHookRouter(_this2._hooks, event, _this2._frame.id + '<VXPayPaymentFrame>');
       });
       Event_VXPayEventListener.addEvent(Dom_VXPayIframe.EVENT_UNLOAD, this._frame.ownerDocument.defaultView, this.stopListening.bind(this));
     }
@@ -4726,7 +5075,7 @@ function (_VXPayIframe) {
       var _this3 = this;
 
       Event_VXPayEventListener.removeEvent(Dom_VXPayIframe.EVENT_MESSAGE, this._frame.ownerDocument.defaultView, function (event) {
-        return Hooks_VXPayHookRouter(_this3._hooks, event);
+        return Hooks_VXPayHookRouter(_this3._hooks, event, _this3._frame.id + '<VXPayPaymentFrame>');
       });
       Event_VXPayEventListener.removeEvent(Dom_VXPayIframe.EVENT_UNLOAD, this._frame.ownerDocument.defaultView, this.stopListening.bind(this));
     }
@@ -4740,7 +5089,7 @@ function (_VXPayIframe) {
     value: function _markLoaded() {
       VXPayPaymentFrame_get(VXPayPaymentFrame_getPrototypeOf(VXPayPaymentFrame.prototype), "_markLoaded", this).call(this);
 
-      return this._hooks.trigger(Config_VXPayPaymentHooksConfig.ON_LOAD);
+      return this._hooks.trigger(Config_VXPayPaymentHooksConfig.ON_LOAD, this._frame.id + '<VXPayPaymentFrame>');
     }
     /**
      * Override to add a before send hook
@@ -4754,7 +5103,7 @@ function (_VXPayIframe) {
     value: function postMessage(message) {
       var origin = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '*';
 
-      this._hooks.trigger(Config_VXPayPaymentHooksConfig.ON_BEFORE_SEND, [message]);
+      this._hooks.trigger(Config_VXPayPaymentHooksConfig.ON_BEFORE_SEND, [message], this._frame.id + '<VXPayPaymentFrame>');
 
       if (this._frame.contentWindow !== null) {
         this._frame.contentWindow.postMessage(message.toString(), origin);
@@ -4896,6 +5245,7 @@ function VXPayPaymentTab_createClass(Constructor, protoProps, staticProps) { if 
 
 
 
+
 /**
  * @link https://www.npmjs.com/package/es6-interface
  */
@@ -4918,7 +5268,11 @@ function () {
     this._config = config;
     this._route = VXPayPaymentTab.DEFAULT_ROUTE;
     this._promise = null;
-    this._window = null;
+    this._window = null; // load the normal iframe to communicate
+
+    this._invisibleFrame = new Frame_VXPayPaymentFrame(document, config.getPaymentFrameUrl(), Frame_VXPayPaymentFrame.NAME + '_hidden');
+
+    this._invisibleFrame.triggerLoad();
   }
   /**
    * @return {Document}
@@ -4941,8 +5295,9 @@ function () {
   }, {
     key: "getNewTab",
     value: function getNewTab() {
-      var that = this,
-          url = this._config.getPaymentFrameUrl() + '#' + this._route;
+      var that = this;
+
+      var url = this._config.getPaymentFrameUrl() + '#' + this._route;
 
       if (null == this._promise) {
         this._promise = new Promise(function (resolve) {
@@ -4973,7 +5328,7 @@ function () {
       var _this = this;
 
       Event_VXPayEventListener.addEvent(Dom_VXPayIframe.EVENT_MESSAGE, this._document.defaultView, function (event) {
-        return Hooks_VXPayHookRouter(_this._hooks, event);
+        return Hooks_VXPayHookRouter(_this._hooks, event, _this._name + '<VXPayPaymentTab>');
       });
       Event_VXPayEventListener.addEvent(Dom_VXPayIframe.EVENT_UNLOAD, this._document.defaultView, this.stopListening.bind(this));
       return window;
@@ -4988,7 +5343,7 @@ function () {
       var _this2 = this;
 
       Event_VXPayEventListener.removeEvent(Dom_VXPayIframe.EVENT_MESSAGE, this._document.defaultView, function (event) {
-        return Hooks_VXPayHookRouter(_this2._hooks, event);
+        return Hooks_VXPayHookRouter(_this2._hooks, event, _this2._name + '<VXPayPaymentTab>');
       });
       Event_VXPayEventListener.removeEvent(Dom_VXPayIframe.EVENT_UNLOAD, this._document.defaultView, this.stopListening.bind(this));
     }
@@ -5004,6 +5359,8 @@ function () {
 
       this._config.merge(options);
 
+      this._invisibleFrame.sendOptions(options);
+
       return this;
     }
     /**
@@ -5017,6 +5374,8 @@ function () {
       var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
       this._config.merge(options);
+
+      this._invisibleFrame.sendAdditionalOptions(options);
 
       return this;
     }
@@ -5043,17 +5402,17 @@ function () {
     value: function postMessage(message) {
       var origin = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '*';
 
-      this._hooks.trigger(Config_VXPayPaymentHooksConfig.ON_BEFORE_SEND, [message]);
+      this._hooks.trigger(Config_VXPayPaymentHooksConfig.ON_BEFORE_SEND, [message], this._name + '<VXPayPaymentTab>');
 
-      if (this._window !== null) {
+      if (this._window !== null && this._loaded) {
         this._window.postMessage(message.toString(), origin);
+      } else {
+        this._invisibleFrame.postMessage(message, origin);
       }
 
       return this;
     }
     /**
-     * Not really much to do here, but should match the interface of {VXPayPaymentFrame}
-     *
      * [@param {String|undefined} token]
      * @return {VXPayPaymentTab}
      */
@@ -5061,6 +5420,10 @@ function () {
   }, {
     key: "initSession",
     value: function initSession() {
+      var token = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : undefined;
+
+      this._invisibleFrame.initSession(token);
+
       return this;
     }
     /**
@@ -5073,6 +5436,9 @@ function () {
     value: function changeRoute() {
       var route = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : VXPayPaymentTab.DEFAULT_ROUTE;
       this._route = route;
+
+      this._invisibleFrame.changeRoute(route);
+
       return this;
     }
     /**
@@ -5103,8 +5469,12 @@ function () {
     value: function hide() {
       if (this._window && !this._window.closed) {
         this._window.close();
-      }
+      } // reset internal state
 
+
+      this._loaded = false;
+      this._route = VXPayPaymentTab.DEFAULT_ROUTE;
+      this._promise = null;
       return this;
     }
   }, {
@@ -5151,7 +5521,7 @@ function () {
   }, {
     key: "hooks",
     get: function get() {
-      return this._hooks;
+      return this._invisibleFrame.hooks;
     }
   }]);
 
@@ -5176,7 +5546,7 @@ VXPayPaymentTab_VXPayPaymentTab.DEFAULT_ROUTE = '/';
 
 var VXPayInitPaymentMiddleware_VXPayInitPaymentMiddleware = function VXPayInitPaymentMiddleware(vxpay, resolve) {
   var load = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
-  vxpay.logger.log('VXPayInitPaymentMiddleware()'); // check already initialized
+  vxpay.logger.log('VXPayInitPaymentMiddleware()', load); // check already initialized
 
   if (vxpay.state.isContentLoaded) {
     vxpay.logger.log('VXPayInitPaymentMiddleware() - already loaded, resolve ...');
@@ -5185,12 +5555,12 @@ var VXPayInitPaymentMiddleware_VXPayInitPaymentMiddleware = function VXPayInitPa
 
 
   if (vxpay.state.isFrameInProgress && !load) {
-    vxpay.logger.log('VXPayInitPaymentMiddleware() - already in progress, resolve ...');
+    vxpay.logger.log('VXPayInitPaymentMiddleware() - already in progress, resolve ...', vxpay);
     return resolve(vxpay);
   } // tab or frame?
 
 
-  vxpay.state.isFrameInProgress = true;
+  vxpay.state.isFrameInProgress = load;
 
   if (!vxpay.hasOwnProperty('_paymentFrame')) {
     vxpay._paymentFrame = vxpay.config.enableTab ? new Frame_VXPayPaymentTab(vxpay.window.document, Frame_VXPayPaymentTab.NAME, vxpay.config) : new Frame_VXPayPaymentFrame(vxpay.window.document, vxpay.config.getPaymentFrameUrl(), Frame_VXPayPaymentFrame.NAME); // do we need logging?
@@ -5209,12 +5579,12 @@ var VXPayInitPaymentMiddleware_VXPayInitPaymentMiddleware = function VXPayInitPa
     vxpay._paymentFrame.hooks // state updates
     .onIframeReady(vxpay.state.markFrameReady.bind(vxpay.state)).onContentLoaded(vxpay.state.markContentLoaded.bind(vxpay.state)).onTransferToken(vxpay.state.markHasToken.bind(vxpay.state)) // functional hooks
     .onTransferToken(vxpay.config.setTokenFromMessage.bind(vxpay.config)).onFlowChange(vxpay.config.updateFlow.bind(vxpay.config)) // show frame and send isVisible
-    .onViewReady(vxpay._paymentFrame.setVisible.bind(vxpay._paymentFrame)).onViewReady(vxpay._paymentFrame.show.bind(vxpay._paymentFrame)).onSuccess(vxpay._paymentFrame.hide.bind(vxpay._paymentFrame)).onClose(vxpay._paymentFrame.hide.bind(vxpay._paymentFrame)).onContentLoaded(function () {
+    .onViewReady(vxpay._paymentFrame.setVisible.bind(vxpay._paymentFrame)).onViewReady(vxpay._paymentFrame.show.bind(vxpay._paymentFrame)).onSuccess(vxpay._paymentFrame.hide.bind(vxpay._paymentFrame)).onSuccess(vxpay.state.reset).onClose(vxpay._paymentFrame.hide.bind(vxpay._paymentFrame)).onClose(vxpay.state.reset).onContentLoaded(function () {
       return resolve(vxpay);
     }); // trigger load if not tab
 
 
-    if (!vxpay.config.enableTab && load) {
+    if (load) {
       vxpay.logger.log('VXPayInitPaymentMiddleware() - not loaded yet, trigger load');
       vxpay._paymentFrame.url = vxpay.config.getPaymentFrameUrl();
 
@@ -5293,6 +5663,7 @@ function (_VXPayMessage) {
 
 // CONCATENATED MODULE: ./src/VXPay/Middleware/Actions/VXPayIsLoggedInTriggerMiddleware.js
 
+
 /**
  * @param {VXPay} vxpay
  * @param {Function} resolve
@@ -5302,16 +5673,27 @@ function (_VXPayMessage) {
 
 var VXPayIsLoggedInTriggerMiddleware_VXPayIsLoggedInTriggerMiddleware = function VXPayIsLoggedInTriggerMiddleware(vxpay, resolve, reject) {
   try {
-    vxpay.hooks.then(function (hooks) {
-      // is hook setup?
-      if (!hooks.hasOnIsLoggedIn(resolve)) {
-        hooks.onIsLoggedIn(resolve);
-      }
-    }); // trigger post message
-
-    vxpay.paymentFrame.then(function (frame) {
-      return frame.postMessage(new VXPayIsLoggedInActionMessage_VXPayIsLoggedInActionMessage());
-    });
+    // when the main frame is loaded - send post message
+    if (vxpay.state.isContentLoaded) {
+      vxpay.hooks.then(function (hooks) {
+        // is hook setup?
+        if (!hooks.hasOnIsLoggedIn(resolve)) {
+          hooks.onIsLoggedIn(resolve);
+        }
+      });
+      vxpay.paymentFrame.then(function (frame) {
+        return frame.postMessage(new VXPayIsLoggedInActionMessage_VXPayIsLoggedInActionMessage());
+      });
+    } else {
+      // otherwise - rely on cookie
+      vxpay.initHelperFrame().then(function (vxpay) {
+        return vxpay.helperFrame.getLoginCookie();
+      }).then(function (msg) {
+        return resolve(new Actions_VXPayIsLoggedInResponseMessage(msg.hasCookie));
+      }).catch(function (err) {
+        return reject(err);
+      });
+    }
   } catch (err) {
     reject(err);
   }
@@ -5731,11 +6113,7 @@ function () {
   function VXPayState() {
     VXPayState_classCallCheck(this, VXPayState);
 
-    this._isFrameReady = false;
-    this._token = undefined;
-    this._isContentLoaded = false;
-    this._isSessionInitialized = false;
-    this._isFrameInProgress = false;
+    this.reset();
   }
   /**
    * @return {boolean}
@@ -5778,6 +6156,15 @@ function () {
     key: "markSessionInitialized",
     value: function markSessionInitialized() {
       this._isSessionInitialized = true;
+    }
+  }, {
+    key: "reset",
+    value: function reset() {
+      this._isFrameReady = false;
+      this._token = undefined;
+      this._isContentLoaded = false;
+      this._isSessionInitialized = false;
+      this._isFrameInProgress = false;
     }
   }, {
     key: "isFrameInProgress",
@@ -5870,7 +6257,7 @@ var VXPayWhenTokenTransferred = function VXPayWhenTokenTransferred(vxpay) {
   return new Promise(function (resolve, reject) {
     try {
       // do we have the token already?
-      if (vxpay.state.hasToken || vxpay.config.enableTab) {
+      if (vxpay.state.hasToken) {
         resolve(vxpay);
       } else {
         // otherwise - wait for it
@@ -6647,13 +7034,12 @@ function () {
 
 
   VXPay_createClass(VXPay, [{
-    key: "_initHelperFrame",
+    key: "initHelperFrame",
 
     /**
      * @return {Promise<VXPay>}
-     * @private
      */
-    value: function _initHelperFrame() {
+    value: function initHelperFrame() {
       var _this = this;
 
       return new Promise(function (resolve) {
@@ -6672,7 +7058,7 @@ function () {
       var _this2 = this;
 
       var triggerLoad = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
-      this.logger.log('VXPay::_initPaymentFrame');
+      this.logger.log('VXPay::_initPaymentFrame', triggerLoad);
       return new Promise(function (resolve) {
         return Frames_VXPayInitPaymentMiddleware(_this2, resolve, triggerLoad);
       });
@@ -6736,7 +7122,7 @@ function () {
       var _this6 = this;
 
       var flowOptions = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-      return this._initHelperFrame().then(function (vxpay) {
+      return this.initHelperFrame().then(function (vxpay) {
         return vxpay.helperFrame.getLoginCookie();
       }).then(function (msg) {
         return msg.hasCookie ? _this6.openLogin(flowOptions) : _this6.openSignUp(flowOptions);
@@ -6982,7 +7368,7 @@ function () {
       var _this21 = this;
 
       return new Promise(function (resolve, reject) {
-        _this21._initPaymentFrame().then(function (vxpay) {
+        _this21._initPaymentFrame(!_this21.config.enableTab).then(function (vxpay) {
           return new Actions_VXPayListenOrCallLoggedInMiddleware(vxpay, resolve, reject).run();
         }).catch(reject);
       });
