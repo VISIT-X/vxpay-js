@@ -36,8 +36,8 @@
     "copy": "node copy-dist.js",
     "push": "npm run build && git push",
     "lint": "eslint --ext .js src",
-    "prepare": "npm run build && npm run copy && cp -R build/. dist/ && npm pack",
-    "clear": "rm -rf vxpay-js-*.tgz dist/"
+    "vxpay-prepare": "npm run build && npm run copy && cp -R build/. dist/ && npm pack",
+    "vxpay-clear": "rm -rf vxpay-js-*.tgz dist/"
   },
   "dependencies": {
     "is-mobile": "^1.0.0",
