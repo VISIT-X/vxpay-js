@@ -1,6 +1,6 @@
 {
   "name": "vxpay-js",
-  "version": "2.4.1",
+  "version": "2.4.2",
   "description": "Javascript library to initialize and handle VXPay iframe",
   "main": "dist/vxpay.min.js",
   "author": "Igor Timoshenkov",
