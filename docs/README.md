@@ -16,3 +16,13 @@ More information on the vxpay-js:
 1. [Post message reference](https://github.com/VISIT-X/vxpay-js/wiki/04-Messages-reference)
 
 Please see [vxpay-js-react-example](https://github.com/VISIT-X/vxpay-js-react-example) for [React](https://github.com/facebook/react) integration example.
+
+### Development
+
+You can use the following scripts to help you on daily run:
+
+| Command | Explanation |
+| ------- | ----------- |
+| `npm run prepare` | Prepare the npm package valid for local installs (normal npm tgz) | 
+| `npm run clear` | Remove the files used in package preparation |
+ 
