@@ -6,7 +6,7 @@ class VXPayEventListener {
 	 */
 	static addEvent(event, elem, func) {
 		if (elem.addEventListener) {  // W3C DOM
-			elem.addEventListener(event, func, false);
+			elem.addEventListener(event, func, {passive: true});
 		}
 		else if (elem.attachEvent) { // IE DOM
 			elem.attachEvent(VXPayEventListener.IE_PREFIX + event, func);
@@ -23,7 +23,7 @@ class VXPayEventListener {
 	 */
 	static removeEvent(event, elem, func) {
 		if (elem.removeEventListener) {  // W3C DOM
-			elem.removeEventListener(event, func, false);
+			elem.removeEventListener(event, func, {passive: true});
 		}
 		else if (elem.detachEvent) { // IE DOM
 			elem.detachEvent(VXPayEventListener.IE_PREFIX + event, func);

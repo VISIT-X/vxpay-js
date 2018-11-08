@@ -21,8 +21,11 @@ class VXPayPaymentTab {
 		this._name           = name;
 		this._config         = config;
 		this._route          = VXPayPaymentTab.DEFAULT_ROUTE;
-		this._promise        = null;
 		this._window         = null;
+
+		// bind handler
+		this.hooksRouteHandler = this.routeHooks.bind(this);
+		this.dontListenHandler = this.stopListening.bind(this);
 
 		// load the normal iframe to communicate
 		this._invisibleFrame = new VXPayPaymentFrame(document, config.getPaymentFrameUrl(), VXPayPaymentFrame.NAME + '_hidden');
@@ -85,22 +88,20 @@ class VXPayPaymentTab {
 	}
 
 	/**
+	 * @param {MessageEvent} event
+	 */
+	routeHooks(event) {
+		VXPayHookRouter(this._hooks, event, this._name + '<VXPayPaymentTab>');
+	}
+
+	/**
 	 * listen for incoming messages
 	 * @param {Window} window
 	 * @return {Window}
 	 */
 	startListening(window) {
-		VXPayEventListener.addEvent(
-			VXPayIframe.EVENT_MESSAGE,
-			this._document.defaultView,
-			(event) => VXPayHookRouter(this._hooks, event, this._name + '<VXPayPaymentTab>')
-		);
-
-		VXPayEventListener.addEvent(
-			VXPayIframe.EVENT_UNLOAD,
-			this._document.defaultView,
-			this.stopListening.bind(this)
-		);
+		VXPayEventListener.addEvent(VXPayIframe.EVENT_MESSAGE, this._document.defaultView, this.hooksRouteHandler);
+		VXPayEventListener.addEvent(VXPayIframe.EVENT_UNLOAD, this._document.defaultView, this.dontListenHandler);
 
 		return window;
 	}
@@ -109,17 +110,8 @@ class VXPayPaymentTab {
 	 * Remove listeners
 	 */
 	stopListening() {
-		VXPayEventListener.removeEvent(
-			VXPayIframe.EVENT_MESSAGE,
-			this._document.defaultView,
-			(event) => VXPayHookRouter(this._hooks, event, this._name + '<VXPayPaymentTab>')
-		);
-
-		VXPayEventListener.removeEvent(
-			VXPayIframe.EVENT_UNLOAD,
-			this._document.defaultView,
-			this.stopListening.bind(this)
-		);
+		VXPayEventListener.removeEvent(VXPayIframe.EVENT_MESSAGE, this._document.defaultView, this.hooksRouteHandler);
+		VXPayEventListener.removeEvent(VXPayIframe.EVENT_UNLOAD, this._document.defaultView, this.dontListenHandler);
 	}
 
 	/**

@@ -33,6 +33,10 @@ class VXPayPaymentFrame extends VXPayIframe {
 		this._hooks              = new VXPayPaymentHooksConfig();
 		this._sessionInitialized = false;
 
+		// bind handler
+		this.hooksRouteHandler = this.routeHooks.bind(this);
+		this.dontListenHandler = this.stopListening.bind(this);
+
 		// listen for incoming post messages
 		this.startListening();
 	}
@@ -50,6 +54,13 @@ class VXPayPaymentFrame extends VXPayIframe {
 			.getElementsByTagName('body')
 			.item(0)
 			.appendChild(this._frame);
+	}
+
+	/**
+	 * @param {MessageEvent} event
+	 */
+	routeHooks(event) {
+		VXPayHookRouter(this._hooks, event, this._frame.id + '<VXPayPaymentFrame>');
 	}
 
 	/**
@@ -94,34 +105,16 @@ class VXPayPaymentFrame extends VXPayIframe {
 	 * listen for incoming messages
 	 */
 	startListening() {
-		VXPayEventListener.addEvent(
-			VXPayIframe.EVENT_MESSAGE,
-			this._frame.ownerDocument.defaultView,
-			(event) => VXPayHookRouter(this._hooks, event, this._frame.id + '<VXPayPaymentFrame>')
-		);
-
-		VXPayEventListener.addEvent(
-			VXPayIframe.EVENT_UNLOAD,
-			this._frame.ownerDocument.defaultView,
-			this.stopListening.bind(this)
-		);
+		VXPayEventListener.addEvent(VXPayIframe.EVENT_MESSAGE, this._frame.ownerDocument.defaultView, this.hooksRouteHandler);
+		VXPayEventListener.addEvent(VXPayIframe.EVENT_UNLOAD, this._frame.ownerDocument.defaultView, this.dontListenHandler);
 	}
 
 	/**
 	 * Remove listeners
 	 */
 	stopListening() {
-		VXPayEventListener.removeEvent(
-			VXPayIframe.EVENT_MESSAGE,
-			this._frame.ownerDocument.defaultView,
-			(event) => VXPayHookRouter(this._hooks, event, this._frame.id + '<VXPayPaymentFrame>')
-		);
-
-		VXPayEventListener.removeEvent(
-			VXPayIframe.EVENT_UNLOAD,
-			this._frame.ownerDocument.defaultView,
-			this.stopListening.bind(this)
-		);
+		VXPayEventListener.removeEvent(VXPayIframe.EVENT_MESSAGE, this._frame.ownerDocument.defaultView, this.hooksRouteHandler);
+		VXPayEventListener.removeEvent(VXPayIframe.EVENT_UNLOAD, this._frame.ownerDocument.defaultView, this.dontListenHandler);
 	}
 
 	/**
