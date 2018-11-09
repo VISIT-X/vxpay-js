@@ -5,8 +5,8 @@ import VXPayMessage            from './../../src/VXPay/VXPayMessage'
 describe('VXPayInitSessionMessage', () => {
 	describe('#constructor()', () => {
 		it('Should construct a correct object', () => {
-			const token = 'ndangdnadgn',
-			      msg = new VXPayInitSessionMessage(token);
+			const token = 'ndangdnadgn';
+			const msg = new VXPayInitSessionMessage(token);
 
 			assert.equal(token, msg.token, "Token doesn't match!");
 			assert.equal(VXPayMessage.TYPE_INIT_SESSION, msg.type, "Type doesn't march!");
@@ -14,10 +14,10 @@ describe('VXPayInitSessionMessage', () => {
 	});
 	describe('#toString()', () => {
 		it('Should convert to JSON when called', () => {
-			const token = 'gkrwkojbpijpi',
-			      msg = new VXPayInitSessionMessage(token);
+			const token = 'gkrwkojbpijpi';
+			const msg = new VXPayInitSessionMessage(token);
 
-			assert.equal('{"type":"modalbox-init-session","token":"gkrwkojbpijpi"}', msg.toString())
+			assert.equal('{"type":"modalbox-init-session","isAction":false,"token":"gkrwkojbpijpi"}', msg.toString())
 		})
 	});
 });

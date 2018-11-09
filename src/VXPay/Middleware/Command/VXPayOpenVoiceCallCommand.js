@@ -10,12 +10,12 @@ class VXPayOpenVoiceCallCommand {
 	static run(vxpay) {
 		vxpay.logger.log('VXPayOpenVoiceCallCommand::run()');
 
-		vxpay.paymentFrame
-			.then(frame => frame
-				.sendOptions(VXPayOpenVoiceCallCommand.PARAMS)
-				.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
-				.changeRoute(VXPayPaymentRoutes.VOICE_CALL)
-				.initSession());
+		vxpay.paymentFrame.then(frame => frame
+			.sendOptions(VXPayOpenVoiceCallCommand.PARAMS)
+			.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
+			.changeRoute(VXPayPaymentRoutes.VOICE_CALL)
+			.initSession()
+		);
 
 		return vxpay;
 	}

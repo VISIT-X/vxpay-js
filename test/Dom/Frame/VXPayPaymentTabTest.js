@@ -4,12 +4,15 @@ import {describe, it, beforeEach} from 'mocha';
 import {given}                    from 'mocha-testdata';
 import VXPayPaymentTab            from './../../../src/VXPay/Dom/Frame/VXPayPaymentTab';
 import VXPayTestFx                from './../../Fixtures/VXPayTestFx';
-import VXPayConfig                from './../../../src/VXPay/VXPayConfig';
-import VXPayPaymentHooksConfig    from './../../../src/VXPay/Config/VXPayPaymentHooksConfig';
-import VXPayLanguage              from './../../../src/VXPay/VXPayLanguage';
-import VXPayFlow                  from './../../../src/VXPay/Config/VXPayFlow';
-import VXPayPaymentRoutes         from '../../../src/VXPay/Config/VXPayPaymentRoutes';
-import VXPayPaymentFrame          from '../../../src/VXPay/Dom/Frame/VXPayPaymentFrame';
+import VXPayConfig                  from './../../../src/VXPay/VXPayConfig';
+import VXPayPaymentHooksConfig       from './../../../src/VXPay/Config/VXPayPaymentHooksConfig';
+import VXPayLanguage                 from './../../../src/VXPay/VXPayLanguage';
+import VXPayFlow                     from './../../../src/VXPay/Config/VXPayFlow';
+import VXPayPaymentRoutes            from '../../../src/VXPay/Config/VXPayPaymentRoutes';
+import VXPayPaymentFrame             from '../../../src/VXPay/Dom/Frame/VXPayPaymentFrame';
+import VXPayIsLoggedInActionMessage  from '../../../src/VXPay/Message/Actions/VXPayIsLoggedInActionMessage';
+import VXPayAdditionalOptionsMessage from '../../../src/VXPay/Message/VXPayAdditionalOptionsMessage';
+import {JSDOM}                       from 'jsdom';
 
 describe('VXPayPaymentTab', () => {
 
@@ -22,19 +25,24 @@ describe('VXPayPaymentTab', () => {
 	/** @var {Document} */
 	let doc;
 
+	/** @var {VXPayPaymentHooksConfig} */
+	let hooks;
+
 	beforeEach(done => {
 		doc    = VXPayTestFx.getDocument();
+		hooks  = new VXPayPaymentHooksConfig();
 		config = new VXPayConfig(doc.defaultView);
-		tab    = new VXPayPaymentTab(doc, 'test', config);
+		tab    = new VXPayPaymentTab(doc, 'test', config, hooks);
 		done();
 	});
 
 	describe('#constructor()', () => {
 		it('Should construct a valid object', () => {
 			assert.instanceOf(tab, VXPayPaymentTab);
-			assert.instanceOf(tab.hooks, VXPayPaymentHooksConfig);
+			assert.instanceOf(tab._hooks, VXPayPaymentHooksConfig);
 			assert.equal(tab.route, VXPayPaymentTab.DEFAULT_ROUTE);
 			assert.equal(tab.config, config);
+			assert.equal(tab._hooks, hooks);
 			assert.equal(tab.document, doc);
 			assert.equal(tab.name, 'test');
 			assert.isFalse(tab.loaded);
@@ -77,67 +85,62 @@ describe('VXPayPaymentTab', () => {
 				assert.equal(tab.route, route);
 			});
 	});
-	describe('#triggerLoad()', () => {
-		it('Should create a new tab', done => {
-			// re-define function to mock
-			tab.getNewTab = () => {
-				assert.isTrue(true);
-				done();
-			};
-
-			try {
-				tab.triggerLoad();
-			} catch (err) { /* ignore */
-			}
+	describe('#getNewTab()', () => {
+		it('Does not do anything when `doLoad` is false', () => {
+			assert.equal(tab.getNewTab(), undefined);
 		});
-		it('Should start listening for postMessage-s', done => {
-			const window = VXPayTestFx.getWindow();
+		it('Triggers load then `doLoad` is true', () => {
+			// set dummy function to window.open
+			tab._document.defaultView.open = () => {};
 
-			// re-define functions to mock
-			tab.getNewTab      = () => new Promise(resolve => resolve(window));
-			tab.startListening = (wnd) => {
-				assert.equal(wnd, window);
-				done();
-			};
+			// set mock
+			sinon.spy(tab._document.defaultView, 'open');
+			tab.getNewTab(true);
 
-			try {
-				tab.triggerLoad();
-			} catch (err) { /* ignore */
-			}
+			assert.isTrue(tab._document.defaultView.open.called);
+			assert.equal(tab._document.defaultView.open.getCall(0).args[0], tab._config.getPaymentFrameUrl() + '#' + tab._route);
+			assert.equal(tab._document.defaultView.open.getCall(0).args[1], tab._name);
 		});
 	});
-	describe('#getNewTab()', () => {
-		it('Should open a new window', done => {
-			const targetUrl = tab.config.getPaymentFrameUrl() + '#' + tab.route;
+	describe('#triggerLoad()', () => {
+		it('Always returns a promise (resolved)', done => {
+			// mock with dummy function to avoid errors
+			tab._document.defaultView.open = () => {};
+			sinon.spy(tab._document.defaultView, 'open');
 
-			// define window open function
-			tab.document.defaultView.open = (url, name) => {
-				assert.equal(url, targetUrl);
-				assert.equal(name, 'test');
-				done();
-			};
-
-			tab.getNewTab();
+			assert.instanceOf(tab.triggerLoad(), Promise);
+			tab.triggerLoad().then(done);
 		});
-		it('Should resolve when window already open', done => {
-			const dummyWindow = {
-				closed: false
-			};
+	});
+	describe('#postMessage()', () => {
+		it('Routes messages to iFrame if it is an ActionMessage', () => {
+			const message = new VXPayIsLoggedInActionMessage();
 
-			// set to be opened
-			tab.document.defaultView.open = () => dummyWindow;
+			sinon.spy(tab._invisibleFrame, 'postMessage');
 
-			// call first time to open
-			tab.getNewTab().then(wnd => {
-				assert.equal(wnd, dummyWindow);
-				dummyWindow.pass = true;
-			});
+			tab.postMessage(message);
 
-			// and call again
-			tab.getNewTab().then(wnd => {
-				assert.isTrue(wnd.pass);
-				done();
-			});
+			assert.isTrue(tab._invisibleFrame.postMessage.called);
+			assert.equal(tab._invisibleFrame.postMessage.getCall(0).args[0], message);
+		});
+		it('Routes messages to tab if it is NOT an ActionMessage and will wait for tab to open', () => {
+			const message = new VXPayAdditionalOptionsMessage({'test': 'some'});
+
+			tab.postMessage(message);
+
+			assert.isNull(tab._window);
+		});
+		it('Routes messages to tab if it is NOT an ActionMessage and execute after load', () => {
+			const message = new VXPayAdditionalOptionsMessage({'test': 'some'});
+			const vxpPayWindow = (new JSDOM(VXPayTestFx.DOC)).window;
+
+			sinon.spy(vxpPayWindow, 'postMessage');
+
+			// set dummy function to window.open
+			tab._document.defaultView.open = (url, name) => vxpPayWindow;
+
+			tab.postMessage(message);
+			return tab.triggerLoad().then(() => assert.isTrue(vxpPayWindow.postMessage.called));
 		});
 	});
 });

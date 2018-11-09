@@ -7,8 +7,8 @@ import VXPayTestFx             from './../Fixtures/VXPayTestFx'
 describe('VXPayChangeRouteMessage', () => {
 	describe('#constructor()', () => {
 		it('Should build a correct object', () => {
-			const route = 'new-route',
-			      msg   = new VXPayChangeRouteMessage(route);
+			const route = 'new-route';
+			const msg   = new VXPayChangeRouteMessage(route);
 
 			assert.equal(msg.type, VXPayMessage.TYPE_CHANGE_ROUTE);
 			assert.equal(msg.route, route);

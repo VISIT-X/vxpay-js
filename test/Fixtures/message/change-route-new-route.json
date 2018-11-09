@@ -1,4 +1,5 @@
 {
 	"type": "modalbox-change-route",
+	"isAction": false,
 	"route": "new-route"
 }

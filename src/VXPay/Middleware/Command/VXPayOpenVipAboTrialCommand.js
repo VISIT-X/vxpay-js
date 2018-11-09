@@ -10,20 +10,12 @@ import VXPayPaymentRoutes from './../../Config/VXPayPaymentRoutes'
 const VXPayOpenVipAboTrialCommand = (vxpay, flowOptions = {}) => {
 	vxpay.logger.log('VXPayOpenVipAboTrialCommand()');
 
-	vxpay.paymentFrame
-		.then(frame => {
-			frame
-				.initSession()
-				.sendOptions({'flow': VXPayFlow.TRIAL_VIP_ABO});
-
-			if (flowOptions) {
-				frame.sendUpdateParams(flowOptions);
-			}
-
-			frame
-				.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
-				.changeRoute(VXPayPaymentRoutes.ABO)
-		});
+	vxpay.paymentFrame.then(frame => frame
+		.initSession()
+		.sendOptions(Object.assign({}, {'flow': VXPayFlow.TRIAL_VIP_ABO}, flowOptions))
+		.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
+		.changeRoute(VXPayPaymentRoutes.ABO)
+	);
 
 	return vxpay;
 };

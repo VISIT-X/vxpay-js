@@ -88,20 +88,6 @@ class VXPayIframe extends VXPayEventListener {
 		return this;
 	}
 
-	/**
-	 * @param {Function} handler
-	 */
-	setMessageHandler(handler) {
-		VXPayEventListener.addEvent(VXPayIframe.EVENT_MESSAGE, this._frame.contentWindow, handler);
-	}
-
-	/**
-	 * @param {Function} handler
-	 */
-	removeMessageHandler(handler) {
-		VXPayEventListener.removeEvent(VXPayIframe.EVENT_MESSAGE, this._frame.contentWindow, handler);
-	}
-
 	show() {
 		this._frame.style.display = VXPayIframe.DISPLAY_BLOCK;
 	}

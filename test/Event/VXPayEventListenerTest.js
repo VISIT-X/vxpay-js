@@ -1,16 +1,16 @@
-import {assert}           from 'chai'
-import {describe, it}     from 'mocha'
-import sinon              from 'sinon'
-import VXPayTestFx        from './../Fixtures/VXPayTestFx'
-import VXPayEventListener from './../../src/VXPay/Event/VXPayEventListener'
+import {assert}           from 'chai';
+import {describe, it}     from 'mocha';
+import sinon              from 'sinon';
+import VXPayTestFx        from './../Fixtures/VXPayTestFx';
+import VXPayEventListener from './../../src/VXPay/Event/VXPayEventListener';
 
 describe('VXPayEventListener', () => {
 	describe('#addEvent', () => {
 		it('Should use addEventListener when possible', () => {
-			const event   = 'load',
-			      doc     = VXPayTestFx.getDocument(),
-			      element = doc.getElementById('body'),
-			      handler = () => {};
+			const event   = 'load';
+			const doc     = VXPayTestFx.getDocument();
+			const element = doc.getElementById('body');
+			const handler = () => {};
 
 			// mock addEventListener
 			sinon.spy(element, 'addEventListener');
@@ -21,16 +21,17 @@ describe('VXPayEventListener', () => {
 			assert.isTrue(element.addEventListener.called);
 			assert.equal(element.addEventListener.getCall(0).args[0], event);
 			assert.equal(element.addEventListener.getCall(0).args[1], handler);
-			assert.isFalse(element.addEventListener.getCall(0).args[2]);
+			assert.isObject(element.addEventListener.getCall(0).args[2]);
+			assert.isTrue(element.addEventListener.getCall(0).args[2].passive);
 
 			// restore mock
 			element.addEventListener.restore();
 		});
 		it('IE is sooooo IE ....', () => {
-			const event   = 'load',
-			      doc     = VXPayTestFx.getDocument(),
-			      element = doc.getElementById('body'),
-			      handler = () => {};
+			const event   = 'load';
+			const doc     = VXPayTestFx.getDocument();
+			const  element = doc.getElementById('body');
+			const handler = () => {};
 
 			// disable addEventListener
 			element.addEventListener = false;
@@ -52,9 +53,9 @@ describe('VXPayEventListener', () => {
 			element.attachEvent.restore();
 		});
 		it('If passed an Array, will just store handler', () => {
-			const event   = 'load',
-			      element = [],
-			      handler = () => {};
+			const event   = 'load';
+			const element = [];
+			const handler = () => {};
 
 			VXPayEventListener.addEvent(event, element, handler);
 
@@ -63,10 +64,10 @@ describe('VXPayEventListener', () => {
 	});
 	describe('#removeEvent', () => {
 		it('Should use removeEventListener when possible', () => {
-			const event   = 'load',
-			      doc     = VXPayTestFx.getDocument(),
-			      element = doc.getElementById('body'),
-			      handler = () => {};
+			const event   = 'load';
+			const doc     = VXPayTestFx.getDocument();
+			const element = doc.getElementById('body');
+			const handler = () => {};
 
 			// mock addEventListener
 			sinon.spy(element, 'removeEventListener');
@@ -77,16 +78,17 @@ describe('VXPayEventListener', () => {
 			assert.isTrue(element.removeEventListener.called);
 			assert.equal(element.removeEventListener.getCall(0).args[0], event);
 			assert.equal(element.removeEventListener.getCall(0).args[1], handler);
-			assert.isFalse(element.removeEventListener.getCall(0).args[2]);
+			assert.isObject(element.removeEventListener.getCall(0).args[2]);
+			assert.isTrue(element.removeEventListener.getCall(0).args[2].passive);
 
 			// restore mock
 			element.removeEventListener.restore();
 		});
 		it('IE is sooooo IE ....', () => {
-			const event   = 'load',
-			      doc     = VXPayTestFx.getDocument(),
-			      element = doc.getElementById('body'),
-			      handler = () => {};
+			const event   = 'load';
+			const doc     = VXPayTestFx.getDocument();
+			const element = doc.getElementById('body');
+			const handler = () => {};
 
 			// disable addEventListener
 			element.removeEventListener = false;
@@ -108,9 +110,9 @@ describe('VXPayEventListener', () => {
 			element.detachEvent.restore();
 		});
 		it('If passed an Array, will removehandler', () => {
-			const event   = 'load',
-			      element = [],
-			      handler = () => {};
+			const event   = 'load';
+			const element = [];
+			const handler = () => {};
 
 			VXPayEventListener.removeEvent(event, element, handler);
 

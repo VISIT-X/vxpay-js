@@ -21,6 +21,7 @@ class VXPayFlow {
 			VXPayFlow.CHANGE_LS,
 			VXPayFlow.ONE_CLICK,
 			VXPayFlow.AUTO_RECHARGE,
+			VXPayFlow.SIGNUP,
 		];
 	}
 
@@ -35,6 +36,7 @@ class VXPayFlow {
 VXPayFlow.AVS             = 'avs';
 VXPayFlow.LIMIT           = 'limit';
 VXPayFlow.LOGIN           = 'login';
+VXPayFlow.SIGNUP          = 'signup';
 VXPayFlow.MONEY_CHARGE    = 'moneycharge';
 VXPayFlow.OP_COMPENSATION = 'opcompensation';
 VXPayFlow.AUTO_RECHARGE   = 'autorecharge';

@@ -16,7 +16,7 @@ describe('VXPayGetAVSStatusMessage', () => {
 		it('Should serialize to JSON', () => {
 			assert.equal(
 				(new VXPayGetAVSStatusMessage).toString(),
-				'{"type":"modalbox-action-getavsstatus"}'
+				'{"type":"modalbox-action-getavsstatus","isAction":true}'
 			);
 		});
 	});

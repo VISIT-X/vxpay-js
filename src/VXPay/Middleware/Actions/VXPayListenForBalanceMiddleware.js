@@ -7,11 +7,9 @@
  */
 const VXPayListenForBalanceMiddleware = (vxpay, resolve, reject) => {
 	try {
-		vxpay.hooks.then(hooks => {
-			if (!hooks.hasOnBalance(resolve)) {
-				hooks.onBalance(resolve);
-			}
-		});
+		if (!vxpay._hooks.hasOnBalance(resolve)) {
+			vxpay._hooks.onBalance(resolve);
+		}
 
 		return vxpay;
 	} catch (err) {

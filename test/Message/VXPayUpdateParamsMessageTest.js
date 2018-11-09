@@ -13,11 +13,11 @@ describe('VXPayUpdateParamsMessageTest', () => {
 	describe('#toString()', () => {
 		it('Should convert to JSON when called', () => {
 			assert.equal(
-				'{"type":"modalbox-update-params","options":{}}',
+				'{"type":"modalbox-update-params","isAction":false,"options":{}}',
 				(new VXPayUpdateParamsMessage).toString()
 			);
 			assert.equal(
-				'{"type":"modalbox-update-params","options":{"test":"foobar"}}',
+				'{"type":"modalbox-update-params","isAction":false,"options":{"test":"foobar"}}',
 				(new VXPayUpdateParamsMessage({test: "foobar"})).toString()
 			)
 		})

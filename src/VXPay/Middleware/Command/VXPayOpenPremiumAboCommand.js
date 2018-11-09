@@ -9,20 +9,12 @@ import VXPayPaymentRoutes from './../../Config/VXPayPaymentRoutes'
 const VXPayOpenPremiumAboCommand = (vxpay, flowOptions = {}) => {
 	vxpay.logger.log('VXPayOpenPaymentCommand()');
 
-	vxpay.paymentFrame
-		.then(frame => {
-			frame
-				.initSession()
-				.sendOptions({'flow': VXPayFlow.VXTV_ABO});
-
-			if (flowOptions) {
-				frame.sendUpdateParams(flowOptions);
-			}
-
-			frame
-				.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
-				.changeRoute(VXPayPaymentRoutes.ABO);
-		});
+	vxpay.paymentFrame.then(frame => frame
+		.initSession()
+		.sendOptions(Object.assign({}, {'flow': VXPayFlow.VXTV_ABO}, flowOptions))
+		.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
+		.changeRoute(VXPayPaymentRoutes.ABO)
+	);
 
 	return vxpay;
 };

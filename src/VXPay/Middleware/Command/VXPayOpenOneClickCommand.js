@@ -10,20 +10,12 @@ class VXPayOpenOneClickCommand {
 	static run(vxpay, flowOptions = {}) {
 		vxpay.logger.log('VXPayOpenOneClickCommand()');
 
-		vxpay.paymentFrame
-			.then(frame => {
-				frame
-					.initSession()
-					.sendOptions(VXPayOpenOneClickCommand.PARAMS);
-
-				if (flowOptions) {
-					frame.sendUpdateParams(flowOptions);
-				}
-
-				frame
-					.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
-					.changeRoute(VXPayPaymentRoutes.ONE_CLICK)
-			});
+		vxpay.paymentFrame.then(frame => frame
+			.initSession()
+			.sendOptions(Object.assign({}, VXPayOpenOneClickCommand.PARAMS, flowOptions))
+			.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
+			.changeRoute(VXPayPaymentRoutes.ONE_CLICK)
+		);
 
 		return vxpay;
 	}

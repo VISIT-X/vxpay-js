@@ -7,11 +7,9 @@
  */
 const VXPayListenForActiveAbosMiddleware = (vxpay, resolve, reject) => {
 	try {
-		vxpay.hooks.then(hooks => {
-			if (!hooks.hasOnActiveAbos(resolve)) {
-				hooks.onActiveAbos(resolve);
-			}
-		})
+		if (!vxpay._hooks.hasOnActiveAbos(resolve)) {
+			vxpay._hooks.onActiveAbos(resolve);
+		}
 	} catch (err) {
 		reject(err);
 	}

@@ -10,20 +10,12 @@ import VXPayPaymentRoutes from './../../Config/VXPayPaymentRoutes'
 const VXPayOpenPromoCodeCommand = (vxpay, flowOptions) => {
 	vxpay.logger.log('VXPayOpenPromoCodeCommand()');
 
-	vxpay.paymentFrame
-		.then(frame => {
-			frame
-				.initSession()
-				.sendOptions({'flow': VXPayFlow.PROMOCODE});
-
-			if (flowOptions) {
-				frame.sendUpdateParams(flowOptions);
-			}
-
-			frame
-				.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
-				.changeRoute(VXPayPaymentRoutes.PROMOCODE)
-		});
+	vxpay.paymentFrame.then(frame => frame
+		.initSession()
+		.sendOptions(Object.assign({}, {'flow': VXPayFlow.PROMOCODE}, flowOptions))
+		.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
+		.changeRoute(VXPayPaymentRoutes.PROMOCODE)
+	);
 
 	return vxpay;
 };

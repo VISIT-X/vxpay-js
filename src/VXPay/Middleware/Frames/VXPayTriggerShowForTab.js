@@ -8,7 +8,7 @@ const VXPayTriggerShowForTab = (vxpay) => {
 
 	// ony for tab config - trigger show manually
 	if (vxpay.config.enableTab) {
-		vxpay.paymentFrame.then(frame => frame.show());
+		vxpay._paymentFrame.triggerLoad();
 	}
 
 	return vxpay;
