@@ -28,7 +28,7 @@ describe('VXPayAVSStatusTriggerMiddleware', () => {
 			const after = VXPayAVSStatusTriggerMiddleware(vxpay);
 
 			// hooks count not changed
-			assert.lengthOf(vxpay.hooks._onTransferToken, 2);
+			assert.lengthOf(vxpay._hooks._onTransferToken, 2);
 			assert.instanceOf(after, VXPay);
 
 			// check post message sent (compare in JSON)

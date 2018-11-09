@@ -29,23 +29,23 @@ const VXPayInitPaymentMiddleware = (vxpay, resolve, load = true) => {
 	vxpay.state.isFrameInProgress = load;
 
 	if (vxpay.config.enableTab) {
-		vxpay._paymentFrame = new VXPayPaymentTab(vxpay.window.document, VXPayPaymentTab.NAME, vxpay.config, vxpay.hooks);
+		vxpay._paymentFrame = new VXPayPaymentTab(vxpay.window.document, VXPayPaymentTab.NAME, vxpay.config, vxpay._hooks);
 	} else {
 		vxpay._paymentFrame = !vxpay.hasOwnProperty('_paymentFrame')
-			? new VXPayPaymentFrame(vxpay.window.document, vxpay.config.getPaymentFrameUrl(), VXPayPaymentFrame.NAME, vxpay.hooks)
+			? new VXPayPaymentFrame(vxpay.window.document, vxpay.config.getPaymentFrameUrl(), VXPayPaymentFrame.NAME, vxpay._hooks)
 			: vxpay._paymentFrame;
 	}
 
 	if (!vxpay._paymentFrame.loaded) {
 		// do we need logging?
 		if (vxpay.config.logging) {
-			vxpay.hooks
+			vxpay._hooks
 				.onAny(msg => vxpay.logger.log(VXPayLogger.LOG_INCOMING, msg))
 				.onBeforeSend(msg => vxpay.logger.log(VXPayLogger.LOG_OUTGOING, msg));
 		}
 
 		// set resolve hook
-		vxpay.hooks
+		vxpay._hooks
 			// state updates
 			.onIframeReady(vxpay.state.markFrameReady.bind(vxpay.state))
 			.onContentLoaded(vxpay.state.markContentLoaded.bind(vxpay.state))

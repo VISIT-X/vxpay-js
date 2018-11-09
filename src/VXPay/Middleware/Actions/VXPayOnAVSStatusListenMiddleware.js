@@ -7,8 +7,8 @@
  */
 const VXPayOnAVSStatusListenMiddleware = (vxpay, resolve, reject) => {
 	try {
-		if (!vxpay.hooks.hasOnAVSStatus(resolve)) {
-			vxpay.hooks.onAVSStatus(resolve);
+		if (!vxpay._hooks.hasOnAVSStatus(resolve)) {
+			vxpay._hooks.onAVSStatus(resolve);
 		}
 
 		return vxpay;

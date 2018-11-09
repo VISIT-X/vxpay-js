@@ -74,7 +74,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "a34bbab9fe18765921a1";
+/******/ 	var hotCurrentHash = "1a9f17e280316f16fa6c";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -946,7 +946,7 @@ function () {
      * @return {String[]}
      */
     value: function getAllowed() {
-      return [VXPayFlow.AVS, VXPayFlow.LIMIT, VXPayFlow.LOGIN, VXPayFlow.MONEY_CHARGE, VXPayFlow.OP_COMPENSATION, VXPayFlow.PASSWORD_RESET, VXPayFlow.PASSWORD_LOST, VXPayFlow.PROMOCODE, VXPayFlow.SCRATCH_CARD, VXPayFlow.TRIAL_VIP_ABO, VXPayFlow.VIP_ABO, VXPayFlow.VXTV_ABO, VXPayFlow.SETTINGS, VXPayFlow.CHANGE_CARD, VXPayFlow.CHANGE_LS, VXPayFlow.ONE_CLICK, VXPayFlow.AUTO_RECHARGE];
+      return [VXPayFlow.AVS, VXPayFlow.LIMIT, VXPayFlow.LOGIN, VXPayFlow.MONEY_CHARGE, VXPayFlow.OP_COMPENSATION, VXPayFlow.PASSWORD_RESET, VXPayFlow.PASSWORD_LOST, VXPayFlow.PROMOCODE, VXPayFlow.SCRATCH_CARD, VXPayFlow.TRIAL_VIP_ABO, VXPayFlow.VIP_ABO, VXPayFlow.VXTV_ABO, VXPayFlow.SETTINGS, VXPayFlow.CHANGE_CARD, VXPayFlow.CHANGE_LS, VXPayFlow.ONE_CLICK, VXPayFlow.AUTO_RECHARGE, VXPayFlow.SIGNUP];
     }
     /**
      * @return {string}
@@ -965,6 +965,7 @@ function () {
 VXPayFlow.AVS = 'avs';
 VXPayFlow.LIMIT = 'limit';
 VXPayFlow.LOGIN = 'login';
+VXPayFlow.SIGNUP = 'signup';
 VXPayFlow.MONEY_CHARGE = 'moneycharge';
 VXPayFlow.OP_COMPENSATION = 'opcompensation';
 VXPayFlow.AUTO_RECHARGE = 'autorecharge';
@@ -1500,7 +1501,9 @@ function () {
     value: function addEvent(event, elem, func) {
       if (elem.addEventListener) {
         // W3C DOM
-        elem.addEventListener(event, func, false);
+        elem.addEventListener(event, func, {
+          passive: true
+        });
       } else if (elem.attachEvent) {
         // IE DOM
         elem.attachEvent(VXPayEventListener.IE_PREFIX + event, func);
@@ -1520,7 +1523,9 @@ function () {
     value: function removeEvent(event, elem, func) {
       if (elem.removeEventListener) {
         // W3C DOM
-        elem.removeEventListener(event, func, false);
+        elem.removeEventListener(event, func, {
+          passive: true
+        });
       } else if (elem.detachEvent) {
         // IE DOM
         elem.detachEvent(VXPayEventListener.IE_PREFIX + event, func);
@@ -1799,24 +1804,6 @@ function (_VXPayEventListener) {
       this._frame.contentWindow.postMessage(message.toString(), origin);
 
       return this;
-    }
-    /**
-     * @param {Function} handler
-     */
-
-  }, {
-    key: "setMessageHandler",
-    value: function setMessageHandler(handler) {
-      Event_VXPayEventListener.addEvent(VXPayIframe.EVENT_MESSAGE, this._frame.contentWindow, handler);
-    }
-    /**
-     * @param {Function} handler
-     */
-
-  }, {
-    key: "removeMessageHandler",
-    value: function removeMessageHandler(handler) {
-      Event_VXPayEventListener.removeEvent(VXPayIframe.EVENT_MESSAGE, this._frame.contentWindow, handler);
     }
   }, {
     key: "show",
@@ -2532,6 +2519,7 @@ function () {
     VXPayMessage_classCallCheck(this, VXPayMessage);
 
     this.type = type;
+    this.isAction = false;
   }
   /**
    * @return {string}
@@ -4467,8 +4455,57 @@ function (_VXPayMessage) {
 }(VXPay_VXPayMessage);
 
 
+// CONCATENATED MODULE: ./src/VXPay/Message/VXPayAdditionalOptionsMessage.js
+function VXPayAdditionalOptionsMessage_typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { VXPayAdditionalOptionsMessage_typeof = function _typeof(obj) { return typeof obj; }; } else { VXPayAdditionalOptionsMessage_typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return VXPayAdditionalOptionsMessage_typeof(obj); }
+
+function VXPayAdditionalOptionsMessage_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function VXPayAdditionalOptionsMessage_possibleConstructorReturn(self, call) { if (call && (VXPayAdditionalOptionsMessage_typeof(call) === "object" || typeof call === "function")) { return call; } return VXPayAdditionalOptionsMessage_assertThisInitialized(self); }
+
+function VXPayAdditionalOptionsMessage_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function VXPayAdditionalOptionsMessage_getPrototypeOf(o) { VXPayAdditionalOptionsMessage_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return VXPayAdditionalOptionsMessage_getPrototypeOf(o); }
+
+function VXPayAdditionalOptionsMessage_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) VXPayAdditionalOptionsMessage_setPrototypeOf(subClass, superClass); }
+
+function VXPayAdditionalOptionsMessage_setPrototypeOf(o, p) { VXPayAdditionalOptionsMessage_setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return VXPayAdditionalOptionsMessage_setPrototypeOf(o, p); }
+
+
+
+var VXPayAdditionalOptionsMessage_VXPayAdditionalOptionsMessage =
+/*#__PURE__*/
+function (_VXPayMessage) {
+  VXPayAdditionalOptionsMessage_inherits(VXPayAdditionalOptionsMessage, _VXPayMessage);
+
+  /**
+   * @param {Object} options
+   */
+  function VXPayAdditionalOptionsMessage() {
+    var _this;
+
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+    VXPayAdditionalOptionsMessage_classCallCheck(this, VXPayAdditionalOptionsMessage);
+
+    _this = VXPayAdditionalOptionsMessage_possibleConstructorReturn(this, VXPayAdditionalOptionsMessage_getPrototypeOf(VXPayAdditionalOptionsMessage).call(this, VXPay_VXPayMessage.TYPE_ADDITIONAL_INFO));
+    _this.options = options;
+    return _this;
+  }
+
+  return VXPayAdditionalOptionsMessage;
+}(VXPay_VXPayMessage);
+
+/* harmony default export */ var Message_VXPayAdditionalOptionsMessage = (VXPayAdditionalOptionsMessage_VXPayAdditionalOptionsMessage);
 // CONCATENATED MODULE: ./src/VXPay/Config/VXPayPaymentHooksConfig.js
 function VXPayPaymentHooksConfig_typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { VXPayPaymentHooksConfig_typeof = function _typeof(obj) { return typeof obj; }; } else { VXPayPaymentHooksConfig_typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return VXPayPaymentHooksConfig_typeof(obj); }
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
 function VXPayPaymentHooksConfig_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -4806,6 +4843,37 @@ function (_VXPayHooksConfig) {
 
       return this;
     }
+    /**
+     * @return {VXPayPaymentHooksConfig}
+     */
+
+  }, {
+    key: "clone",
+    value: function clone() {
+      var clone = new VXPayPaymentHooksConfig();
+      clone._onViewReady = _toConsumableArray(this._onViewReady);
+      clone._onContentLoaded = _toConsumableArray(this._onContentLoaded);
+      clone._onClose = _toConsumableArray(this._onClose);
+      clone._onSuccess = _toConsumableArray(this._onSuccess);
+      clone._onIframeReady = _toConsumableArray(this._onIframeReady);
+      clone._onLogin = _toConsumableArray(this._onLogin);
+      clone._onLogout = _toConsumableArray(this._onLogout);
+      clone._onFlowChange = _toConsumableArray(this._onFlowChange);
+      clone._onIsLoggedIn = _toConsumableArray(this._onIsLoggedIn);
+      clone._onTransferToken = _toConsumableArray(this._onTransferToken);
+      clone._onAVSStatus = _toConsumableArray(this._onAVSStatus);
+      clone._onBalance = _toConsumableArray(this._onBalance);
+      clone._onActiveAbos = _toConsumableArray(this._onActiveAbos);
+      clone._onPayment = _toConsumableArray(this._onPayment);
+      clone._onSignup = _toConsumableArray(this._onSignup);
+      clone._onComfortSettingsChanged = _toConsumableArray(this._onComfortSettingsChanged);
+      clone._onEmailVerified = _toConsumableArray(this._onEmailVerified);
+      clone._onEmailNotVerified = _toConsumableArray(this._onEmailNotVerified);
+      clone._onAny = _toConsumableArray(this._onAny);
+      clone._onBeforeSend = _toConsumableArray(this._onBeforeSend);
+      clone._onLoad = _toConsumableArray(this._onLoad);
+      return clone;
+    }
   }]);
 
   return VXPayPaymentHooksConfig;
@@ -4831,140 +4899,6 @@ VXPayPaymentHooksConfig.ON_EMAIL_VERIFIED = 'onEmailVerified';
 VXPayPaymentHooksConfig.ON_EMAIL_NOT_VERIFIED = 'onEmailNotVerified';
 VXPayPaymentHooksConfig.ON_PASSWORD_CHANGED = 'onPasswordChanged';
 /* harmony default export */ var Config_VXPayPaymentHooksConfig = (VXPayPaymentHooksConfig);
-// CONCATENATED MODULE: ./src/VXPay/Message/Hooks/VXPayHookRouter.js
-
-
-
-
-
-/**
- * @param {VXPayPaymentHooksConfig} hooks
- * @param {MessageEvent|Object} event
- * @param {String|undefined} sourceTab
- * @return {boolean}
- * @throws {TypeError}
- * @constructor
- */
-
-var VXPayHookRouter_VXPayHookRouter = function VXPayHookRouter(hooks, event) {
-  var sourceTab = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : undefined;
-
-  // origin check
-  if (event.origin && Dom_VXPayIframe.ORIGIN_VX.indexOf(event.origin) === -1) {
-    return false;
-  } // parse message
-
-
-  var message = VXPayMessageFactory_VXPayMessageFactory.fromJson(event.data); // route any
-
-  hooks.trigger(Config_VXPayPaymentHooksConfig.ON_ANY, [message], sourceTab);
-
-  switch (message.type) {
-    case VXPay_VXPayMessage.TYPE_TRANSFER_TOKEN:
-      return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_TRANSFER_TOKEN, [message], sourceTab);
-
-    case VXPay_VXPayMessage.TYPE_AVS_STATUS:
-      return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_AVS_STATUS, [message], sourceTab);
-
-    case VXPay_VXPayMessage.TYPE_BALANCE:
-      return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_BALANCE, [message], sourceTab);
-
-    case VXPay_VXPayMessage.TYPE_ACTIVE_ABOS:
-      return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_ACTIVE_ABOS, [message], sourceTab);
-
-    case VXPay_VXPayMessage.TYPE_IFRAME_READY:
-      return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_IFRAME_READY, [message], sourceTab);
-
-    case VXPay_VXPayMessage.TYPE_CONTENT_LOADED:
-      return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_CONTENT_LOADED, [message], sourceTab);
-
-    case VXPay_VXPayMessage.TYPE_VIEW_READY:
-      return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_VIEW_READY, [message], sourceTab);
-
-    case VXPay_VXPayMessage.TYPE_IFRAME_CLOSE:
-      return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_CLOSE, [message], sourceTab);
-
-    case VXPay_VXPayMessage.TYPE_SUCCESS:
-      return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_SUCCESS, [message], sourceTab);
-
-    case VXPay_VXPayMessage.TYPE_IS_LOGGED_IN:
-      return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_IS_LOGGED_IN, [message], sourceTab);
-
-    case VXPay_VXPayMessage.TYPE_LOGGED_OUT:
-      return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_LOGOUT, [message], sourceTab);
-
-    case VXPay_VXPayMessage.TYPE_HOOK:
-      switch (message.hook) {
-        case Hooks_VXPayHookMessage.HOOK_LOGIN:
-          return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_LOGIN, [message], sourceTab);
-
-        case Hooks_VXPayHookMessage.HOOK_FLOW_CHANGED:
-          return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_FLOW_CHANGE, [message], sourceTab);
-
-        case Hooks_VXPayHookMessage.HOOK_PAYMENT:
-          return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_PAYMENT, [message], sourceTab);
-
-        case Hooks_VXPayHookMessage.HOOK_SIGNUP:
-          return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_SIGNUP, [message], sourceTab);
-
-        case Hooks_VXPayHookMessage.HOOK_COMFORT_SETTINGS_CHANGED:
-          return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_COMFORT_SETTINGS_CHANGE, [message], sourceTab);
-
-        case Hooks_VXPayHookMessage.HOOK_EMAIL_VERIFIED:
-          return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_EMAIL_VERIFIED, [message], sourceTab);
-
-        case Hooks_VXPayHookMessage.HOOK_EMAIL_NOT_VERIFIED:
-          return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_EMAIL_NOT_VERIFIED, [message], sourceTab);
-
-        case Hooks_VXPayHookMessage.HOOK_PASSWORD_CHANGED:
-          return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_PASSWORD_CHANGED, [message], sourceTab);
-      }
-
-  }
-};
-
-/* harmony default export */ var Hooks_VXPayHookRouter = (VXPayHookRouter_VXPayHookRouter);
-// CONCATENATED MODULE: ./src/VXPay/Message/VXPayAdditionalOptionsMessage.js
-function VXPayAdditionalOptionsMessage_typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { VXPayAdditionalOptionsMessage_typeof = function _typeof(obj) { return typeof obj; }; } else { VXPayAdditionalOptionsMessage_typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return VXPayAdditionalOptionsMessage_typeof(obj); }
-
-function VXPayAdditionalOptionsMessage_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function VXPayAdditionalOptionsMessage_possibleConstructorReturn(self, call) { if (call && (VXPayAdditionalOptionsMessage_typeof(call) === "object" || typeof call === "function")) { return call; } return VXPayAdditionalOptionsMessage_assertThisInitialized(self); }
-
-function VXPayAdditionalOptionsMessage_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function VXPayAdditionalOptionsMessage_getPrototypeOf(o) { VXPayAdditionalOptionsMessage_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return VXPayAdditionalOptionsMessage_getPrototypeOf(o); }
-
-function VXPayAdditionalOptionsMessage_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) VXPayAdditionalOptionsMessage_setPrototypeOf(subClass, superClass); }
-
-function VXPayAdditionalOptionsMessage_setPrototypeOf(o, p) { VXPayAdditionalOptionsMessage_setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return VXPayAdditionalOptionsMessage_setPrototypeOf(o, p); }
-
-
-
-var VXPayAdditionalOptionsMessage_VXPayAdditionalOptionsMessage =
-/*#__PURE__*/
-function (_VXPayMessage) {
-  VXPayAdditionalOptionsMessage_inherits(VXPayAdditionalOptionsMessage, _VXPayMessage);
-
-  /**
-   * @param {Object} options
-   */
-  function VXPayAdditionalOptionsMessage() {
-    var _this;
-
-    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-    VXPayAdditionalOptionsMessage_classCallCheck(this, VXPayAdditionalOptionsMessage);
-
-    _this = VXPayAdditionalOptionsMessage_possibleConstructorReturn(this, VXPayAdditionalOptionsMessage_getPrototypeOf(VXPayAdditionalOptionsMessage).call(this, VXPay_VXPayMessage.TYPE_ADDITIONAL_INFO));
-    _this.options = options;
-    return _this;
-  }
-
-  return VXPayAdditionalOptionsMessage;
-}(VXPay_VXPayMessage);
-
-/* harmony default export */ var Message_VXPayAdditionalOptionsMessage = (VXPayAdditionalOptionsMessage_VXPayAdditionalOptionsMessage);
 // CONCATENATED MODULE: ./src/VXPay/Dom/Frame/VXPayPaymentFrame.js
 function VXPayPaymentFrame_typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { VXPayPaymentFrame_typeof = function _typeof(obj) { return typeof obj; }; } else { VXPayPaymentFrame_typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return VXPayPaymentFrame_typeof(obj); }
 
@@ -4998,21 +4932,24 @@ function VXPayPaymentFrame_setPrototypeOf(o, p) { VXPayPaymentFrame_setPrototype
 
 
 
-
-
 var VXPayPaymentFrame_VXPayPaymentFrame =
 /*#__PURE__*/
 function (_VXPayIframe) {
   VXPayPaymentFrame_inherits(VXPayPaymentFrame, _VXPayIframe);
 
   /**
-   * Override styles
+   * @param {Document} document
+   * @param {String} url
+   * @param {String} id
+   * @param {VXPayPaymentHooksConfig} hooks
+   * @param {CSSStyleDeclaration|Object} style
    */
   function VXPayPaymentFrame(document, url) {
     var _this;
 
     var id = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : VXPayPaymentFrame.NAME;
-    var style = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
+    var hooks = arguments.length > 3 ? arguments[3] : undefined;
+    var style = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : {};
 
     VXPayPaymentFrame_classCallCheck(this, VXPayPaymentFrame);
 
@@ -5022,13 +4959,9 @@ function (_VXPayIframe) {
     _this = VXPayPaymentFrame_possibleConstructorReturn(this, VXPayPaymentFrame_getPrototypeOf(VXPayPaymentFrame).call(this, document, url, id, style)); // allow transparent iframe for <= IE8
 
     _this._frame.allowTransparency = true;
-    _this._frame.name = 'vxpay'; // hooks config
-
-    _this._hooks = new Config_VXPayPaymentHooksConfig();
-    _this._sessionInitialized = false; // listen for incoming post messages
-
-    _this.startListening();
-
+    _this._frame.name = 'vxpay';
+    _this._sessionInitialized = false;
+    _this._hooks = hooks;
     return _this;
   }
   /**
@@ -5045,6 +4978,11 @@ function (_VXPayIframe) {
 
       this._frame.ownerDocument.getElementsByTagName('body').item(0).appendChild(this._frame);
     }
+  }, {
+    key: "removeFromDOM",
+    value: function removeFromDOM() {
+      this._frame.remove();
+    }
     /**
      * @todo refactor this mess!
      * @param {Document} document
@@ -5052,44 +4990,16 @@ function (_VXPayIframe) {
      */
 
   }, {
-    key: "startListening",
+    key: "_markLoaded",
 
-    /**
-     * listen for incoming messages
-     */
-    value: function startListening() {
-      var _this2 = this;
-
-      Event_VXPayEventListener.addEvent(Dom_VXPayIframe.EVENT_MESSAGE, this._frame.ownerDocument.defaultView, function (event) {
-        return Hooks_VXPayHookRouter(_this2._hooks, event, _this2._frame.id + '<VXPayPaymentFrame>');
-      });
-      Event_VXPayEventListener.addEvent(Dom_VXPayIframe.EVENT_UNLOAD, this._frame.ownerDocument.defaultView, this.stopListening.bind(this));
-    }
-    /**
-     * Remove listeners
-     */
-
-  }, {
-    key: "stopListening",
-    value: function stopListening() {
-      var _this3 = this;
-
-      Event_VXPayEventListener.removeEvent(Dom_VXPayIframe.EVENT_MESSAGE, this._frame.ownerDocument.defaultView, function (event) {
-        return Hooks_VXPayHookRouter(_this3._hooks, event, _this3._frame.id + '<VXPayPaymentFrame>');
-      });
-      Event_VXPayEventListener.removeEvent(Dom_VXPayIframe.EVENT_UNLOAD, this._frame.ownerDocument.defaultView, this.stopListening.bind(this));
-    }
     /**
      * Override to add a hook
      * @protected
      */
-
-  }, {
-    key: "_markLoaded",
     value: function _markLoaded() {
       VXPayPaymentFrame_get(VXPayPaymentFrame_getPrototypeOf(VXPayPaymentFrame.prototype), "_markLoaded", this).call(this);
 
-      return this._hooks.trigger(Config_VXPayPaymentHooksConfig.ON_LOAD, this._frame.id + '<VXPayPaymentFrame>');
+      return this._hooks.trigger(Config_VXPayPaymentHooksConfig.ON_LOAD, this._frame.id);
     }
     /**
      * Override to add a before send hook
@@ -5103,7 +5013,7 @@ function (_VXPayIframe) {
     value: function postMessage(message) {
       var origin = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '*';
 
-      this._hooks.trigger(Config_VXPayPaymentHooksConfig.ON_BEFORE_SEND, [message], this._frame.id + '<VXPayPaymentFrame>');
+      this._hooks.trigger(Config_VXPayPaymentHooksConfig.ON_BEFORE_SEND, [message], this._frame.id);
 
       if (this._frame.contentWindow !== null) {
         this._frame.contentWindow.postMessage(message.toString(), origin);
@@ -5186,15 +5096,6 @@ function (_VXPayIframe) {
     value: function setVisible() {
       this.postMessage(new VXPayIsVisibleMessage_VXPayIsVisibleMessage());
     }
-    /**
-     * @return {VXPayPaymentHooksConfig}
-     */
-
-  }, {
-    key: "hooks",
-    get: function get() {
-      return this._hooks;
-    }
   }], [{
     key: "getDefaultStyles",
     value: function getDefaultStyles() {
@@ -5233,12 +5134,29 @@ function (_VXPayIframe) {
 
 VXPayPaymentFrame_VXPayPaymentFrame.NAME = 'vx-payment-frame-payment';
 /* harmony default export */ var Frame_VXPayPaymentFrame = (VXPayPaymentFrame_VXPayPaymentFrame);
+// CONCATENATED MODULE: ./src/VXPay/VXPayDeferred.js
+function VXPayDeferred() {
+  var resolve;
+  var reject;
+  var promise = new Promise(function (res, rej) {
+    resolve = res;
+    reject = rej;
+  });
+  return {
+    promise: promise,
+    resolve: resolve,
+    reject: reject
+  };
+}
+
+/* harmony default export */ var VXPay_VXPayDeferred = (VXPayDeferred);
 // CONCATENATED MODULE: ./src/VXPay/Dom/Frame/VXPayPaymentTab.js
 function VXPayPaymentTab_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function VXPayPaymentTab_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function VXPayPaymentTab_createClass(Constructor, protoProps, staticProps) { if (protoProps) VXPayPaymentTab_defineProperties(Constructor.prototype, protoProps); if (staticProps) VXPayPaymentTab_defineProperties(Constructor, staticProps); return Constructor; }
+
 
 
 
@@ -5257,20 +5175,21 @@ function () {
    * @param {Document} document
    * @param {String} name
    * @param {VXPayConfig} config
+   * @param {VXPayPaymentHooksConfig} hooks
    */
-  function VXPayPaymentTab(document, name, config) {
+  function VXPayPaymentTab(document, name, config, hooks) {
     VXPayPaymentTab_classCallCheck(this, VXPayPaymentTab);
 
     this._document = document;
-    this._hooks = new Config_VXPayPaymentHooksConfig();
     this._loaded = false;
     this._name = name;
     this._config = config;
+    this._hooks = hooks;
     this._route = VXPayPaymentTab.DEFAULT_ROUTE;
-    this._promise = null;
-    this._window = null; // load the normal iframe to communicate
+    this._window = null;
+    this._deferred = VXPay_VXPayDeferred(); // load the normal iFrame to communicate
 
-    this._invisibleFrame = new Frame_VXPayPaymentFrame(document, config.getPaymentFrameUrl(), Frame_VXPayPaymentFrame.NAME + '_hidden');
+    this._invisibleFrame = new Frame_VXPayPaymentFrame(document, config.getPaymentFrameUrl(), Frame_VXPayPaymentFrame.NAME + '_hidden', hooks);
 
     this._invisibleFrame.triggerLoad();
   }
@@ -5286,60 +5205,21 @@ function () {
      * Open the window
      */
     value: function triggerLoad() {
-      this.getNewTab().startListening(this._window);
+      this.getNewTab(true);
+      return this._deferred.promise;
     }
-    /**
-     * @return {VXPayPaymentTab}
-     */
-
   }, {
     key: "getNewTab",
     value: function getNewTab() {
-      var that = this;
+      var doLoad = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
 
-      var url = this._config.getPaymentFrameUrl() + '#' + this._route;
+      if (doLoad) {
+        var url = this._config.getPaymentFrameUrl() + '#' + this._route;
 
-      if (null !== that._window && !that._window.closed) {
-        return this;
+        this._window = this._document.defaultView.open(url, this._name);
+
+        this._deferred.resolve();
       }
-
-      that._window = that._document.defaultView.open(url, that._name);
-      return this;
-    }
-    /**
-     * @return {VXPayPaymentHooksConfig}
-     */
-
-  }, {
-    key: "startListening",
-
-    /**
-     * listen for incoming messages
-     * @param {Window} window
-     * @return {Window}
-     */
-    value: function startListening(window) {
-      var _this = this;
-
-      Event_VXPayEventListener.addEvent(Dom_VXPayIframe.EVENT_MESSAGE, this._document.defaultView, function (event) {
-        return Hooks_VXPayHookRouter(_this._hooks, event, _this._name + '<VXPayPaymentTab>');
-      });
-      Event_VXPayEventListener.addEvent(Dom_VXPayIframe.EVENT_UNLOAD, this._document.defaultView, this.stopListening.bind(this));
-      return window;
-    }
-    /**
-     * Remove listeners
-     */
-
-  }, {
-    key: "stopListening",
-    value: function stopListening() {
-      var _this2 = this;
-
-      Event_VXPayEventListener.removeEvent(Dom_VXPayIframe.EVENT_MESSAGE, this._document.defaultView, function (event) {
-        return Hooks_VXPayHookRouter(_this2._hooks, event, _this2._name + '<VXPayPaymentTab>');
-      });
-      Event_VXPayEventListener.removeEvent(Dom_VXPayIframe.EVENT_UNLOAD, this._document.defaultView, this.stopListening.bind(this));
     }
     /**
      * @param {Object} options
@@ -5353,8 +5233,7 @@ function () {
 
       this._config.merge(options);
 
-      this._invisibleFrame.sendOptions(options);
-
+      this.postMessage(new VXPayUpdateParamsMessage_VXPayUpdateParamsMessage(options));
       return this;
     }
     /**
@@ -5369,8 +5248,7 @@ function () {
 
       this._config.merge(options);
 
-      this._invisibleFrame.sendAdditionalOptions(options);
-
+      this.postMessage(new Message_VXPayAdditionalOptionsMessage(options));
       return this;
     }
     /**
@@ -5394,12 +5272,16 @@ function () {
   }, {
     key: "postMessage",
     value: function postMessage(message) {
+      var _this = this;
+
       var origin = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '*';
 
-      this._hooks.trigger(Config_VXPayPaymentHooksConfig.ON_BEFORE_SEND, [message], this._name + '<VXPayPaymentTab>');
+      if (!message.isAction) {
+        this._deferred.promise.then(function () {
+          _this._hooks.trigger(Config_VXPayPaymentHooksConfig.ON_BEFORE_SEND, [message], _this._name);
 
-      if (this._window !== null && this._loaded) {
-        this._window.postMessage(message.toString(), origin);
+          _this._window.postMessage(message.toString(), origin);
+        });
       } else {
         this._invisibleFrame.postMessage(message, origin);
       }
@@ -5415,9 +5297,7 @@ function () {
     key: "initSession",
     value: function initSession() {
       var token = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : undefined;
-
-      this._invisibleFrame.initSession(token);
-
+      this.postMessage(new Message_VXPayInitSessionMessage(token));
       return this;
     }
     /**
@@ -5430,10 +5310,7 @@ function () {
     value: function changeRoute() {
       var route = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : VXPayPaymentTab.DEFAULT_ROUTE;
       this._route = route;
-
-      this._invisibleFrame.changeRoute(route);
-
-      return this;
+      return this.postMessage(new VXPayChangeRouteMessage_VXPayChangeRouteMessage(route));
     }
     /**
      * [@param {VXPayViewReadyMessage} message]
@@ -5441,9 +5318,8 @@ function () {
 
   }, {
     key: "setVisible",
-    value: function setVisible() {
-      this.triggerLoad();
-    }
+    value: function setVisible() {} // this.triggerLoad();
+
     /**
      * @return {VXPayPaymentTab}
      */
@@ -5451,7 +5327,7 @@ function () {
   }, {
     key: "show",
     value: function show() {
-      this.triggerLoad();
+      //		this.triggerLoad();
       return this;
     }
     /**
@@ -5463,12 +5339,14 @@ function () {
     value: function hide() {
       if (this._window && !this._window.closed) {
         this._window.close();
+
+        this._window = null;
       } // reset internal state
 
 
       this._loaded = false;
       this._route = VXPayPaymentTab.DEFAULT_ROUTE;
-      this._promise = null;
+      this._deferred = VXPay_VXPayDeferred();
       return this;
     }
   }, {
@@ -5512,11 +5390,6 @@ function () {
     get: function get() {
       return this._route;
     }
-  }, {
-    key: "hooks",
-    get: function get() {
-      return this._invisibleFrame.hooks;
-    }
   }]);
 
   return VXPayPaymentTab;
@@ -5549,36 +5422,40 @@ var VXPayInitPaymentMiddleware_VXPayInitPaymentMiddleware = function VXPayInitPa
 
 
   if (vxpay.state.isFrameInProgress && !load) {
-    vxpay.logger.log('VXPayInitPaymentMiddleware() - already in progress, resolve ...', vxpay);
+    vxpay.logger.log('VXPayInitPaymentMiddleware() - already in progress, resolve ...');
     return resolve(vxpay);
   } // tab or frame?
 
 
   vxpay.state.isFrameInProgress = load;
 
-  if (!vxpay.hasOwnProperty('_paymentFrame')) {
-    vxpay._paymentFrame = vxpay.config.enableTab ? new Frame_VXPayPaymentTab(vxpay.window.document, Frame_VXPayPaymentTab.NAME, vxpay.config) : new Frame_VXPayPaymentFrame(vxpay.window.document, vxpay.config.getPaymentFrameUrl(), Frame_VXPayPaymentFrame.NAME); // do we need logging?
+  if (vxpay.config.enableTab) {
+    vxpay._paymentFrame = new Frame_VXPayPaymentTab(vxpay.window.document, Frame_VXPayPaymentTab.NAME, vxpay.config, vxpay._hooks);
+  } else {
+    vxpay._paymentFrame = !vxpay.hasOwnProperty('_paymentFrame') ? new Frame_VXPayPaymentFrame(vxpay.window.document, vxpay.config.getPaymentFrameUrl(), Frame_VXPayPaymentFrame.NAME, vxpay._hooks) : vxpay._paymentFrame;
+  }
 
+  if (!vxpay._paymentFrame.loaded) {
+    // do we need logging?
     if (vxpay.config.logging) {
-      vxpay._paymentFrame.hooks.onAny(function (msg) {
+      vxpay._hooks.onAny(function (msg) {
         return vxpay.logger.log(VXPay_VXPayLogger.LOG_INCOMING, msg);
       }).onBeforeSend(function (msg) {
         return vxpay.logger.log(VXPay_VXPayLogger.LOG_OUTGOING, msg);
       });
-    }
-  }
+    } // set resolve hook
 
-  if (!vxpay._paymentFrame.loaded) {
-    // set resolve hook
-    vxpay._paymentFrame.hooks // state updates
+
+    vxpay._hooks // state updates
     .onIframeReady(vxpay.state.markFrameReady.bind(vxpay.state)).onContentLoaded(vxpay.state.markContentLoaded.bind(vxpay.state)).onTransferToken(vxpay.state.markHasToken.bind(vxpay.state)) // functional hooks
     .onTransferToken(vxpay.config.setTokenFromMessage.bind(vxpay.config)).onFlowChange(vxpay.config.updateFlow.bind(vxpay.config)) // show frame and send isVisible
     .onViewReady(vxpay._paymentFrame.setVisible.bind(vxpay._paymentFrame)).onViewReady(vxpay._paymentFrame.show.bind(vxpay._paymentFrame)).onSuccess(vxpay._paymentFrame.hide.bind(vxpay._paymentFrame)).onSuccess(vxpay.state.reset).onClose(vxpay._paymentFrame.hide.bind(vxpay._paymentFrame)).onClose(vxpay.state.reset).onContentLoaded(function () {
       return resolve(vxpay);
-    }); // trigger load if not tab
+    });
 
+    vxpay.startListening(); // trigger load if not tab
 
-    if (load) {
+    if (load && !vxpay.config.enableTab) {
       vxpay.logger.log('VXPayInitPaymentMiddleware() - not loaded yet, trigger load');
       vxpay._paymentFrame.url = vxpay.config.getPaymentFrameUrl();
 
@@ -5623,150 +5500,6 @@ var VXPayInitHelperMiddleware_VXPayInitHelperMiddleware = function VXPayInitHelp
 };
 
 /* harmony default export */ var Frames_VXPayInitHelperMiddleware = (VXPayInitHelperMiddleware_VXPayInitHelperMiddleware);
-// CONCATENATED MODULE: ./src/VXPay/Message/Actions/VXPayIsLoggedInActionMessage.js
-function VXPayIsLoggedInActionMessage_typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { VXPayIsLoggedInActionMessage_typeof = function _typeof(obj) { return typeof obj; }; } else { VXPayIsLoggedInActionMessage_typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return VXPayIsLoggedInActionMessage_typeof(obj); }
-
-function VXPayIsLoggedInActionMessage_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function VXPayIsLoggedInActionMessage_possibleConstructorReturn(self, call) { if (call && (VXPayIsLoggedInActionMessage_typeof(call) === "object" || typeof call === "function")) { return call; } return VXPayIsLoggedInActionMessage_assertThisInitialized(self); }
-
-function VXPayIsLoggedInActionMessage_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function VXPayIsLoggedInActionMessage_getPrototypeOf(o) { VXPayIsLoggedInActionMessage_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return VXPayIsLoggedInActionMessage_getPrototypeOf(o); }
-
-function VXPayIsLoggedInActionMessage_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) VXPayIsLoggedInActionMessage_setPrototypeOf(subClass, superClass); }
-
-function VXPayIsLoggedInActionMessage_setPrototypeOf(o, p) { VXPayIsLoggedInActionMessage_setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return VXPayIsLoggedInActionMessage_setPrototypeOf(o, p); }
-
-
-
-var VXPayIsLoggedInActionMessage_VXPayIsLoggedInActionMessage =
-/*#__PURE__*/
-function (_VXPayMessage) {
-  VXPayIsLoggedInActionMessage_inherits(VXPayIsLoggedInActionMessage, _VXPayMessage);
-
-  function VXPayIsLoggedInActionMessage() {
-    VXPayIsLoggedInActionMessage_classCallCheck(this, VXPayIsLoggedInActionMessage);
-
-    return VXPayIsLoggedInActionMessage_possibleConstructorReturn(this, VXPayIsLoggedInActionMessage_getPrototypeOf(VXPayIsLoggedInActionMessage).call(this, VXPay_VXPayMessage.TYPE_ACTION_IS_LOGGED_IN));
-  }
-
-  return VXPayIsLoggedInActionMessage;
-}(VXPay_VXPayMessage);
-
-
-// CONCATENATED MODULE: ./src/VXPay/Middleware/Actions/VXPayIsLoggedInTriggerMiddleware.js
-
-
-/**
- * @param {VXPay} vxpay
- * @param {Function} resolve
- * @param {Function} reject
- * @constructor
- */
-
-var VXPayIsLoggedInTriggerMiddleware_VXPayIsLoggedInTriggerMiddleware = function VXPayIsLoggedInTriggerMiddleware(vxpay, resolve, reject) {
-  try {
-    // when the main frame is loaded - send post message
-    if (vxpay.state.isContentLoaded) {
-      vxpay.hooks.then(function (hooks) {
-        // is hook setup?
-        if (!hooks.hasOnIsLoggedIn(resolve)) {
-          hooks.onIsLoggedIn(resolve);
-        }
-      });
-      vxpay.paymentFrame.then(function (frame) {
-        return frame.postMessage(new VXPayIsLoggedInActionMessage_VXPayIsLoggedInActionMessage());
-      });
-    } else {
-      // otherwise - rely on cookie
-      vxpay.initHelperFrame().then(function (vxpay) {
-        return vxpay.helperFrame.getLoginCookie();
-      }).then(function (msg) {
-        return resolve(new Actions_VXPayIsLoggedInResponseMessage(msg.hasCookie));
-      }).catch(function (err) {
-        return reject(err);
-      });
-    }
-  } catch (err) {
-    reject(err);
-  }
-
-  return vxpay;
-};
-
-/* harmony default export */ var Actions_VXPayIsLoggedInTriggerMiddleware = (VXPayIsLoggedInTriggerMiddleware_VXPayIsLoggedInTriggerMiddleware);
-// CONCATENATED MODULE: ./src/VXPay/Middleware/Actions/VXPayListenOrCallLoggedInMiddleware.js
-function VXPayListenOrCallLoggedInMiddleware_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function VXPayListenOrCallLoggedInMiddleware_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function VXPayListenOrCallLoggedInMiddleware_createClass(Constructor, protoProps, staticProps) { if (protoProps) VXPayListenOrCallLoggedInMiddleware_defineProperties(Constructor.prototype, protoProps); if (staticProps) VXPayListenOrCallLoggedInMiddleware_defineProperties(Constructor, staticProps); return Constructor; }
-
-
-
-var VXPayListenOrCallLoggedInMiddleware_VXPayListenOrCallLoggedInMiddleware =
-/*#__PURE__*/
-function () {
-  /**
-   * @param {VXPay} vxpay
-   * @param {Function} resolve
-   * @param {Function} reject
-   * @constructor
-   */
-  function VXPayListenOrCallLoggedInMiddleware(vxpay, resolve, reject) {
-    VXPayListenOrCallLoggedInMiddleware_classCallCheck(this, VXPayListenOrCallLoggedInMiddleware);
-
-    this._vxpay = vxpay;
-    this._resolve = resolve;
-    this._reject = reject;
-    this._handler = this.trigger.bind(this);
-  }
-  /**
-   * @return {VXPay}
-   */
-
-
-  VXPayListenOrCallLoggedInMiddleware_createClass(VXPayListenOrCallLoggedInMiddleware, [{
-    key: "run",
-    value: function run() {
-      var _this = this;
-
-      try {
-        // is token already received?
-        if (this._vxpay.state.hasToken) {
-          this._handler();
-
-          return this._vxpay;
-        } // did we set handler already?
-
-
-        this._vxpay.hooks.then(function (hooks) {
-          if (!hooks.hasOnTransferToken(_this._handler)) {
-            hooks.onTransferToken(_this._handler);
-          }
-        });
-
-        return this._vxpay;
-      } catch (err) {
-        this._reject(err);
-      }
-    }
-    /**
-     * @return {void}
-     */
-
-  }, {
-    key: "trigger",
-    value: function trigger() {
-      Actions_VXPayIsLoggedInTriggerMiddleware(this._vxpay, this._resolve, this._reject);
-    }
-  }]);
-
-  return VXPayListenOrCallLoggedInMiddleware;
-}();
-
-/* harmony default export */ var Actions_VXPayListenOrCallLoggedInMiddleware = (VXPayListenOrCallLoggedInMiddleware_VXPayListenOrCallLoggedInMiddleware);
 // CONCATENATED MODULE: ./src/VXPay/Middleware/Actions/VXPayOnAVSStatusListenMiddleware.js
 /**
  * @param {VXPay} vxpay
@@ -5777,11 +5510,10 @@ function () {
  */
 var VXPayOnAVSStatusListenMiddleware = function VXPayOnAVSStatusListenMiddleware(vxpay, resolve, reject) {
   try {
-    vxpay.hooks.then(function (hooks) {
-      if (!hooks.hasOnAVSStatus(resolve)) {
-        hooks.onAVSStatus(resolve);
-      }
-    });
+    if (!vxpay._hooks.hasOnAVSStatus(resolve)) {
+      vxpay._hooks.onAVSStatus(resolve);
+    }
+
     return vxpay;
   } catch (err) {
     reject(err);
@@ -5812,9 +5544,13 @@ function (_VXPayMessage) {
   VXPayGetAVSStatusMessage_inherits(VXPayGetAVSStatusMessage, _VXPayMessage);
 
   function VXPayGetAVSStatusMessage() {
+    var _this;
+
     VXPayGetAVSStatusMessage_classCallCheck(this, VXPayGetAVSStatusMessage);
 
-    return VXPayGetAVSStatusMessage_possibleConstructorReturn(this, VXPayGetAVSStatusMessage_getPrototypeOf(VXPayGetAVSStatusMessage).call(this, VXPay_VXPayMessage.TYPE_ACTION_GET_AVS_STATUS));
+    _this = VXPayGetAVSStatusMessage_possibleConstructorReturn(this, VXPayGetAVSStatusMessage_getPrototypeOf(VXPayGetAVSStatusMessage).call(this, VXPay_VXPayMessage.TYPE_ACTION_GET_AVS_STATUS));
+    _this.isAction = true;
+    return _this;
   }
 
   return VXPayGetAVSStatusMessage;
@@ -5830,21 +5566,7 @@ function (_VXPayMessage) {
  */
 
 var VXPayAVSStatusTriggerMiddleware_VXPayAVSStatusTriggerMiddleware = function VXPayAVSStatusTriggerMiddleware(vxpay) {
-  var message = function message(frame) {
-    return frame.postMessage(new VXPayGetAVSStatusMessage_VXPayGetAVSStatusMessage());
-  }; // is token already received?
-
-
-  if (!vxpay.state.hasToken) {
-    vxpay.hooks.then(function (hooks) {
-      hooks.onTransferToken(function () {
-        return vxpay.paymentFrame.then(message);
-      });
-    });
-  } else {
-    // or trigger post message
-    vxpay.paymentFrame.then(message);
-  }
+  vxpay._paymentFrame.postMessage(new VXPayGetAVSStatusMessage_VXPayGetAVSStatusMessage());
 
   return vxpay;
 };
@@ -5860,11 +5582,10 @@ var VXPayAVSStatusTriggerMiddleware_VXPayAVSStatusTriggerMiddleware = function V
  */
 var VXPayListenForBalanceMiddleware = function VXPayListenForBalanceMiddleware(vxpay, resolve, reject) {
   try {
-    vxpay.hooks.then(function (hooks) {
-      if (!hooks.hasOnBalance(resolve)) {
-        hooks.onBalance(resolve);
-      }
-    });
+    if (!vxpay._hooks.hasOnBalance(resolve)) {
+      vxpay._hooks.onBalance(resolve);
+    }
+
     return vxpay;
   } catch (err) {
     reject(err);
@@ -5895,9 +5616,13 @@ function (_VXPayMessage) {
   VXPayGetBalanceMessage_inherits(VXPayGetBalanceMessage, _VXPayMessage);
 
   function VXPayGetBalanceMessage() {
+    var _this;
+
     VXPayGetBalanceMessage_classCallCheck(this, VXPayGetBalanceMessage);
 
-    return VXPayGetBalanceMessage_possibleConstructorReturn(this, VXPayGetBalanceMessage_getPrototypeOf(VXPayGetBalanceMessage).call(this, VXPay_VXPayMessage.TYPE_ACTION_GET_BALANCE));
+    _this = VXPayGetBalanceMessage_possibleConstructorReturn(this, VXPayGetBalanceMessage_getPrototypeOf(VXPayGetBalanceMessage).call(this, VXPay_VXPayMessage.TYPE_ACTION_GET_BALANCE));
+    _this.isAction = true;
+    return _this;
   }
 
   return VXPayGetBalanceMessage;
@@ -5913,19 +5638,7 @@ function (_VXPayMessage) {
  */
 
 var VXPayBalanceTriggerMiddleware_VXPayBalanceTriggerMiddleware = function VXPayBalanceTriggerMiddleware(vxpay) {
-  var message = function message(frame) {
-    return frame.postMessage(new Actions_VXPayGetBalanceMessage());
-  };
-
-  if (!vxpay.state.hasToken) {
-    vxpay.hooks.then(function (hooks) {
-      hooks.onTransferToken(function () {
-        return vxpay.paymentFrame.then(message);
-      });
-    });
-  } else {
-    vxpay.paymentFrame.then(message);
-  }
+  vxpay._paymentFrame.postMessage(new Actions_VXPayGetBalanceMessage());
 
   return vxpay;
 };
@@ -5941,11 +5654,9 @@ var VXPayBalanceTriggerMiddleware_VXPayBalanceTriggerMiddleware = function VXPay
  */
 var VXPayListenForActiveAbosMiddleware = function VXPayListenForActiveAbosMiddleware(vxpay, resolve, reject) {
   try {
-    vxpay.hooks.then(function (hooks) {
-      if (!hooks.hasOnActiveAbos(resolve)) {
-        hooks.onActiveAbos(resolve);
-      }
-    });
+    if (!vxpay._hooks.hasOnActiveAbos(resolve)) {
+      vxpay._hooks.onActiveAbos(resolve);
+    }
   } catch (err) {
     reject(err);
   }
@@ -5977,9 +5688,13 @@ function (_VXPayMessage) {
   VXPayGetActiveAbosMessage_inherits(VXPayGetActiveAbosMessage, _VXPayMessage);
 
   function VXPayGetActiveAbosMessage() {
+    var _this;
+
     VXPayGetActiveAbosMessage_classCallCheck(this, VXPayGetActiveAbosMessage);
 
-    return VXPayGetActiveAbosMessage_possibleConstructorReturn(this, VXPayGetActiveAbosMessage_getPrototypeOf(VXPayGetActiveAbosMessage).call(this, VXPay_VXPayMessage.TYPE_ACTION_GET_ACTIVE_ABOS));
+    _this = VXPayGetActiveAbosMessage_possibleConstructorReturn(this, VXPayGetActiveAbosMessage_getPrototypeOf(VXPayGetActiveAbosMessage).call(this, VXPay_VXPayMessage.TYPE_ACTION_GET_ACTIVE_ABOS));
+    _this.isAction = true;
+    return _this;
   }
 
   return VXPayGetActiveAbosMessage;
@@ -5995,19 +5710,7 @@ function (_VXPayMessage) {
  */
 
 var VXPayActiveAbosTriggerMiddleware_VXPayActiveAbosTriggerMiddleware = function VXPayActiveAbosTriggerMiddleware(vxpay) {
-  var send = function send(frame) {
-    frame.postMessage(new Actions_VXPayGetActiveAbosMessage());
-  };
-
-  if (!vxpay.state.hasToken) {
-    vxpay.hooks.then(function (hooks) {
-      hooks.onTransferToken(function () {
-        return vxpay.paymentFrame.then(send);
-      });
-    });
-  } else {
-    vxpay.paymentFrame.then(send);
-  }
+  vxpay._paymentFrame.postMessage(new Actions_VXPayGetActiveAbosMessage());
 
   return vxpay;
 };
@@ -6023,11 +5726,10 @@ var VXPayActiveAbosTriggerMiddleware_VXPayActiveAbosTriggerMiddleware = function
  */
 var VXPayListenForLogoutMiddleware = function VXPayListenForLogoutMiddleware(vxpay, resolve, reject) {
   try {
-    vxpay.hooks.then(function (hooks) {
-      if (!hooks.hasOnLogout(resolve)) {
-        hooks.onLogout(resolve);
-      }
-    });
+    if (!vxpay._hooks.hasOnLogout(resolve)) {
+      vxpay._hooks.onLogout(resolve);
+    }
+
     return vxpay;
   } catch (err) {
     reject(err);
@@ -6058,9 +5760,13 @@ function (_VXPayMessage) {
   VXPayLogoutMessage_inherits(VXPayLogoutMessage, _VXPayMessage);
 
   function VXPayLogoutMessage() {
+    var _this;
+
     VXPayLogoutMessage_classCallCheck(this, VXPayLogoutMessage);
 
-    return VXPayLogoutMessage_possibleConstructorReturn(this, VXPayLogoutMessage_getPrototypeOf(VXPayLogoutMessage).call(this, VXPay_VXPayMessage.TYPE_ACTION_LOGOUT));
+    _this = VXPayLogoutMessage_possibleConstructorReturn(this, VXPayLogoutMessage_getPrototypeOf(VXPayLogoutMessage).call(this, VXPay_VXPayMessage.TYPE_ACTION_LOGOUT));
+    _this.isAction = true;
+    return _this;
   }
 
   return VXPayLogoutMessage;
@@ -6081,10 +5787,8 @@ var VXPayLogoutTriggerMiddleware_VXPayLogoutTriggerMiddleware = function VXPayLo
   };
 
   if (!vxpay.state.hasToken) {
-    vxpay.hooks.then(function (hooks) {
-      hooks.onTransferToken(function () {
-        return vxpay.paymentFrame.then(caller);
-      });
+    vxpay._hooks.onTransferToken(function () {
+      return vxpay.paymentFrame.then(caller);
     });
   } else {
     vxpay.paymentFrame.then(caller);
@@ -6255,10 +5959,8 @@ var VXPayWhenTokenTransferred = function VXPayWhenTokenTransferred(vxpay) {
         resolve(vxpay);
       } else {
         // otherwise - wait for it
-        vxpay.hooks.then(function (hooks) {
-          return hooks.onTransferToken(function () {
-            return resolve(vxpay);
-          });
+        vxpay._hooks.onTransferToken(function () {
+          return resolve(vxpay);
         });
       }
     } catch (err) {
@@ -6325,15 +6027,9 @@ var VXPayOpenLoginCommand_VXPayOpenLoginCommand = function VXPayOpenLoginCommand
   var flowOptions = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
   vxpay.logger.log('VXPayOpenLoginCommand()');
   vxpay.paymentFrame.then(function (frame) {
-    frame.sendOptions({
+    return frame.sendOptions(Object.assign({}, {
       'flow': Config_VXPayFlow.LOGIN
-    });
-
-    if (flowOptions) {
-      frame.sendUpdateParams(flowOptions);
-    }
-
-    frame.sendAdditionalOptions(vxpay.config.getAdditionalOptions()).changeRoute(Config_VXPayPaymentRoutes.LOGIN).initSession();
+    }, flowOptions)).sendAdditionalOptions(vxpay.config.getAdditionalOptions()).changeRoute(Config_VXPayPaymentRoutes.LOGIN).initSession();
   });
   return vxpay;
 };
@@ -6353,15 +6049,9 @@ var VXPayOpenSignUpCommand_VXPayOpenSignUpCommand = function VXPayOpenSignUpComm
   var flowOptions = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
   vxpay.logger.log('VXPayOpenSignUpCommand()');
   vxpay.paymentFrame.then(function (frame) {
-    frame.sendOptions({
-      'flow': Config_VXPayFlow.LOGIN
-    });
-
-    if (flowOptions) {
-      frame.sendUpdateParams(flowOptions);
-    }
-
-    return frame.sendAdditionalOptions(vxpay.config.getAdditionalOptions()).changeRoute(Config_VXPayPaymentRoutes.SIGN_UP).initSession();
+    return frame.sendUpdateParams(Object.assign({}, {
+      'flow': Config_VXPayFlow.SIGNUP
+    }, flowOptions)).sendAdditionalOptions(vxpay.config.getAdditionalOptions()).changeRoute(Config_VXPayPaymentRoutes.SIGN_UP).initSession();
   });
   return vxpay;
 };
@@ -6449,13 +6139,7 @@ function () {
       var flowOptions = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
       vxpay.logger.log('VXPayOpenPaymentCommand()');
       vxpay.paymentFrame.then(function (frame) {
-        frame.sendOptions(VXPayOpenPaymentCommand.PARAMS);
-
-        if (flowOptions) {
-          frame.sendUpdateParams(flowOptions);
-        }
-
-        frame.sendAdditionalOptions(vxpay.config.getAdditionalOptions()).changeRoute(Config_VXPayPaymentRoutes.PAYMENT).initSession();
+        return frame.sendOptions(Object.assign({}, VXPayOpenPaymentCommand.PARAMS, flowOptions)).sendAdditionalOptions(vxpay.config.getAdditionalOptions()).changeRoute(Config_VXPayPaymentRoutes.PAYMENT).initSession();
       });
       return vxpay;
     }
@@ -6526,15 +6210,9 @@ var VXPayOpenAboCommand_VXPayOpenAboCommand = function VXPayOpenAboCommand(vxpay
   var flowOptions = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
   vxpay.logger.log('VXPayOpenAboCommand()');
   vxpay.paymentFrame.then(function (frame) {
-    frame.sendOptions({
+    return frame.sendOptions(Object.assign({}, {
       'flow': Config_VXPayFlow.VIP_ABO
-    });
-
-    if (flowOptions) {
-      frame.sendUpdateParams(flowOptions);
-    }
-
-    frame.sendAdditionalOptions(vxpay.config.getAdditionalOptions()).changeRoute(Config_VXPayPaymentRoutes.ABO).initSession();
+    }, flowOptions)).sendAdditionalOptions(vxpay.config.getAdditionalOptions()).changeRoute(Config_VXPayPaymentRoutes.ABO).initSession();
   });
   return vxpay;
 };
@@ -6569,14 +6247,9 @@ function () {
     value: function run(vxpay) {
       var flowOptions = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
       vxpay.logger.log('VXPayResetPasswordCommand()');
+      var options = Object.assign({}, VXPayResetPasswordCommand.getParams(vxpay.config), flowOptions);
       vxpay.paymentFrame.then(function (frame) {
-        frame.initSession().sendOptions(VXPayResetPasswordCommand.getParams(vxpay.config));
-
-        if (flowOptions) {
-          frame.sendUpdateParams(flowOptions);
-        }
-
-        frame.sendAdditionalOptions(vxpay.config.getAdditionalOptions()).changeRoute(Config_VXPayPaymentRoutes.PASSWORD_RESET);
+        return frame.initSession().sendOptions(options).sendAdditionalOptions(vxpay.config.getAdditionalOptions()).changeRoute(Config_VXPayPaymentRoutes.PASSWORD_RESET);
       });
       return vxpay;
     }
@@ -6631,14 +6304,9 @@ function () {
     value: function run(vxpay) {
       var flowOptions = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
       vxpay.logger.log('VXPayLostPasswordCommand()');
+      var options = Object.assign({}, VXPayLostPasswordCommand.getParams(vxpay.config), flowOptions);
       vxpay.paymentFrame.then(function (frame) {
-        frame.initSession().sendOptions(VXPayLostPasswordCommand.getParams(vxpay.config));
-
-        if (flowOptions) {
-          frame.sendUpdateParams(flowOptions);
-        }
-
-        frame.sendAdditionalOptions(vxpay.config.getAdditionalOptions()).changeRoute(Config_VXPayPaymentRoutes.PASSWORD);
+        return frame.initSession().sendOptions(options).sendAdditionalOptions(vxpay.config.getAdditionalOptions()).changeRoute(Config_VXPayPaymentRoutes.PASSWORD);
       });
       return vxpay;
     }
@@ -6719,15 +6387,9 @@ var VXPayOpenVipAboTrialCommand_VXPayOpenVipAboTrialCommand = function VXPayOpen
   var flowOptions = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
   vxpay.logger.log('VXPayOpenVipAboTrialCommand()');
   vxpay.paymentFrame.then(function (frame) {
-    frame.initSession().sendOptions({
+    return frame.initSession().sendOptions(Object.assign({}, {
       'flow': Config_VXPayFlow.TRIAL_VIP_ABO
-    });
-
-    if (flowOptions) {
-      frame.sendUpdateParams(flowOptions);
-    }
-
-    frame.sendAdditionalOptions(vxpay.config.getAdditionalOptions()).changeRoute(Config_VXPayPaymentRoutes.ABO);
+    }, flowOptions)).sendAdditionalOptions(vxpay.config.getAdditionalOptions()).changeRoute(Config_VXPayPaymentRoutes.ABO);
   });
   return vxpay;
 };
@@ -6746,15 +6408,9 @@ var VXPayOpenPremiumAboCommand_VXPayOpenPremiumAboCommand = function VXPayOpenPr
   var flowOptions = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
   vxpay.logger.log('VXPayOpenPaymentCommand()');
   vxpay.paymentFrame.then(function (frame) {
-    frame.initSession().sendOptions({
+    return frame.initSession().sendOptions(Object.assign({}, {
       'flow': Config_VXPayFlow.VXTV_ABO
-    });
-
-    if (flowOptions) {
-      frame.sendUpdateParams(flowOptions);
-    }
-
-    frame.sendAdditionalOptions(vxpay.config.getAdditionalOptions()).changeRoute(Config_VXPayPaymentRoutes.ABO);
+    }, flowOptions)).sendAdditionalOptions(vxpay.config.getAdditionalOptions()).changeRoute(Config_VXPayPaymentRoutes.ABO);
   });
   return vxpay;
 };
@@ -6774,15 +6430,9 @@ var VXPayOpenAVSCommand_VXPayOpenAVSCommand = function VXPayOpenAVSCommand(vxpay
   var flowOptions = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
   vxpay.logger.log('VXPayOpenAVSCommand()');
   vxpay.paymentFrame.then(function (frame) {
-    frame.initSession().sendOptions({
+    return frame.initSession().sendOptions(Object.assign({}, {
       'flow': Config_VXPayFlow.AVS
-    });
-
-    if (flowOptions) {
-      frame.sendUpdateParams(flowOptions);
-    }
-
-    frame.sendAdditionalOptions(vxpay.config.getAdditionalOptions()).changeRoute(Config_VXPayPaymentRoutes.AVS);
+    }, flowOptions)).sendAdditionalOptions(vxpay.config.getAdditionalOptions()).changeRoute(Config_VXPayPaymentRoutes.AVS);
   });
   return vxpay;
 };
@@ -6801,15 +6451,9 @@ var VXPayOpenAVSCommand_VXPayOpenAVSCommand = function VXPayOpenAVSCommand(vxpay
 var VXPayOpenPromoCodeCommand_VXPayOpenPromoCodeCommand = function VXPayOpenPromoCodeCommand(vxpay, flowOptions) {
   vxpay.logger.log('VXPayOpenPromoCodeCommand()');
   vxpay.paymentFrame.then(function (frame) {
-    frame.initSession().sendOptions({
+    return frame.initSession().sendOptions(Object.assign({}, {
       'flow': Config_VXPayFlow.PROMOCODE
-    });
-
-    if (flowOptions) {
-      frame.sendUpdateParams(flowOptions);
-    }
-
-    frame.sendAdditionalOptions(vxpay.config.getAdditionalOptions()).changeRoute(Config_VXPayPaymentRoutes.PROMOCODE);
+    }, flowOptions)).sendAdditionalOptions(vxpay.config.getAdditionalOptions()).changeRoute(Config_VXPayPaymentRoutes.PROMOCODE);
   });
   return vxpay;
 };
@@ -6844,13 +6488,7 @@ function () {
       var flowOptions = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
       vxpay.logger.log('VXPayOpenOneClickCommand()');
       vxpay.paymentFrame.then(function (frame) {
-        frame.initSession().sendOptions(VXPayOpenOneClickCommand.PARAMS);
-
-        if (flowOptions) {
-          frame.sendUpdateParams(flowOptions);
-        }
-
-        frame.sendAdditionalOptions(vxpay.config.getAdditionalOptions()).changeRoute(Config_VXPayPaymentRoutes.ONE_CLICK);
+        return frame.initSession().sendOptions(Object.assign({}, VXPayOpenOneClickCommand.PARAMS, flowOptions)).sendAdditionalOptions(vxpay.config.getAdditionalOptions()).changeRoute(Config_VXPayPaymentRoutes.ONE_CLICK);
       });
       return vxpay;
     }
@@ -6896,13 +6534,7 @@ function () {
       var flowOptions = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
       vxpay.logger.log('VXPayOpenAutoRechargeCommand()');
       vxpay.paymentFrame.then(function (frame) {
-        frame.initSession().sendOptions(VXPayOpenAutoRechargeCommand.PARAMS);
-
-        if (flowOptions) {
-          frame.sendUpdateParams(flowOptions);
-        }
-
-        frame.sendAdditionalOptions(vxpay.config.getAdditionalOptions()).changeRoute(Config_VXPayPaymentRoutes.AUTO_RECHARGE);
+        return frame.initSession().sendOptions(Object.assign({}, VXPayOpenAutoRechargeCommand.PARAMS, flowOptions)).sendAdditionalOptions(vxpay.config.getAdditionalOptions()).changeRoute(Config_VXPayPaymentRoutes.AUTO_RECHARGE);
       });
       return vxpay;
     }
@@ -6932,15 +6564,9 @@ var VXPayOpenOpenBalanceCommand_VXPayOpenOpenBalanceCommand = function VXPayOpen
   var flowOptions = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
   vxpay.logger.log('VXPayOpenOneClickCommand()');
   vxpay.paymentFrame.then(function (frame) {
-    frame.initSession().sendOptions({
+    return frame.initSession().sendOptions(Object.assign({}, {
       'flow': Config_VXPayFlow.OP_COMPENSATION
-    });
-
-    if (flowOptions) {
-      frame.sendUpdateParams(flowOptions);
-    }
-
-    frame.sendAdditionalOptions(vxpay.config.getAdditionalOptions()).changeRoute(Config_VXPayPaymentRoutes.OP_COMPENSATION);
+    }, flowOptions)).sendAdditionalOptions(vxpay.config.getAdditionalOptions()).changeRoute(Config_VXPayPaymentRoutes.OP_COMPENSATION);
   });
   return vxpay;
 };
@@ -6956,21 +6582,197 @@ var VXPayTriggerShowForTab = function VXPayTriggerShowForTab(vxpay) {
   vxpay.logger.log('VXPayTriggerShowForTab()'); // ony for tab config - trigger show manually
 
   if (vxpay.config.enableTab) {
-    vxpay.paymentFrame.then(function (frame) {
-      return frame.show();
-    });
+    vxpay._paymentFrame.triggerLoad();
   }
 
   return vxpay;
 };
 
 /* harmony default export */ var Frames_VXPayTriggerShowForTab = (VXPayTriggerShowForTab);
+// CONCATENATED MODULE: ./src/VXPay/Message/Hooks/VXPayHookRouter.js
+
+
+
+
+
+/**
+ * @param {VXPayPaymentHooksConfig} hooks
+ * @param {MessageEvent|Object} event
+ * @param {String|undefined} sourceTab
+ * @return {boolean}
+ * @throws {TypeError}
+ * @constructor
+ */
+
+var VXPayHookRouter_VXPayHookRouter = function VXPayHookRouter(hooks, event) {
+  var sourceTab = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : undefined;
+
+  // origin check
+  if (event.origin && Dom_VXPayIframe.ORIGIN_VX.indexOf(event.origin) === -1) {
+    return false;
+  } // parse message
+
+
+  var message = VXPayMessageFactory_VXPayMessageFactory.fromJson(event.data); // route any
+
+  hooks.trigger(Config_VXPayPaymentHooksConfig.ON_ANY, [message], sourceTab);
+
+  switch (message.type) {
+    case VXPay_VXPayMessage.TYPE_TRANSFER_TOKEN:
+      return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_TRANSFER_TOKEN, [message], sourceTab);
+
+    case VXPay_VXPayMessage.TYPE_AVS_STATUS:
+      return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_AVS_STATUS, [message], sourceTab);
+
+    case VXPay_VXPayMessage.TYPE_BALANCE:
+      return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_BALANCE, [message], sourceTab);
+
+    case VXPay_VXPayMessage.TYPE_ACTIVE_ABOS:
+      return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_ACTIVE_ABOS, [message], sourceTab);
+
+    case VXPay_VXPayMessage.TYPE_IFRAME_READY:
+      return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_IFRAME_READY, [message], sourceTab);
+
+    case VXPay_VXPayMessage.TYPE_CONTENT_LOADED:
+      return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_CONTENT_LOADED, [message], sourceTab);
+
+    case VXPay_VXPayMessage.TYPE_VIEW_READY:
+      return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_VIEW_READY, [message], sourceTab);
+
+    case VXPay_VXPayMessage.TYPE_IFRAME_CLOSE:
+      return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_CLOSE, [message], sourceTab);
+
+    case VXPay_VXPayMessage.TYPE_SUCCESS:
+      return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_SUCCESS, [message], sourceTab);
+
+    case VXPay_VXPayMessage.TYPE_IS_LOGGED_IN:
+      return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_IS_LOGGED_IN, [message], sourceTab);
+
+    case VXPay_VXPayMessage.TYPE_LOGGED_OUT:
+      return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_LOGOUT, [message], sourceTab);
+
+    case VXPay_VXPayMessage.TYPE_HOOK:
+      switch (message.hook) {
+        case Hooks_VXPayHookMessage.HOOK_LOGIN:
+          return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_LOGIN, [message], sourceTab);
+
+        case Hooks_VXPayHookMessage.HOOK_FLOW_CHANGED:
+          return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_FLOW_CHANGE, [message], sourceTab);
+
+        case Hooks_VXPayHookMessage.HOOK_PAYMENT:
+          return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_PAYMENT, [message], sourceTab);
+
+        case Hooks_VXPayHookMessage.HOOK_SIGNUP:
+          return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_SIGNUP, [message], sourceTab);
+
+        case Hooks_VXPayHookMessage.HOOK_COMFORT_SETTINGS_CHANGED:
+          return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_COMFORT_SETTINGS_CHANGE, [message], sourceTab);
+
+        case Hooks_VXPayHookMessage.HOOK_EMAIL_VERIFIED:
+          return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_EMAIL_VERIFIED, [message], sourceTab);
+
+        case Hooks_VXPayHookMessage.HOOK_EMAIL_NOT_VERIFIED:
+          return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_EMAIL_NOT_VERIFIED, [message], sourceTab);
+
+        case Hooks_VXPayHookMessage.HOOK_PASSWORD_CHANGED:
+          return hooks.trigger(Config_VXPayPaymentHooksConfig.ON_PASSWORD_CHANGED, [message], sourceTab);
+      }
+
+  }
+};
+
+/* harmony default export */ var Hooks_VXPayHookRouter = (VXPayHookRouter_VXPayHookRouter);
+// CONCATENATED MODULE: ./src/VXPay/Message/Actions/VXPayIsLoggedInActionMessage.js
+function VXPayIsLoggedInActionMessage_typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { VXPayIsLoggedInActionMessage_typeof = function _typeof(obj) { return typeof obj; }; } else { VXPayIsLoggedInActionMessage_typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return VXPayIsLoggedInActionMessage_typeof(obj); }
+
+function VXPayIsLoggedInActionMessage_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function VXPayIsLoggedInActionMessage_possibleConstructorReturn(self, call) { if (call && (VXPayIsLoggedInActionMessage_typeof(call) === "object" || typeof call === "function")) { return call; } return VXPayIsLoggedInActionMessage_assertThisInitialized(self); }
+
+function VXPayIsLoggedInActionMessage_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function VXPayIsLoggedInActionMessage_getPrototypeOf(o) { VXPayIsLoggedInActionMessage_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return VXPayIsLoggedInActionMessage_getPrototypeOf(o); }
+
+function VXPayIsLoggedInActionMessage_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) VXPayIsLoggedInActionMessage_setPrototypeOf(subClass, superClass); }
+
+function VXPayIsLoggedInActionMessage_setPrototypeOf(o, p) { VXPayIsLoggedInActionMessage_setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return VXPayIsLoggedInActionMessage_setPrototypeOf(o, p); }
+
+
+
+var VXPayIsLoggedInActionMessage_VXPayIsLoggedInActionMessage =
+/*#__PURE__*/
+function (_VXPayMessage) {
+  VXPayIsLoggedInActionMessage_inherits(VXPayIsLoggedInActionMessage, _VXPayMessage);
+
+  function VXPayIsLoggedInActionMessage() {
+    var _this;
+
+    VXPayIsLoggedInActionMessage_classCallCheck(this, VXPayIsLoggedInActionMessage);
+
+    _this = VXPayIsLoggedInActionMessage_possibleConstructorReturn(this, VXPayIsLoggedInActionMessage_getPrototypeOf(VXPayIsLoggedInActionMessage).call(this, VXPay_VXPayMessage.TYPE_ACTION_IS_LOGGED_IN));
+    _this.isAction = true;
+    return _this;
+  }
+
+  return VXPayIsLoggedInActionMessage;
+}(VXPay_VXPayMessage);
+
+
+// CONCATENATED MODULE: ./src/VXPay/Middleware/Actions/VXPayIsLoggedInTriggerMiddleware.js
+
+/**
+ * @param {VXPay} vxpay
+ * @param {Function} resolve
+ * @param {Function} reject
+ * @constructor
+ */
+
+var VXPayIsLoggedInTriggerMiddleware_VXPayIsLoggedInTriggerMiddleware = function VXPayIsLoggedInTriggerMiddleware(vxpay, resolve, reject) {
+  vxpay.logger.log('VXPayIsLoggedInTriggerMiddleware()');
+
+  try {
+    // is hook setup?
+    if (!vxpay._hooks.hasOnIsLoggedIn(resolve)) {
+      vxpay._hooks.onIsLoggedIn(resolve);
+    }
+
+    vxpay._paymentFrame.postMessage(new VXPayIsLoggedInActionMessage_VXPayIsLoggedInActionMessage());
+  } catch (err) {
+    reject(err);
+  }
+
+  return vxpay;
+};
+
+/* harmony default export */ var Actions_VXPayIsLoggedInTriggerMiddleware = (VXPayIsLoggedInTriggerMiddleware_VXPayIsLoggedInTriggerMiddleware);
+// CONCATENATED MODULE: ./src/VXPay/Middleware/Frames/VXPayResetTokenForTab.js
+/**
+ * @param {VXPay} vxpay
+ * @return {VXPay}
+ * @constructor
+ */
+var VXPayResetTokenForTab = function VXPayResetTokenForTab(vxpay) {
+  vxpay.logger.log('VXPayResetTokenForTab()');
+
+  if (vxpay.config.enableTab) {
+    vxpay.state.markHasToken(undefined);
+  }
+
+  return vxpay;
+};
+
+/* harmony default export */ var Frames_VXPayResetTokenForTab = (VXPayResetTokenForTab);
 // CONCATENATED MODULE: ./src/VXPay.js
 function VXPay_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function VXPay_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function VXPay_createClass(Constructor, protoProps, staticProps) { if (protoProps) VXPay_defineProperties(Constructor.prototype, protoProps); if (staticProps) VXPay_defineProperties(Constructor, staticProps); return Constructor; }
+
+
+
+
+
 
 
 
@@ -7020,7 +6822,11 @@ function () {
     this.config = config;
     this.logger = new VXPay_VXPayLogger(this.config.logging, this.config.window);
     this._state = new VXPayState();
-    this.logger.log('VXPay::constructor - ' + JSON.stringify(this.config.getOptions()));
+    this._hooks = new Config_VXPayPaymentHooksConfig();
+    this.logger.log('VXPay::constructor - ' + JSON.stringify(this.config.getOptions())); // bind handlers
+
+    this.hooksRouteHandler = this.routeHooks.bind(this);
+    this.dontListenHandler = this.stopListening.bind(this);
   }
   /**
    * @return {VXPayState}
@@ -7070,9 +6876,9 @@ function () {
       var flowOptions = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
       this.logger.log('VXPay::openLogin');
       return new Promise(function (resolve, reject) {
-        return _this3._initPaymentFrame().then(Condition_VXPayWhenTokenTransferred).then(function (vxpay) {
+        return _this3._initPaymentFrame().then(Frames_VXPayResetTokenForTab).then(Frames_VXPayTriggerShowForTab).then(Condition_VXPayWhenTokenTransferred).then(function (vxpay) {
           return Command_VXPayOpenLoginCommand(vxpay, flowOptions);
-        }).then(Frames_VXPayTriggerShowForTab).then(resolve).catch(reject);
+        }).then(resolve).catch(reject);
       });
     }
     /**
@@ -7087,9 +6893,9 @@ function () {
 
       var flowOptions = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
       return new Promise(function (resolve, reject) {
-        return _this4._initPaymentFrame().then(Condition_VXPayWhenTokenTransferred).then(function (vxpay) {
+        return _this4._initPaymentFrame().then(Frames_VXPayResetTokenForTab).then(Frames_VXPayTriggerShowForTab).then(Condition_VXPayWhenTokenTransferred).then(function (vxpay) {
           return Command_VXPayOpenSignUpCommand(vxpay, flowOptions);
-        }).then(Frames_VXPayTriggerShowForTab).then(resolve).catch(reject);
+        }).then(resolve).catch(reject);
       });
     }
     /**
@@ -7102,7 +6908,7 @@ function () {
       var _this5 = this;
 
       return new Promise(function (resolve, reject) {
-        _this5._initPaymentFrame().then(Condition_VXPayWhenTokenTransferred).then(Command_VXPayOpenVoiceCallCommand.run).then(Frames_VXPayTriggerShowForTab).then(resolve).catch(reject);
+        _this5._initPaymentFrame().then(Frames_VXPayResetTokenForTab).then(Frames_VXPayTriggerShowForTab).then(Condition_VXPayWhenTokenTransferred).then(Command_VXPayOpenVoiceCallCommand.run).then(resolve).catch(reject);
       });
     }
     /**
@@ -7134,9 +6940,9 @@ function () {
 
       var flowOptions = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
       return new Promise(function (resolve, reject) {
-        _this7._initPaymentFrame().then(Condition_VXPayWhenTokenTransferred).then(function (vxpay) {
+        _this7._initPaymentFrame().then(Frames_VXPayResetTokenForTab).then(Frames_VXPayTriggerShowForTab).then(Condition_VXPayWhenTokenTransferred).then(function (vxpay) {
           return Command_VXPayOpenPaymentCommand.run(vxpay, flowOptions);
-        }).then(Frames_VXPayTriggerShowForTab).then(resolve).catch(reject);
+        }).then(resolve).catch(reject);
       });
     }
     /**
@@ -7151,9 +6957,9 @@ function () {
 
       var flowOptions = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
       return new Promise(function (resolve, reject) {
-        _this8._initPaymentFrame().then(Condition_VXPayWhenTokenTransferred).then(function (vxpay) {
+        _this8._initPaymentFrame().then(Frames_VXPayResetTokenForTab).then(Frames_VXPayTriggerShowForTab).then(Condition_VXPayWhenTokenTransferred).then(function (vxpay) {
           return Command_VXPayOpenAboCommand(vxpay, flowOptions);
-        }).then(Frames_VXPayTriggerShowForTab).then(resolve).catch(reject);
+        }).then(resolve).catch(reject);
       });
     }
     /**
@@ -7166,7 +6972,7 @@ function () {
       var _this9 = this;
 
       return new Promise(function (resolve, reject) {
-        _this9._initPaymentFrame().then(Condition_VXPayWhenTokenTransferred).then(Command_VXPayOpenSettingsCommand.run).then(Frames_VXPayTriggerShowForTab).then(resolve).catch(reject);
+        _this9._initPaymentFrame().then(Frames_VXPayResetTokenForTab).then(Frames_VXPayTriggerShowForTab).then(Condition_VXPayWhenTokenTransferred).then(Command_VXPayOpenSettingsCommand.run).then(resolve).catch(reject);
       });
     }
     /**
@@ -7181,9 +6987,9 @@ function () {
 
       var flowOptions = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
       return new Promise(function (resolve, reject) {
-        _this10._initPaymentFrame().then(Condition_VXPayWhenTokenTransferred).then(function (vxpay) {
+        _this10._initPaymentFrame().then(Frames_VXPayResetTokenForTab).then(Frames_VXPayTriggerShowForTab).then(Condition_VXPayWhenTokenTransferred).then(function (vxpay) {
           return VXPayResetPasswordCommand_VXPayResetPasswordCommand.run(vxpay, flowOptions);
-        }).then(Frames_VXPayTriggerShowForTab).then(resolve).catch(reject);
+        }).then(resolve).catch(reject);
       });
     }
     /**
@@ -7198,9 +7004,9 @@ function () {
 
       var flowOptions = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
       return new Promise(function (resolve, reject) {
-        _this11._initPaymentFrame().then(Condition_VXPayWhenTokenTransferred).then(function (vxpay) {
+        _this11._initPaymentFrame().then(Frames_VXPayResetTokenForTab).then(Frames_VXPayTriggerShowForTab).then(Condition_VXPayWhenTokenTransferred).then(function (vxpay) {
           return VXPayLostPasswordCommand_VXPayLostPasswordCommand.run(vxpay, flowOptions);
-        }).then(Frames_VXPayTriggerShowForTab).then(resolve).catch(reject);
+        }).then(resolve).catch(reject);
       });
     }
     /**
@@ -7213,7 +7019,7 @@ function () {
       var _this12 = this;
 
       return new Promise(function (resolve, reject) {
-        _this12._initPaymentFrame().then(Condition_VXPayWhenTokenTransferred).then(Command_VXPayOpenLimitedPaymentCommand.run).then(Frames_VXPayTriggerShowForTab).then(resolve).catch(reject);
+        _this12._initPaymentFrame().then(Frames_VXPayResetTokenForTab).then(Frames_VXPayTriggerShowForTab).then(Condition_VXPayWhenTokenTransferred).then(Command_VXPayOpenLimitedPaymentCommand.run).then(resolve).catch(reject);
       });
     }
     /**
@@ -7228,9 +7034,9 @@ function () {
 
       var flowOptions = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
       return new Promise(function (resolve, reject) {
-        _this13._initPaymentFrame().then(Condition_VXPayWhenTokenTransferred).then(function (vxpay) {
+        _this13._initPaymentFrame().then(Frames_VXPayResetTokenForTab).then(Frames_VXPayTriggerShowForTab).then(Condition_VXPayWhenTokenTransferred).then(function (vxpay) {
           return Command_VXPayOpenVipAboTrialCommand(vxpay, flowOptions);
-        }).then(Frames_VXPayTriggerShowForTab).then(resolve).catch(reject);
+        }).then(resolve).catch(reject);
       });
     }
     /**
@@ -7245,9 +7051,9 @@ function () {
 
       var flowOptions = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
       return new Promise(function (resolve, reject) {
-        _this14._initPaymentFrame().then(Condition_VXPayWhenTokenTransferred).then(function (vxpay) {
+        _this14._initPaymentFrame().then(Frames_VXPayResetTokenForTab).then(Frames_VXPayTriggerShowForTab).then(Condition_VXPayWhenTokenTransferred).then(function (vxpay) {
           return Command_VXPayOpenPremiumAboCommand(vxpay, flowOptions);
-        }).then(Frames_VXPayTriggerShowForTab).then(resolve).catch(reject);
+        }).then(resolve).catch(reject);
       });
     }
     /**
@@ -7262,9 +7068,9 @@ function () {
 
       var flowOptions = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
       return new Promise(function (resolve, reject) {
-        _this15._initPaymentFrame().then(Condition_VXPayWhenTokenTransferred).then(function (vxpay) {
+        _this15._initPaymentFrame().then(Frames_VXPayResetTokenForTab).then(Frames_VXPayTriggerShowForTab).then(Condition_VXPayWhenTokenTransferred).then(function (vxpay) {
           return Command_VXPayOpenAVSCommand(vxpay, flowOptions);
-        }).then(Frames_VXPayTriggerShowForTab).then(resolve).catch(reject);
+        }).then(resolve).catch(reject);
       });
     }
     /**
@@ -7279,9 +7085,9 @@ function () {
 
       var flowOptions = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
       return new Promise(function (resolve, reject) {
-        _this16._initPaymentFrame().then(Condition_VXPayWhenTokenTransferred).then(function (vxpay) {
+        _this16._initPaymentFrame().then(Frames_VXPayResetTokenForTab).then(Frames_VXPayTriggerShowForTab).then(Condition_VXPayWhenTokenTransferred).then(function (vxpay) {
           return Command_VXPayOpenPromoCodeCommand(vxpay, flowOptions);
-        }).then(Frames_VXPayTriggerShowForTab).then(resolve).catch(reject);
+        }).then(resolve).catch(reject);
       });
     }
     /**
@@ -7296,9 +7102,9 @@ function () {
 
       var flowOptions = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
       return new Promise(function (resolve, reject) {
-        _this17._initPaymentFrame().then(Condition_VXPayWhenTokenTransferred).then(function (vxpay) {
+        _this17._initPaymentFrame().then(Frames_VXPayResetTokenForTab).then(Frames_VXPayTriggerShowForTab).then(Condition_VXPayWhenTokenTransferred).then(function (vxpay) {
           return Command_VXPayOpenPromoCodeCommand(vxpay, flowOptions);
-        }).then(Frames_VXPayTriggerShowForTab).then(resolve).catch(reject);
+        }).then(resolve).catch(reject);
       });
     }
     /**
@@ -7313,9 +7119,9 @@ function () {
 
       var flowOptions = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
       return new Promise(function (resolve, reject) {
-        _this18._initPaymentFrame().then(Condition_VXPayWhenTokenTransferred).then(function (vxpay) {
+        _this18._initPaymentFrame().then(Frames_VXPayResetTokenForTab).then(Frames_VXPayTriggerShowForTab).then(Condition_VXPayWhenTokenTransferred).then(function (vxpay) {
           return Command_VXPayOpenOneClickCommand.run(vxpay, flowOptions);
-        }).then(Frames_VXPayTriggerShowForTab).then(resolve).catch(reject);
+        }).then(resolve).catch(reject);
       });
     }
     /**
@@ -7330,9 +7136,9 @@ function () {
 
       var flowOptions = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
       return new Promise(function (resolve, reject) {
-        _this19._initPaymentFrame().then(Condition_VXPayWhenTokenTransferred).then(function (vxpay) {
+        _this19._initPaymentFrame().then(Frames_VXPayResetTokenForTab).then(Frames_VXPayTriggerShowForTab).then(Condition_VXPayWhenTokenTransferred).then(function (vxpay) {
           return Command_VXPayOpenAutoRechargeCommand.run(vxpay, flowOptions);
-        }).then(Frames_VXPayTriggerShowForTab).then(resolve).catch(reject);
+        }).then(resolve).catch(reject);
       });
     }
     /**
@@ -7347,9 +7153,9 @@ function () {
 
       var flowOptions = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
       return new Promise(function (resolve, reject) {
-        _this20._initPaymentFrame().then(Condition_VXPayWhenTokenTransferred).then(function (vxpay) {
+        _this20._initPaymentFrame().then(Frames_VXPayResetTokenForTab).then(Frames_VXPayTriggerShowForTab).then(Condition_VXPayWhenTokenTransferred).then(function (vxpay) {
           return Command_VXPayOpenOpenBalanceCommand(vxpay, flowOptions);
-        }).then(Frames_VXPayTriggerShowForTab).then(resolve).catch(reject);
+        }).then(resolve).catch(reject);
       });
     }
     /**
@@ -7362,8 +7168,8 @@ function () {
       var _this21 = this;
 
       return new Promise(function (resolve, reject) {
-        _this21._initPaymentFrame(!_this21.config.enableTab).then(function (vxpay) {
-          return new Actions_VXPayListenOrCallLoggedInMiddleware(vxpay, resolve, reject).run();
+        _this21._initPaymentFrame(!_this21.config.enableTab).then(Condition_VXPayWhenTokenTransferred).then(function (vxpay) {
+          return Actions_VXPayIsLoggedInTriggerMiddleware(vxpay, resolve, reject);
         }).catch(reject);
       });
     }
@@ -7377,7 +7183,7 @@ function () {
       var _this22 = this;
 
       return new Promise(function (resolve, reject) {
-        return _this22._initPaymentFrame().then(function (vxpay) {
+        return _this22._initPaymentFrame(!_this22.config.enableTab).then(Condition_VXPayWhenTokenTransferred).then(function (vxpay) {
           return Actions_VXPayOnAVSStatusListenMiddleware(vxpay, resolve, reject);
         }).then(Actions_VXPayAVSStatusTriggerMiddleware).catch(reject);
       });
@@ -7392,7 +7198,7 @@ function () {
       var _this23 = this;
 
       return new Promise(function (resolve, reject) {
-        _this23._initPaymentFrame().then(function (vxpay) {
+        _this23._initPaymentFrame(!_this23.config.enableTab).then(Condition_VXPayWhenTokenTransferred).then(function (vxpay) {
           return Actions_VXPayListenForBalanceMiddleware(vxpay, resolve, reject);
         }).then(Actions_VXPayBalanceTriggerMiddleware).catch(reject);
       });
@@ -7407,7 +7213,7 @@ function () {
       var _this24 = this;
 
       return new Promise(function (resolve, reject) {
-        _this24._initPaymentFrame().then(function (vxpay) {
+        _this24._initPaymentFrame(!_this24.config.enableTab).then(Condition_VXPayWhenTokenTransferred).then(function (vxpay) {
           return Actions_VXPayListenForActiveAbosMiddleware(vxpay, resolve, reject);
         }).then(Actions_VXPayActiveAbosTriggerMiddleware).catch(reject);
       });
@@ -7429,6 +7235,39 @@ function () {
     }
     /**
      * @return {VXPayConfig}
+     */
+
+  }, {
+    key: "routeHooks",
+
+    /**
+     * @param {MessageEvent} event
+     */
+    value: function routeHooks(event) {
+      Hooks_VXPayHookRouter(this._hooks, event);
+    }
+    /**
+     * listen for incoming messages
+     */
+
+  }, {
+    key: "startListening",
+    value: function startListening() {
+      Event_VXPayEventListener.addEvent(Dom_VXPayIframe.EVENT_MESSAGE, this.config.window, this.hooksRouteHandler);
+      Event_VXPayEventListener.addEvent(Dom_VXPayIframe.EVENT_UNLOAD, this.config.window, this.dontListenHandler);
+    }
+    /**
+     * Remove listeners
+     */
+
+  }, {
+    key: "stopListening",
+    value: function stopListening() {
+      Event_VXPayEventListener.removeEvent(Dom_VXPayIframe.EVENT_MESSAGE, this.config.window, this.hooksRouteHandler);
+      Event_VXPayEventListener.removeEvent(Dom_VXPayIframe.EVENT_UNLOAD, this.config.window, this.dontListenHandler);
+    }
+    /**
+     * @return {Promise<VXPayPaymentFrame|VXPayPaymentTab>}
      */
 
   }, {
@@ -7501,24 +7340,10 @@ function () {
     get: function get() {
       var _this26 = this;
 
-      this.logger.log('VXPay::hooks');
-      return new Promise(function (resolve, reject) {
-        if (_this26.state.isContentLoaded) {
-          _this26.logger.log('VXPay::hooks -> already loaded, resolve ...');
-
-          return resolve(_this26._paymentFrame.hooks);
-        } // init and don't trigger load
-
-
-        _this26._initPaymentFrame(false).then(function (vxpay) {
-          return resolve(vxpay._paymentFrame.hooks);
-        }).catch(reject);
+      return new Promise(function (resolve) {
+        return resolve(_this26._hooks);
       });
     }
-    /**
-     * @return {Promise<VXPayPaymentFrame|VXPayPaymentTab>}
-     */
-
   }, {
     key: "paymentFrame",
     get: function get() {

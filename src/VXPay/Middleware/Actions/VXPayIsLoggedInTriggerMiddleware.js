@@ -11,8 +11,8 @@ const VXPayIsLoggedInTriggerMiddleware = (vxpay, resolve, reject) => {
 
 	try {
 		// is hook setup?
-		if (!vxpay.hooks.hasOnIsLoggedIn(resolve)) {
-			vxpay.hooks.onIsLoggedIn(resolve);
+		if (!vxpay._hooks.hasOnIsLoggedIn(resolve)) {
+			vxpay._hooks.onIsLoggedIn(resolve);
 		}
 
 		vxpay._paymentFrame.postMessage(new VXPayIsLoggedInActionMessage);

@@ -85,6 +85,12 @@ describe('VXPay', () => {
 			}, TypeError, 'Payment frame should be an instance of VXPayPaymentFrame or VXPayPaymentTab');
 		});
 	});
+	describe('#hooks()', () => {
+		it('Should return a Promise of hooks config for compatibility reasons', () => {
+			const pay = new VXPay(new VXPayConfig(VXPayTestFx.getWindow()));
+			assert.instanceOf(pay.hooks, Promise);
+		});
+	});
 	describe('#apiVersion()', () => {
 		it('Can accept API version on the fly', () => {
 			const pay        = new VXPay(new VXPayConfig(VXPayTestFx.getWindow()));

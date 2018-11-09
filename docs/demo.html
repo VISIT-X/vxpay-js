@@ -383,7 +383,7 @@
 	__init = function() {
 	config          = new VX.VXPayConfig(window);
 	config.logging  = true;
-	config.enableTab = false;
+	config.enableTab = true;
 	vxpay           = new VX.VXPay(config);
 
 	configPopulateAllFrom(config);
@@ -392,8 +392,10 @@
 	modalConfigEnableAll();
 
 	// update config UI on any changes from VXPAy UI
-	vxpay.hooks.onAny(function(msg) {
-		configPopulateAllFrom(config);
+	vxpay.hooks.then(function(hooks) {
+		hooks.onAny(function(msg) {
+			configPopulateAllFrom(config);
+		})
 	});
 };
 </script>

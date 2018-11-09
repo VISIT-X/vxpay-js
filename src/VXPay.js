@@ -478,10 +478,10 @@ export default class VXPay {
 	}
 
 	/**
-	 * @return {VXPayPaymentHooksConfig}
+	 * @return {Promise<VXPayPaymentHooksConfig>}
 	 */
 	get hooks() {
-		return this._hooks;
+		return new Promise(resolve => resolve(this._hooks));
 	}
 
 	/**

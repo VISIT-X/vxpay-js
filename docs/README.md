@@ -23,6 +23,9 @@ You can use the following scripts to help you on daily run:
 
 | Command | Explanation |
 | ------- | ----------- |
-| `npm run prepare` | Prepare the npm package valid for local installs (normal npm tgz) | 
-| `npm run clear` | Remove the files used in package preparation |
+| `npm run vxpay-prepare` | Prepare the npm package valid for local installs (normal npm tgz) | 
+| `npm run vxpayclear` | Remove the files used in package preparation |
+| `npm run build` | Prepare the production version of the lib |
+| `npm run lint` | Check `eslint` results |
+| `npm run cover` | Run tests and write coverage files. Can be observed in `build/coverage/index.html` |
  

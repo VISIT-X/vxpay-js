@@ -30,41 +30,28 @@ describe('VXPayWhenTokenTransferred', () => {
 					assert.instanceOf(returned, VXPay);
 
 					// ensure no hook
-					assert.equal(2, returned.hooks._onTransferToken.length);
+					assert.equal(2, returned._hooks._onTransferToken.length);
 				})
 				// instead of .finally(done)
 				.then(done, done)
 		});
 		it('Will resolve when token transferred', done => {
-			assert.equal(2, vxpay.hooks._onTransferToken.length);
+			assert.equal(2, vxpay._hooks._onTransferToken.length);
 
 			VXPayWhenTokenTransferred(vxpay)
 				.then(returned => {
 					assert.instanceOf(returned, VXPay);
 
 					// ensure has hook
-					assert.equal(3, returned.hooks._onTransferToken.length);
+					assert.equal(3, returned._hooks._onTransferToken.length);
 				})
 				.then(done, done);
 
 			// trigger token event
-			vxpay.hooks.trigger(
+			vxpay._hooks.trigger(
 				VXPayPaymentHooksConfig.ON_TRANSFER_TOKEN,
 				[new VXPayTransferTokenMessage('token')]
 			);
 		});
-
-		// this test does not make any sence any more as this
-		// promise will not be reolsved until the frame loaded
-
-//		it('Rejects on error', done => {
-//			vxpay._config = undefined;
-//
-//			VXPayWhenTokenTransferred(vxpay)
-//				.catch(err => {
-//					assert.instanceOf(err, Error);
-//					done();
-//				})
-//		});
 	});
 });
