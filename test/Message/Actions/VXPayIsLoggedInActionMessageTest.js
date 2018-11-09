@@ -16,7 +16,7 @@ describe('VXPayGetActiveAbosMessage', () => {
 		it('Should serialize to JSON', () => {
 			assert.equal(
 				(new VXPayIsLoggedInActionMessage()).toString(),
-				'{"type":"modalbox-action-isLoggedIn"}'
+				'{"type":"modalbox-action-isLoggedIn","isAction":true}'
 			);
 		});
 	});

@@ -1,3 +1,4 @@
 {
-	"type": "modalbox-content-loaded"
+	"type": "modalbox-content-loaded",
+	"isAction": false
 }

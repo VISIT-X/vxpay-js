@@ -1,5 +1,5 @@
 import {assert}                  from 'chai'
-import {describe, it}            from 'mocha'
+import {describe, it, beforeEach}            from 'mocha'
 import VXPay                     from './../../../src/VXPay'
 import VXPayConfig               from './../../../src/VXPay/VXPayConfig'
 import VXPayTestFx               from './../../Fixtures/VXPayTestFx'
@@ -22,7 +22,7 @@ describe('VXPayWhenTokenTransferred', () => {
 		it('Should return a Promise', () => {
 			assert.instanceOf(VXPayWhenTokenTransferred(vxpay), Promise)
 		});
-		xit('Resolves when token already present', done => {
+		it('Resolves when token already present', done => {
 			vxpay.state.markHasToken(new VXPayTransferTokenMessage('token'));
 
 			VXPayWhenTokenTransferred(vxpay)
@@ -35,7 +35,7 @@ describe('VXPayWhenTokenTransferred', () => {
 				// instead of .finally(done)
 				.then(done, done)
 		});
-		xit('Will resolve when token transferred', done => {
+		it('Will resolve when token transferred', done => {
 			assert.equal(2, vxpay.hooks._onTransferToken.length);
 
 			VXPayWhenTokenTransferred(vxpay)

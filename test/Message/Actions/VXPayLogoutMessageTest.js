@@ -16,7 +16,7 @@ describe('VXPayGetActiveAbosMessage', () => {
 		it('Should serialize to JSON', () => {
 			assert.equal(
 				(new VXPayLogoutMessage()).toString(),
-				'{"type":"modalbox-action-logout"}'
+				'{"type":"modalbox-action-logout","isAction":true}'
 			);
 		});
 	});

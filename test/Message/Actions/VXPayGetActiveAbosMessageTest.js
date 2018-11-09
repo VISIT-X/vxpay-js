@@ -16,7 +16,7 @@ describe('VXPayGetActiveAbosMessage', () => {
 		it('Should serialize to JSON', () => {
 			assert.equal(
 				(new VXPayGetActiveAbosMessage()).toString(),
-				'{"type":"modalbox-action-getactiveabos"}'
+				'{"type":"modalbox-action-getactiveabos","isAction":true}'
 			);
 		});
 	});
