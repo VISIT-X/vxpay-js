@@ -9,12 +9,12 @@ class VXPayOpenSettingsCommand {
 	static run(vxpay) {
 		vxpay.logger.log('VXPayOpenSettingsCommand()');
 
-		vxpay.paymentFrame
-			.then(frame => frame
-				.sendOptions(VXPayOpenSettingsCommand.PARAMS)
-				.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
-				.changeRoute(VXPayPaymentRoutes.SETTINGS)
-				.initSession());
+		vxpay.paymentFrame.then(frame => frame
+			.sendOptions(VXPayOpenSettingsCommand.PARAMS)
+			.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
+			.changeRoute(VXPayPaymentRoutes.SETTINGS)
+			.initSession()
+		);
 
 		return vxpay;
 	}

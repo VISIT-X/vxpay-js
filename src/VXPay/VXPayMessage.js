@@ -4,7 +4,8 @@ class VXPayMessage {
 	 * @param {String} type
 	 */
 	constructor(type = '') {
-		this.type = type;
+		this.type     = type;
+		this.isAction = false;
 	}
 
 	/**

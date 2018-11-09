@@ -10,20 +10,12 @@ import VXPayPaymentRoutes from './../../Config/VXPayPaymentRoutes'
 const VXPayOpenAVSCommand = (vxpay, flowOptions = {}) => {
 	vxpay.logger.log('VXPayOpenAVSCommand()');
 
-	vxpay.paymentFrame
-		.then(frame => {
-			frame
-				.initSession()
-				.sendOptions({'flow': VXPayFlow.AVS});
-
-			if (flowOptions) {
-				frame.sendUpdateParams(flowOptions);
-			}
-
-			frame
-				.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
-				.changeRoute(VXPayPaymentRoutes.AVS)
-		});
+	vxpay.paymentFrame.then(frame => frame
+		.initSession()
+		.sendOptions(Object.assign({}, {'flow': VXPayFlow.AVS}, flowOptions))
+		.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
+		.changeRoute(VXPayPaymentRoutes.AVS)
+	);
 
 	return vxpay;
 };

@@ -13,7 +13,7 @@ const VXPayWhenTokenTransferred = (vxpay) => {
 				resolve(vxpay);
 			} else {
 				// otherwise - wait for it
-				vxpay.hooks.then(hooks => hooks.onTransferToken(() => resolve(vxpay)));
+				vxpay.hooks.onTransferToken(() => resolve(vxpay));
 			}
 		} catch (err) {
 			reject(err);

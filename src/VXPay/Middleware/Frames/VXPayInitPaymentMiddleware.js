@@ -21,7 +21,7 @@ const VXPayInitPaymentMiddleware = (vxpay, resolve, load = true) => {
 
 	// or in progress
 	if (vxpay.state.isFrameInProgress && !load) {
-		vxpay.logger.log('VXPayInitPaymentMiddleware() - already in progress, resolve ...', vxpay);
+		vxpay.logger.log('VXPayInitPaymentMiddleware() - already in progress, resolve ...');
 		return resolve(vxpay);
 	}
 
@@ -29,25 +29,23 @@ const VXPayInitPaymentMiddleware = (vxpay, resolve, load = true) => {
 	vxpay.state.isFrameInProgress = load;
 
 	if (vxpay.config.enableTab) {
-		vxpay._paymentFrame = new VXPayPaymentTab(vxpay.window.document, VXPayPaymentTab.NAME, vxpay.config);
+		vxpay._paymentFrame = new VXPayPaymentTab(vxpay.window.document, VXPayPaymentTab.NAME, vxpay.config, vxpay.hooks);
 	} else {
 		vxpay._paymentFrame = !vxpay.hasOwnProperty('_paymentFrame')
-			? new VXPayPaymentFrame(vxpay.window.document, vxpay.config.getPaymentFrameUrl(), VXPayPaymentFrame.NAME)
+			? new VXPayPaymentFrame(vxpay.window.document, vxpay.config.getPaymentFrameUrl(), VXPayPaymentFrame.NAME, vxpay.hooks)
 			: vxpay._paymentFrame;
 	}
 
 	if (!vxpay._paymentFrame.loaded) {
 		// do we need logging?
 		if (vxpay.config.logging) {
-			vxpay._paymentFrame
-				.hooks
+			vxpay.hooks
 				.onAny(msg => vxpay.logger.log(VXPayLogger.LOG_INCOMING, msg))
 				.onBeforeSend(msg => vxpay.logger.log(VXPayLogger.LOG_OUTGOING, msg));
 		}
 
 		// set resolve hook
-		vxpay._paymentFrame
-			.hooks
+		vxpay.hooks
 			// state updates
 			.onIframeReady(vxpay.state.markFrameReady.bind(vxpay.state))
 			.onContentLoaded(vxpay.state.markContentLoaded.bind(vxpay.state))
@@ -64,8 +62,10 @@ const VXPayInitPaymentMiddleware = (vxpay, resolve, load = true) => {
 			.onClose(vxpay.state.reset)
 			.onContentLoaded(() => resolve(vxpay));
 
+		vxpay.startListening();
+
 		// trigger load if not tab
-		if (load) {
+		if (load && !vxpay.config.enableTab) {
 			vxpay.logger.log('VXPayInitPaymentMiddleware() - not loaded yet, trigger load');
 			vxpay._paymentFrame.url = vxpay.config.getPaymentFrameUrl();
 			vxpay._paymentFrame.triggerLoad();

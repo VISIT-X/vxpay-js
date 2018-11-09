@@ -10,19 +10,12 @@ class VXPayOpenPaymentCommand {
 	static run(vxpay, flowOptions = {}) {
 		vxpay.logger.log('VXPayOpenPaymentCommand()');
 
-		vxpay.paymentFrame
-			.then(frame => {
-				frame.sendOptions(VXPayOpenPaymentCommand.PARAMS);
-
-				if (flowOptions) {
-					frame.sendUpdateParams(flowOptions);
-				}
-
-				frame
-					.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
-					.changeRoute(VXPayPaymentRoutes.PAYMENT)
-					.initSession()
-			});
+		vxpay.paymentFrame.then(frame => frame
+			.sendOptions(Object.assign({}, VXPayOpenPaymentCommand.PARAMS, flowOptions))
+			.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
+			.changeRoute(VXPayPaymentRoutes.PAYMENT)
+			.initSession()
+		);
 
 		return vxpay;
 	}

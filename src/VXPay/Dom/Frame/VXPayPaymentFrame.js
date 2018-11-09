@@ -4,17 +4,19 @@ import VXPayUpdateParamsMessage      from './../../Message/VXPayUpdateParamsMess
 import VXPayChangeRouteMessage       from './../../Message/VXPayChangeRouteMessage'
 import VXPayUserAgentHelper          from './../../VXPayUserAgentHelper'
 import VXPayDomHelper                from './../VXPayDomHelper'
-import VXPayEventListener            from './../../Event/VXPayEventListener'
-import VXPayPaymentHooksConfig       from './../../Config/VXPayPaymentHooksConfig'
-import VXPayHookRouter               from './../../Message/Hooks/VXPayHookRouter'
 import VXPayIsVisibleMessage         from './../../Message/VXPayIsVisibleMessage'
 import VXPayAdditionalOptionsMessage from './../../Message/VXPayAdditionalOptionsMessage'
+import VXPayPaymentHooksConfig  from './../../Config/VXPayPaymentHooksConfig';
 
 class VXPayPaymentFrame extends VXPayIframe {
 	/**
-	 * Override styles
+	 * @param {Document} document
+	 * @param {String} url
+	 * @param {String} id
+	 * @param {VXPayPaymentHooksConfig} hooks
+	 * @param {CSSStyleDeclaration|Object} style
 	 */
-	constructor(document, url, id = VXPayPaymentFrame.NAME, style = {}) {
+	constructor(document, url, id = VXPayPaymentFrame.NAME, hooks, style = {}) {
 		// merge default with incoming
 		style = Object.assign(
 			{},
@@ -28,17 +30,8 @@ class VXPayPaymentFrame extends VXPayIframe {
 		// allow transparent iframe for <= IE8
 		this._frame.allowTransparency = true;
 		this._frame.name              = 'vxpay';
-
-		// hooks config
-		this._hooks              = new VXPayPaymentHooksConfig();
-		this._sessionInitialized = false;
-
-		// bind handler
-		this.hooksRouteHandler = this.routeHooks.bind(this);
-		this.dontListenHandler = this.stopListening.bind(this);
-
-		// listen for incoming post messages
-		this.startListening();
+		this._sessionInitialized      = false;
+		this._hooks                   = hooks;
 	}
 
 	/**
@@ -56,11 +49,8 @@ class VXPayPaymentFrame extends VXPayIframe {
 			.appendChild(this._frame);
 	}
 
-	/**
-	 * @param {MessageEvent} event
-	 */
-	routeHooks(event) {
-		VXPayHookRouter(this._hooks, event, this._frame.id + '<VXPayPaymentFrame>');
+	removeFromDOM() {
+		this._frame.remove();
 	}
 
 	/**
@@ -102,28 +92,12 @@ class VXPayPaymentFrame extends VXPayIframe {
 	}
 
 	/**
-	 * listen for incoming messages
-	 */
-	startListening() {
-		VXPayEventListener.addEvent(VXPayIframe.EVENT_MESSAGE, this._frame.ownerDocument.defaultView, this.hooksRouteHandler);
-		VXPayEventListener.addEvent(VXPayIframe.EVENT_UNLOAD, this._frame.ownerDocument.defaultView, this.dontListenHandler);
-	}
-
-	/**
-	 * Remove listeners
-	 */
-	stopListening() {
-		VXPayEventListener.removeEvent(VXPayIframe.EVENT_MESSAGE, this._frame.ownerDocument.defaultView, this.hooksRouteHandler);
-		VXPayEventListener.removeEvent(VXPayIframe.EVENT_UNLOAD, this._frame.ownerDocument.defaultView, this.dontListenHandler);
-	}
-
-	/**
 	 * Override to add a hook
 	 * @protected
 	 */
 	_markLoaded() {
 		super._markLoaded();
-		return this._hooks.trigger(VXPayPaymentHooksConfig.ON_LOAD, this._frame.id + '<VXPayPaymentFrame>');
+		return this._hooks.trigger(VXPayPaymentHooksConfig.ON_LOAD, this._frame.id);
 	}
 
 	/**
@@ -133,7 +107,7 @@ class VXPayPaymentFrame extends VXPayIframe {
 	 * @return {VXPayPaymentFrame}
 	 */
 	postMessage(message, origin = '*') {
-		this._hooks.trigger(VXPayPaymentHooksConfig.ON_BEFORE_SEND, [message], this._frame.id + '<VXPayPaymentFrame>');
+		this._hooks.trigger(VXPayPaymentHooksConfig.ON_BEFORE_SEND, [message], this._frame.id);
 
 		if (this._frame.contentWindow !== null) {
 			this._frame.contentWindow.postMessage(message.toString(), origin);
@@ -200,13 +174,6 @@ class VXPayPaymentFrame extends VXPayIframe {
 	 */
 	setVisible() {
 		this.postMessage(new VXPayIsVisibleMessage());
-	}
-
-	/**
-	 * @return {VXPayPaymentHooksConfig}
-	 */
-	get hooks() {
-		return this._hooks;
 	}
 }
 

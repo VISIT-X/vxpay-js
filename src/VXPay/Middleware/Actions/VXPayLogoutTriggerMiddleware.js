@@ -9,9 +9,7 @@ const VXPayLogoutTriggerMiddleware = (vxpay) => {
 	const caller = (frame) => frame.postMessage(new VXPayLogoutMessage);
 
 	if (!vxpay.state.hasToken) {
-		vxpay.hooks.then(hooks => {
-			hooks.onTransferToken(() => vxpay.paymentFrame.then(caller))
-		});
+		vxpay.hooks.onTransferToken(() => vxpay.paymentFrame.then(caller));
 	} else {
 		vxpay.paymentFrame.then(caller);
 	}

@@ -7,11 +7,9 @@
  */
 const VXPayListenForLogoutMiddleware = (vxpay, resolve, reject) => {
 	try {
-		vxpay.hooks.then(hooks => {
-			if (!hooks.hasOnLogout(resolve)) {
-				hooks.onLogout(resolve);
-			}
-		});
+		if (!vxpay.hooks.hasOnLogout(resolve)) {
+			vxpay.hooks.onLogout(resolve);
+		}
 
 		return vxpay;
 	} catch (err) {

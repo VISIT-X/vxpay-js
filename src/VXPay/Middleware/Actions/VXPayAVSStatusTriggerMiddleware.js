@@ -6,18 +6,7 @@ import VXPayGetAVSStatusMessage from './../../Message/Actions/VXPayGetAVSStatusM
  * @constructor
  */
 const VXPayAVSStatusTriggerMiddleware = (vxpay) => {
-	const message = (frame) => frame.postMessage(new VXPayGetAVSStatusMessage);
-
-	// is token already received?
-	if (!vxpay.state.hasToken) {
-		vxpay.hooks.then(hooks => {
-			hooks.onTransferToken(() => vxpay.paymentFrame.then(message))
-		})
-	} else {
-		// or trigger post message
-		vxpay.paymentFrame.then(message);
-	}
-
+	vxpay._paymentFrame.postMessage(new VXPayGetAVSStatusMessage);
 	return vxpay;
 };
 

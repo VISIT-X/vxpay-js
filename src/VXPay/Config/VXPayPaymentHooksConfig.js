@@ -240,6 +240,35 @@ class VXPayPaymentHooksConfig extends VXPayHooksConfig {
 		this._onPasswordChanged.push(handler);
 		return this;
 	}
+
+	/**
+	 * @return {VXPayPaymentHooksConfig}
+	 */
+	clone() {
+		const clone                     = new VXPayPaymentHooksConfig();
+		clone._onViewReady              = [...this._onViewReady];
+		clone._onContentLoaded          = [...this._onContentLoaded];
+		clone._onClose                  = [...this._onClose];
+		clone._onSuccess                = [...this._onSuccess];
+		clone._onIframeReady            = [...this._onIframeReady];
+		clone._onLogin                  = [...this._onLogin];
+		clone._onLogout                 = [...this._onLogout];
+		clone._onFlowChange             = [...this._onFlowChange];
+		clone._onIsLoggedIn             = [...this._onIsLoggedIn];
+		clone._onTransferToken          = [...this._onTransferToken];
+		clone._onAVSStatus              = [...this._onAVSStatus];
+		clone._onBalance                = [...this._onBalance];
+		clone._onActiveAbos             = [...this._onActiveAbos];
+		clone._onPayment                = [...this._onPayment];
+		clone._onSignup                 = [...this._onSignup];
+		clone._onComfortSettingsChanged = [...this._onComfortSettingsChanged];
+		clone._onEmailVerified          = [...this._onEmailVerified];
+		clone._onEmailNotVerified       = [...this._onEmailNotVerified];
+		clone._onAny                    = [...this._onAny];
+		clone._onBeforeSend             = [...this._onBeforeSend];
+		clone._onLoad                   = [...this._onLoad];
+		return clone;
+	}
 }
 
 VXPayPaymentHooksConfig.ON_VIEW_READY              = 'onViewReady';

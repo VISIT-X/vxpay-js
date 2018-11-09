@@ -10,20 +10,12 @@ class VXPayOpenAutoRechargeCommand {
 	static run(vxpay, flowOptions = {}) {
 		vxpay.logger.log('VXPayOpenAutoRechargeCommand()');
 
-		vxpay.paymentFrame
-			.then(frame => {
-				frame
-					.initSession()
-					.sendOptions(VXPayOpenAutoRechargeCommand.PARAMS);
-
-				if (flowOptions) {
-					frame.sendUpdateParams(flowOptions);
-				}
-
-				frame
-					.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
-					.changeRoute(VXPayPaymentRoutes.AUTO_RECHARGE)
-			});
+		vxpay.paymentFrame.then(frame => frame
+			.initSession()
+			.sendOptions(Object.assign({}, VXPayOpenAutoRechargeCommand.PARAMS, flowOptions))
+			.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
+			.changeRoute(VXPayPaymentRoutes.AUTO_RECHARGE)
+		);
 
 		return vxpay;
 	}

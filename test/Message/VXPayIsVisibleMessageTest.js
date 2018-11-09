@@ -17,7 +17,7 @@ describe('VXPayIsVisibleMessage', () => {
 		it('Should convert to JSON when called', () => {
 			const msg = new VXPayIsVisibleMessage();
 
-			assert.equal('{"type":"modalbox-is-visible"}', msg.toString())
+			assert.equal('{"type":"modalbox-is-visible","isAction":false}', msg.toString())
 		})
 	});
 });

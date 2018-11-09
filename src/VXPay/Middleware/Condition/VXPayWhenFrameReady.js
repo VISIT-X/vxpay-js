@@ -10,7 +10,7 @@ const VXPayWhenFrameReady = (vxpay) => {
 			resolve(vxpay);
 		} else {
 			// otherwise - wait for it
-			vxpay.hooks.then(hooks => hooks.onIframeReady(() => resolve(vxpay)));
+			vxpay.hooks.onIframeReady(() => resolve(vxpay));
 		}
 
 		return vxpay;

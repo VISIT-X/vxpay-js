@@ -1,9 +1,10 @@
-import VXPayPaymentHooksConfig  from './../../Config/VXPayPaymentHooksConfig';
-import VXPayEventListener       from './../../Event/VXPayEventListener';
-import VXPayIframe              from './../VXPayIframe';
-import VXPayHookRouter          from './../../Message/Hooks/VXPayHookRouter';
-import VXPayUpdateParamsMessage from '../../Message/VXPayUpdateParamsMessage';
-import VXPayPaymentFrame        from './VXPayPaymentFrame';
+import VXPayUpdateParamsMessage      from '../../Message/VXPayUpdateParamsMessage';
+import VXPayPaymentFrame             from './VXPayPaymentFrame';
+import VXPayPaymentHooksConfig       from './../../Config/VXPayPaymentHooksConfig';
+import VXPayAdditionalOptionsMessage from '../../Message/VXPayAdditionalOptionsMessage';
+import VXPayInitSessionMessage       from '../../Message/VXPayInitSessionMessage';
+import VXPayChangeRouteMessage       from '../../Message/VXPayChangeRouteMessage';
+import VXPayDeferred                 from '../../VXPayDeferred';
 
 /**
  * @link https://www.npmjs.com/package/es6-interface
@@ -13,22 +14,20 @@ class VXPayPaymentTab {
 	 * @param {Document} document
 	 * @param {String} name
 	 * @param {VXPayConfig} config
+	 * @param {VXPayPaymentHooksConfig} hooks
 	 */
-	constructor(document, name, config) {
-		this._document       = document;
-		this._hooks          = new VXPayPaymentHooksConfig();
-		this._loaded         = false;
-		this._name           = name;
-		this._config         = config;
-		this._route          = VXPayPaymentTab.DEFAULT_ROUTE;
-		this._window         = null;
+	constructor(document, name, config, hooks) {
+		this._document = document;
+		this._loaded   = false;
+		this._name     = name;
+		this._config   = config;
+		this._hooks    = hooks;
+		this._route    = VXPayPaymentTab.DEFAULT_ROUTE;
+		this._window   = null;
+		this._deferred = VXPayDeferred();
 
-		// bind handler
-		this.hooksRouteHandler = this.routeHooks.bind(this);
-		this.dontListenHandler = this.stopListening.bind(this);
-
-		// load the normal iframe to communicate
-		this._invisibleFrame = new VXPayPaymentFrame(document, config.getPaymentFrameUrl(), VXPayPaymentFrame.NAME + '_hidden');
+		// load the normal iFrame to communicate
+		this._invisibleFrame = new VXPayPaymentFrame(document, config.getPaymentFrameUrl(), VXPayPaymentFrame.NAME + '_hidden', hooks);
 		this._invisibleFrame.triggerLoad();
 	}
 
@@ -71,47 +70,16 @@ class VXPayPaymentTab {
 	 * Open the window
 	 */
 	triggerLoad() {
-		this.getNewTab();
-		this.startListening(this._window);
+		this.getNewTab(true);
+		return this._deferred.promise;
 	}
 
-	getNewTab() {
-		const url  = this._config.getPaymentFrameUrl() + '#' + this._route;
-		this._window = this._document.defaultView.open(url, this._name);
-	}
-
-	/**
-	 * @return {VXPayPaymentHooksConfig}
-	 */
-	get hooks() {
-		return this._invisibleFrame.hooks;
-	}
-
-	/**
-	 * @param {MessageEvent} event
-	 */
-	routeHooks(event) {
-		VXPayHookRouter(this._hooks, event, this._name + '<VXPayPaymentTab>');
-	}
-
-	/**
-	 * listen for incoming messages
-	 * @param {Window} window
-	 * @return {Window}
-	 */
-	startListening(window) {
-		VXPayEventListener.addEvent(VXPayIframe.EVENT_MESSAGE, this._document.defaultView, this.hooksRouteHandler);
-		VXPayEventListener.addEvent(VXPayIframe.EVENT_UNLOAD, this._document.defaultView, this.dontListenHandler);
-
-		return window;
-	}
-
-	/**
-	 * Remove listeners
-	 */
-	stopListening() {
-		VXPayEventListener.removeEvent(VXPayIframe.EVENT_MESSAGE, this._document.defaultView, this.hooksRouteHandler);
-		VXPayEventListener.removeEvent(VXPayIframe.EVENT_UNLOAD, this._document.defaultView, this.dontListenHandler);
+	getNewTab(doLoad = false) {
+		if (doLoad) {
+			const url    = this._config.getPaymentFrameUrl() + '#' + this._route;
+			this._window = this._document.defaultView.open(url, this._name);
+			this._deferred.resolve();
+		}
 	}
 
 	/**
@@ -120,7 +88,7 @@ class VXPayPaymentTab {
 	 */
 	sendOptions(options = {}) {
 		this._config.merge(options);
-		this._invisibleFrame.sendOptions(options);
+		this.postMessage(new VXPayUpdateParamsMessage(options));
 		return this;
 	}
 
@@ -130,7 +98,7 @@ class VXPayPaymentTab {
 	 */
 	sendAdditionalOptions(options = {}) {
 		this._config.merge(options);
-		this._invisibleFrame.sendAdditionalOptions(options);
+		this.postMessage(new VXPayAdditionalOptionsMessage(options));
 		return this;
 	}
 
@@ -150,10 +118,11 @@ class VXPayPaymentTab {
 	 * @return {VXPayPaymentTab}
 	 */
 	postMessage(message, origin = '*') {
-		this._hooks.trigger(VXPayPaymentHooksConfig.ON_BEFORE_SEND, [message], this._name + '<VXPayPaymentTab>');
-
-		if (this._window !== null && this._loaded) {
-			this._window.postMessage(message.toString(), origin);
+		if (!message.isAction) {
+			this._deferred.promise.then(() => {
+				this._hooks.trigger(VXPayPaymentHooksConfig.ON_BEFORE_SEND, [message], this._name);
+				this._window.postMessage(message.toString(), origin);
+			});
 		} else {
 			this._invisibleFrame.postMessage(message, origin);
 		}
@@ -166,7 +135,7 @@ class VXPayPaymentTab {
 	 * @return {VXPayPaymentTab}
 	 */
 	initSession(token = undefined) {
-		this._invisibleFrame.initSession(token);
+		this.postMessage(new VXPayInitSessionMessage(token));
 		return this;
 	}
 
@@ -176,8 +145,7 @@ class VXPayPaymentTab {
 	 */
 	changeRoute(route = VXPayPaymentTab.DEFAULT_ROUTE) {
 		this._route = route;
-		this._invisibleFrame.changeRoute(route);
-		return this;
+		return this.postMessage(new VXPayChangeRouteMessage(route));
 	}
 
 	/**
@@ -201,12 +169,13 @@ class VXPayPaymentTab {
 	hide() {
 		if (this._window && !this._window.closed) {
 			this._window.close();
+			this._window = null;
 		}
 
 		// reset internal state
-		this._loaded  = false;
-		this._route   = VXPayPaymentTab.DEFAULT_ROUTE;
-		this._promise = null;
+		this._loaded   = false;
+		this._route    = VXPayPaymentTab.DEFAULT_ROUTE;
+		this._deferred = VXPayDeferred();
 
 		return this;
 	}

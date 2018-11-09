@@ -6,18 +6,7 @@ import VXPayGetActiveAbosMessage from './../../Message/Actions/VXPayGetActiveAbo
  * @constructor
  */
 const VXPayActiveAbosTriggerMiddleware = (vxpay) => {
-	const send = (frame) => {
-		frame.postMessage(new VXPayGetActiveAbosMessage);
-	};
-
-	if (!vxpay.state.hasToken) {
-		vxpay.hooks.then(hooks => {
-			hooks.onTransferToken(() => vxpay.paymentFrame.then(send));
-		})
-	} else {
-		vxpay.paymentFrame.then(send);
-	}
-
+	vxpay._paymentFrame.postMessage(new VXPayGetActiveAbosMessage);
 	return vxpay;
 };
 
