@@ -25,7 +25,8 @@
     "uglifyjs-webpack-plugin": "^1.3.0",
     "webpack": "^4.20.2",
     "webpack-cli": "^3.1.0",
-    "webpack-dev-server": "^3.1.7"
+    "webpack-dev-server": "^3.1.7",
+    "mermaid.cli": "^0.5.1"
   },
   "scripts": {
     "build": "webpack --mode production",
@@ -37,7 +38,8 @@
     "push": "npm run build && git push",
     "lint": "eslint --ext .js src",
     "vxpay-prepare": "npm run build && npm run copy && cp -R build/. dist/ && npm pack",
-    "vxpay-clear": "rm -rf vxpay-js-*.tgz dist/"
+    "vxpay-clear": "rm -rf vxpay-js-*.tgz dist/",
+    "vxpay-charts": "mmdc -i docs/flows/IsLoggedInAction.flow -o docs/charts/IsLoggedInAction.svg -b #FFF"
   },
   "dependencies": {
     "is-mobile": "^1.0.0",
