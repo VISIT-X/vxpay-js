@@ -21,7 +21,7 @@ Please see [vxpay-js-react-example](https://github.com/VISIT-X/vxpay-js-react-ex
 
 Normal communication between the SPA (e.g. your code), library and VXPay should looks approximately like described on the chart below:
 
-[IsLoggedInAction](https://raw.githubusercontent.com/VISIT-X/vxpay-js/feature-mermaid/docs/charts/IsLoggedInAction.svg)
+![IsLoggedInAction](https://raw.githubusercontent.com/VISIT-X/vxpay-js/feature-mermaid/docs/charts/IsLoggedInAction.svg)
 
 __Possible deviations:__
 
