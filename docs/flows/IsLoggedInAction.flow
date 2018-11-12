@@ -7,9 +7,14 @@ SPA->>vxpay.js: VXPay.isLoggedIn() ?
 Note right of VXPay:  Insert in DOM
 vxpay.js-->>VXPay: Load frame
 Note right of VXPay:  Wait for token
-VXPay-->>vxpay.js: VXPayContentLoadedMessage
-VXPay-->>vxpay.js: VXPayIframeReadyMessage
-VXPay-->>vxpay.js: VXPayTransferTokenMessage
-vxpay.js-->>VXPay: VXPayIsLoggedInActionMessage
-VXPay-->>vxpay.js: VXPayIsLoggedInResponseMessage
-vxpay.js->>SPA: VXPayIsLoggedInResponseMessage.loggedIn
+VXPay-->>vxpay.js: {type: "modalbox-content-loaded"}
+Note right of VXPay: VXPayContentLoadedMessage
+VXPay-->>vxpay.js: {type: "modalbox-iframe-ready"}
+Note right of VXPay: VXPayIframeReadyMessage
+VXPay-->>vxpay.js: {type: "modalbox-transfer-token", token: "TT_..."}
+Note right of VXPay: VXPayTransferTokenMessage
+vxpay.js-->>VXPay: {type: "modalbox-action-isLoggedIn"}
+Note right of VXPay: VXPayIsLoggedInActionMessage
+VXPay-->>vxpay.js: {type: "modalbox-response-isLoggedIn", loggedIn: false}
+Note right of VXPay: VXPayIsLoggedInResponseMessage
+vxpay.js->>SPA: true|false
