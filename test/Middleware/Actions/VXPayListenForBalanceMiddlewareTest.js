@@ -1,5 +1,5 @@
 import {assert}                           from 'chai'
-import {describe, it}                     from 'mocha'
+import {describe, it, beforeEach}         from 'mocha'
 import VXPay                              from './../../../src/VXPay'
 import VXPayConfig                        from './../../../src/VXPay/VXPayConfig'
 import VXPayTestFx                        from './../../Fixtures/VXPayTestFx'
@@ -17,20 +17,20 @@ describe('VXPayListenForBalanceMiddleware', () => {
 		done();
 	});
 
-	xdescribe('#run()', () => {
+	describe('#run()', () => {
 		it('Should set a hook if not yet set up', () => {
 			const handler = () => {};
 
-			// should not have a onIsLoggedIn handler
-			assert.isFalse(vxpay.hooks.hasOnBalance(handler));
+			assert.isFalse(vxpay._hooks.hasOnBalance(() => {}));
 
 			const after = VXPayListenForBalanceMiddleware(vxpay, handler, handler);
-
-			// and now SHOULD have
-			assert.isTrue(vxpay.hooks.hasOnBalance(handler));
 			assert.instanceOf(after, VXPay);
+
+			// should have a onBalance handler
+			assert.isTrue(vxpay._hooks.hasOnBalance(handler));
 		});
-		it('Should not set the hooks on consecutive call', () => {
+
+		xit('Should not set the hooks on consecutive call', () => {
 			const handler = () => {};
 
 			VXPayListenForBalanceMiddleware(vxpay, handler, handler);
@@ -40,7 +40,7 @@ describe('VXPayListenForBalanceMiddleware', () => {
 			VXPayListenForBalanceMiddleware(vxpay, handler, handler);
 			assert.equal(1, vxpay.hooks._onBalance.length);
 		});
-		it('Should reject on error', done => {
+		xit('Should reject on error', done => {
 			// unset payment frame
 			vxpay._paymentFrame = undefined;
 

@@ -6,3 +6,4 @@ build
 vxpay-js-*.tgz
 package/
 .DS_Store
+.coveralls.yml

@@ -1,6 +1,7 @@
 # Visit-X payment SDK
 
 [![Build Status](https://travis-ci.org/VISIT-X/vxpay-js.svg?branch=master)](https://travis-ci.org/VISIT-X/vxpay-js)
+[![Coverage Status](https://coveralls.io/repos/github/VISIT-X/vxpay-js/badge.svg?branch=feature-coveralls)](https://coveralls.io/github/VISIT-X/vxpay-js?branch=feature-coveralls)
 
 [![NPM](https://nodei.co/npm/vxpay-js.png)](https://nodei.co/npm/vxpay-js/)
 
