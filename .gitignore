@@ -6,5 +6,4 @@ build
 vxpay-js-*.tgz
 package/
 .DS_Store
-/README.md
 /vxpay.js

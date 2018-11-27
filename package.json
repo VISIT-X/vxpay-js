@@ -39,7 +39,7 @@
     "lint": "eslint --ext .js src",
     "vxpay-prepare": "npm run build && npm run copy && cp -R build/. dist/ && npm pack",
     "vxpay-clear": "rm -rf vxpay-js-*.tgz dist/",
-    "vxpay-charts": "mmdc -i docs/flows/IsLoggedInAction.flow -o docs/charts/IsLoggedInAction.svg -b #FFF"
+    "vxpay-charts": "./vxpay-charts.sh"
   },
   "dependencies": {
     "is-mobile": "^1.0.0",
