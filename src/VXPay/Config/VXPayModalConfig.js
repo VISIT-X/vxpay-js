@@ -1,4 +1,4 @@
-import VXPayValidator from './../VXPayValidator'
+import VXPayValidator from './../VXPayValidator';
 
 class VXPayModalConfig {
 
@@ -238,19 +238,19 @@ class VXPayModalConfig {
 	 */
 	getOptions() {
 		return {
-			login: this.login,
-			showHeader: this.showHeader,
-			showTeaser: this.showTeaser,
-			showFooter: this.showFooter,
-			neutralHeader: this.neutralHeader,
-			teaserBonus: this.teaserBonus,
-			support: this.support,
-			showOAuth: this.showOAuth,
-			showNL: this.showNL,
-			showThank: this.showThank,
-			showLogo: this.showLogo,
-			showTeaserBar: this.showTeaserBar,
-			parentInFrame: this.parentInFrame,
+			login:         this._login,
+			showHeader:    this._showHeader,
+			showTeaser:    this._showTeaser,
+			showFooter:    this._showFooter,
+			neutralHeader: this._neutralHeader,
+			teaserBonus:   this._teaserBonus,
+			support:       this._support,
+			showOAuth:     this._showOAuth,
+			showNL:        this._showNL,
+			showThank:     this._showThank,
+			showLogo:      this._showLogo,
+			showTeaserBar: this._showTeaserBar,
+			parentInFrame: this._parentInFrame,
 		};
 	}
 }

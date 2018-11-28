@@ -53,5 +53,13 @@ describe('VXPayWhenTokenTransferred', () => {
 				[new VXPayTransferTokenMessage('token')]
 			);
 		});
+		it('Will reject on error', done => {
+			// make it fail
+			vxpay._hooks = undefined;
+
+			VXPayWhenTokenTransferred(vxpay)
+				.catch(reason => assert.instanceOf(reason, Error))
+				.finally(done);
+		});
 	});
 });

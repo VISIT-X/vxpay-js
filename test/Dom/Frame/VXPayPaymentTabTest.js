@@ -1,10 +1,10 @@
-import {assert}                   from 'chai';
-import sinon                      from 'sinon';
-import {describe, it, beforeEach} from 'mocha';
-import {given}                    from 'mocha-testdata';
-import VXPayPaymentTab            from './../../../src/VXPay/Dom/Frame/VXPayPaymentTab';
-import VXPayTestFx                from './../../Fixtures/VXPayTestFx';
-import VXPayConfig                  from './../../../src/VXPay/VXPayConfig';
+import {assert}                      from 'chai';
+import sinon                         from 'sinon';
+import {describe, it, beforeEach}    from 'mocha';
+import {given}                       from 'mocha-testdata';
+import VXPayPaymentTab               from './../../../src/VXPay/Dom/Frame/VXPayPaymentTab';
+import VXPayTestFx                   from './../../Fixtures/VXPayTestFx';
+import VXPayConfig                   from './../../../src/VXPay/VXPayConfig';
 import VXPayPaymentHooksConfig       from './../../../src/VXPay/Config/VXPayPaymentHooksConfig';
 import VXPayLanguage                 from './../../../src/VXPay/VXPayLanguage';
 import VXPayFlow                     from './../../../src/VXPay/Config/VXPayFlow';
@@ -13,6 +13,7 @@ import VXPayPaymentFrame             from '../../../src/VXPay/Dom/Frame/VXPayPay
 import VXPayIsLoggedInActionMessage  from '../../../src/VXPay/Message/Actions/VXPayIsLoggedInActionMessage';
 import VXPayAdditionalOptionsMessage from '../../../src/VXPay/Message/VXPayAdditionalOptionsMessage';
 import {JSDOM}                       from 'jsdom';
+import VXPayUpdateParamsMessage      from '../../../src/VXPay/Message/VXPayUpdateParamsMessage';
 
 describe('VXPayPaymentTab', () => {
 
@@ -100,6 +101,7 @@ describe('VXPayPaymentTab', () => {
 			assert.isTrue(tab._document.defaultView.open.called);
 			assert.equal(tab._document.defaultView.open.getCall(0).args[0], tab._config.getPaymentFrameUrl() + '#' + tab._route);
 			assert.equal(tab._document.defaultView.open.getCall(0).args[1], tab._name);
+			tab._document.defaultView.open.restore();
 		});
 	});
 	describe('#triggerLoad()', () => {
@@ -109,7 +111,10 @@ describe('VXPayPaymentTab', () => {
 			sinon.spy(tab._document.defaultView, 'open');
 
 			assert.instanceOf(tab.triggerLoad(), Promise);
-			tab.triggerLoad().then(done);
+			tab.triggerLoad().then(() => {
+				tab._document.defaultView.open.restore();
+				done();
+			});
 		});
 	});
 	describe('#postMessage()', () => {
@@ -122,6 +127,7 @@ describe('VXPayPaymentTab', () => {
 
 			assert.isTrue(tab._invisibleFrame.postMessage.called);
 			assert.equal(tab._invisibleFrame.postMessage.getCall(0).args[0], message);
+			tab._invisibleFrame.postMessage.restore();
 		});
 		it('Routes messages to tab if it is NOT an ActionMessage and will wait for tab to open', () => {
 			const message = new VXPayAdditionalOptionsMessage({'test': 'some'});
@@ -131,7 +137,7 @@ describe('VXPayPaymentTab', () => {
 			assert.isNull(tab._window);
 		});
 		it('Routes messages to tab if it is NOT an ActionMessage and execute after load', () => {
-			const message = new VXPayAdditionalOptionsMessage({'test': 'some'});
+			const message      = new VXPayAdditionalOptionsMessage({'test': 'some'});
 			const vxpPayWindow = (new JSDOM(VXPayTestFx.DOC)).window;
 
 			sinon.spy(vxpPayWindow, 'postMessage');
@@ -140,7 +146,62 @@ describe('VXPayPaymentTab', () => {
 			tab._document.defaultView.open = (url, name) => vxpPayWindow;
 
 			tab.postMessage(message);
-			return tab.triggerLoad().then(() => assert.isTrue(vxpPayWindow.postMessage.called));
-		});
+			return tab.triggerLoad().then(() => {
+				assert.isTrue(vxpPayWindow.postMessage.called);
+				vxpPayWindow.postMessage.restore();
+			});
+		})
 	});
+	describe('#sendAdditionalOptions()', () => {
+		it('Should send a postMessage to tab with options', () => {
+			const additional = {'test': 'some'};
+			const message    = new VXPayAdditionalOptionsMessage(additional);
+
+			sinon.spy(tab, 'postMessage');
+
+			tab.sendAdditionalOptions(additional);
+
+			assert.isTrue(tab.postMessage.called);
+			assert.equal(tab.postMessage.getCall(0).args[0].toString(), message.toString());
+
+			tab.postMessage.restore();
+		});
+		it('Should merge options with config', () => {
+			// set some config values
+			config = new VXPayConfig(doc.defaultView);
+			config.flow     = VXPayFlow.AVS;
+			config.language = VXPayLanguage.NL;
+
+			// re-create tab with new config
+			tab = new VXPayPaymentTab(doc, 'test', config, hooks);
+
+			const additional = {'pfm': 'some'};
+			const message    = new VXPayAdditionalOptionsMessage(additional);
+
+			sinon.spy(tab, 'postMessage');
+
+			tab.sendAdditionalOptions(additional);
+
+			assert.isTrue(tab.postMessage.called);
+			assert.equal(tab.postMessage.getCall(0).args[0].toString(), message.toString());
+			assert.equal(tab.config.pfm, 'some');
+
+			tab.postMessage.restore();
+		})
+	});
+	describe('#sendUpdateParams()', () => {
+		it('Should send a postMessage to tab with params', () => {
+			const params = {'test': 'some'};
+			const message    = new VXPayUpdateParamsMessage(params);
+
+			sinon.spy(tab, 'postMessage');
+
+			tab.sendUpdateParams(params);
+
+			assert.isTrue(tab.postMessage.called);
+			assert.equal(tab.postMessage.getCall(0).args[0].toString(), message.toString());
+
+			tab.postMessage.restore();
+		})
+	})
 });

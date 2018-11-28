@@ -1,6 +1,6 @@
-import {describe, it}   from 'mocha'
-import {assert}         from 'chai'
-import VXPayHooksConfig from './../../src/VXPay/Config/VXPayHooksConfig'
+import {describe, it, beforeEach} from 'mocha';
+import {assert}                   from 'chai';
+import VXPayHooksConfig           from './../../src/VXPay/Config/VXPayHooksConfig';
 
 describe('VXPayHooksConfig', () => {
 
@@ -38,7 +38,7 @@ describe('VXPayHooksConfig', () => {
 				() => hooks.trigger('foo', ['bar']),
 				Error,
 				'Hook foo not available!'
-			)
+			);
 		});
 	});
 });
