@@ -14,6 +14,7 @@ import VXPayIsLoggedInActionMessage  from '../../../src/VXPay/Message/Actions/VX
 import VXPayAdditionalOptionsMessage from '../../../src/VXPay/Message/VXPayAdditionalOptionsMessage';
 import {JSDOM}                       from 'jsdom';
 import VXPayUpdateParamsMessage      from '../../../src/VXPay/Message/VXPayUpdateParamsMessage';
+import VXPayInitSessionMessage       from '../../../src/VXPay/Message/VXPayInitSessionMessage';
 
 describe('VXPayPaymentTab', () => {
 
@@ -206,13 +207,54 @@ describe('VXPayPaymentTab', () => {
 	});
 	describe('#hide()', () => {
 		it('Should close the window if not yet closed', () => {
-			tab._window = (new JSDOM(VXPayTestFx.DOC)).window;
-			tab._window.closed = false;
+			tab._window = {
+				close: () => {},
+				closed: false,
+			};
 
+			tab.resetWindow = sinon.fake();
 			sinon.spy(tab._window, 'close');
-			assert.isTrue(tab._window.called);
 
-			tab._window.restore();
+			tab.hide();
+
+			assert.isTrue(tab._window.close.called);
+			assert.isTrue(tab.resetWindow.called);
+
+			tab._window.close.restore();
+		})
+	});
+	describe('#resetWindow()', () => {
+		it('Should wipe window out', () => {
+			tab._window = true;
+			tab.resetWindow();
+			assert.isNull(tab._window);
+		})
+	});
+	describe('#initSession()', () => {
+		it('Should send a postMessage', () => {
+			const token = 'some-token-test-token';
+			const message = new VXPayInitSessionMessage(token);
+
+			sinon.spy(tab, 'postMessage');
+
+			tab.initSession(token);
+
+			assert.isTrue(tab.postMessage.called);
+			assert.equal(tab.postMessage.getCall(0).args[0].toString(), message.toString());
+
+			tab.postMessage.restore();
 		});
+		it('Should send a postMessage even with no token', () => {
+			const message = new VXPayInitSessionMessage();
+
+			sinon.spy(tab, 'postMessage');
+
+			tab.initSession();
+
+			assert.isTrue(tab.postMessage.called);
+			assert.equal(tab.postMessage.getCall(0).args[0].toString(), message.toString());
+
+			tab.postMessage.restore();
+		})
 	});
 });

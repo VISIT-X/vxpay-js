@@ -1,12 +1,12 @@
-import VXPayIframe                   from './../VXPayIframe'
-import VXPayInitSessionMessage       from './../../Message/VXPayInitSessionMessage'
-import VXPayUpdateParamsMessage      from './../../Message/VXPayUpdateParamsMessage'
-import VXPayChangeRouteMessage       from './../../Message/VXPayChangeRouteMessage'
-import VXPayUserAgentHelper          from './../../VXPayUserAgentHelper'
-import VXPayDomHelper                from './../VXPayDomHelper'
-import VXPayIsVisibleMessage         from './../../Message/VXPayIsVisibleMessage'
-import VXPayAdditionalOptionsMessage from './../../Message/VXPayAdditionalOptionsMessage'
-import VXPayPaymentHooksConfig  from './../../Config/VXPayPaymentHooksConfig';
+import VXPayIframe                   from './../VXPayIframe';
+import VXPayInitSessionMessage       from './../../Message/VXPayInitSessionMessage';
+import VXPayUpdateParamsMessage      from './../../Message/VXPayUpdateParamsMessage';
+import VXPayChangeRouteMessage       from './../../Message/VXPayChangeRouteMessage';
+import VXPayUserAgentHelper          from './../../VXPayUserAgentHelper';
+import VXPayDomHelper                from './../VXPayDomHelper';
+import VXPayIsVisibleMessage         from './../../Message/VXPayIsVisibleMessage';
+import VXPayAdditionalOptionsMessage from './../../Message/VXPayAdditionalOptionsMessage';
+import VXPayPaymentHooksConfig       from './../../Config/VXPayPaymentHooksConfig';
 
 class VXPayPaymentFrame extends VXPayIframe {
 	/**
@@ -59,20 +59,20 @@ class VXPayPaymentFrame extends VXPayIframe {
 	 * @return {Object}
 	 */
 	static getDefaultStyles(document = undefined) {
-		const uaString    = typeof document !== 'undefined' ? document.defaultView.navigator.userAgent : '',
-			userAgent     = new VXPayUserAgentHelper(uaString),
-			bodyElement   = typeof document !== 'undefined' ? document.getElementsByTagName('body').item(0) : null,
-			defaultStyles = {
-				border:     'none',
-				width:      '100%',
-				height:     '100%',
-				top:        '50%',
-				left:       '50%',
-				marginLeft: '-325px',  // margin does not seem to be applied :/
-				zIndex:     10001,
-				display:    'none',
-				transform:  'translate(-50%, -50%)'
-			};
+		const uaString      = typeof document !== 'undefined' ? document.defaultView.navigator.userAgent : '',
+		      userAgent     = new VXPayUserAgentHelper(uaString),
+		      bodyElement   = typeof document !== 'undefined' ? document.getElementsByTagName('body').item(0) : null,
+		      defaultStyles = {
+			      border:     'none',
+			      width:      '100%',
+			      height:     '100%',
+			      top:        '50%',
+			      left:       '50%',
+			      marginLeft: '-325px',  // margin does not seem to be applied :/
+			      zIndex:     10001,
+			      display:    'none',
+			      transform:  'translate(-50%, -50%)'
+		      };
 
 		defaultStyles.position = userAgent.isMobile()
 			? VXPayIframe.POSITION_ABSOLUTE
@@ -106,7 +106,7 @@ class VXPayPaymentFrame extends VXPayIframe {
 	 * @param {String} origin
 	 * @return {VXPayPaymentFrame}
 	 */
-	postMessage(message, origin = '*') {
+	postMessage(message, origin = VXPayIframe.ORIGIN_ALL) {
 		this._hooks.trigger(VXPayPaymentHooksConfig.ON_BEFORE_SEND, [message], this._frame.id);
 
 		if (this._frame.contentWindow !== null) {

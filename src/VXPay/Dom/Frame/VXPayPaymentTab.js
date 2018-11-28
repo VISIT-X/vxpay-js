@@ -5,6 +5,7 @@ import VXPayAdditionalOptionsMessage from '../../Message/VXPayAdditionalOptionsM
 import VXPayInitSessionMessage       from '../../Message/VXPayInitSessionMessage';
 import VXPayChangeRouteMessage       from '../../Message/VXPayChangeRouteMessage';
 import VXPayDeferred                 from '../../VXPayDeferred';
+import VXPayIframe                   from '../VXPayIframe';
 
 /**
  * @link https://www.npmjs.com/package/es6-interface
@@ -117,7 +118,7 @@ class VXPayPaymentTab {
 	 * @param {String} origin
 	 * @return {VXPayPaymentTab}
 	 */
-	postMessage(message, origin = '*') {
+	postMessage(message, origin = VXPayIframe.ORIGIN_ALL) {
 		if (!message.isAction) {
 			this._deferred.promise.then(() => {
 				this._hooks.trigger(VXPayPaymentHooksConfig.ON_BEFORE_SEND, [message], this._name);
@@ -169,7 +170,7 @@ class VXPayPaymentTab {
 	hide() {
 		if (this._window && !this._window.closed) {
 			this._window.close();
-			this._window = null;
+			this.resetWindow();
 		}
 
 		// reset internal state
@@ -178,6 +179,10 @@ class VXPayPaymentTab {
 		this._deferred = VXPayDeferred();
 
 		return this;
+	}
+
+	resetWindow() {
+		this._window = null;
 	}
 }
 

@@ -35,5 +35,10 @@ describe('VXPayPaymentFrameTest', () => {
 			});
 			frame.triggerLoad();
 		});
+		it('Should do nothing if loaded', () => {
+			assert.isFalse(frame.loaded);
+			frame._loaded = true;
+			assert.isUndefined(frame.triggerLoad());
+		});
 	});
 });
