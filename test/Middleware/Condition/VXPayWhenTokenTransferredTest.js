@@ -58,8 +58,10 @@ describe('VXPayWhenTokenTransferred', () => {
 			vxpay._hooks = undefined;
 
 			VXPayWhenTokenTransferred(vxpay)
-				.catch(reason => assert.instanceOf(reason, Error))
-				.finally(done);
+				.catch(reason => {
+					assert.instanceOf(reason, Error);
+					done();
+				});
 		});
 	});
 });

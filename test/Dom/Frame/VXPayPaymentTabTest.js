@@ -203,5 +203,16 @@ describe('VXPayPaymentTab', () => {
 
 			tab.postMessage.restore();
 		})
-	})
+	});
+	describe('#hide()', () => {
+		it('Should close the window if not yet closed', () => {
+			tab._window = (new JSDOM(VXPayTestFx.DOC)).window;
+			tab._window.closed = false;
+
+			sinon.spy(tab._window, 'close');
+			assert.isTrue(tab._window.called);
+
+			tab._window.restore();
+		});
+	});
 });
