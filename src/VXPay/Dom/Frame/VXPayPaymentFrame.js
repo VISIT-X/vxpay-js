@@ -59,20 +59,20 @@ class VXPayPaymentFrame extends VXPayIframe {
 	 * @return {Object}
 	 */
 	static getDefaultStyles(document = undefined) {
-		const uaString      = typeof document !== 'undefined' ? document.defaultView.navigator.userAgent : '',
-		      userAgent     = new VXPayUserAgentHelper(uaString),
-		      bodyElement   = typeof document !== 'undefined' ? document.getElementsByTagName('body').item(0) : null,
-		      defaultStyles = {
-			      border:     'none',
-			      width:      '100%',
-			      height:     '100%',
-			      top:        '50%',
-			      left:       '50%',
-			      marginLeft: '-325px',  // margin does not seem to be applied :/
-			      zIndex:     10001,
-			      display:    'none',
-			      transform:  'translate(-50%, -50%)'
-		      };
+		const uaString      = typeof document !== 'undefined' ? document.defaultView.navigator.userAgent : '';
+		const userAgent     = new VXPayUserAgentHelper(uaString);
+		const bodyElement   = typeof document !== 'undefined' ? document.getElementsByTagName('body').item(0) : null;
+		const defaultStyles = {
+			border:     'none',
+			width:      '100%',
+			height:     '100%',
+			top:        '50%',
+			left:       '50%',
+			marginLeft: '-325px',  // margin does not seem to be applied :/
+			zIndex:     10001,
+			display:    'none',
+			transform:  'translate(-50%, -50%)'
+		};
 
 		defaultStyles.position = userAgent.isMobile()
 			? VXPayIframe.POSITION_ABSOLUTE
@@ -161,7 +161,7 @@ class VXPayPaymentFrame extends VXPayIframe {
 		return this;
 	}
 
-	/**
+	/**VXPay/Dom/Frame/VXPayPaymentFrame.js
 	 * @param {String} route
 	 * @return {VXPayPaymentFrame}
 	 */
