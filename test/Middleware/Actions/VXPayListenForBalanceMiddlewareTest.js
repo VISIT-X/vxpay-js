@@ -30,19 +30,19 @@ describe('VXPayListenForBalanceMiddleware', () => {
 			assert.isTrue(vxpay._hooks.hasOnBalance(handler));
 		});
 
-		xit('Should not set the hooks on consecutive call', () => {
+		it('Should not set the hooks on consecutive call', () => {
 			const handler = () => {};
 
 			VXPayListenForBalanceMiddleware(vxpay, handler, handler);
-			assert.equal(1, vxpay.hooks._onBalance.length);
+			assert.equal(1, vxpay._hooks.onBalance.length);
 
 			// call again - not another hook set
 			VXPayListenForBalanceMiddleware(vxpay, handler, handler);
-			assert.equal(1, vxpay.hooks._onBalance.length);
+			assert.equal(1, vxpay._hooks.onBalance.length);
 		});
-		xit('Should reject on error', done => {
+		it('Should reject on error', done => {
 			// unset payment frame
-			vxpay._paymentFrame = undefined;
+			vxpay._hooks = undefined;
 
 			const reject = (err) => {
 				assert.instanceOf(err, Error);

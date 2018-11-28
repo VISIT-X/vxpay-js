@@ -1,4 +1,8 @@
-import VXPayLogoutMessage from './../../Message/Actions/VXPayLogoutMessage'
+import VXPayLogoutMessage from './../../Message/Actions/VXPayLogoutMessage';
+
+let localVxPay   = null;
+const sendLogout = (frame) => frame.postMessage(new VXPayLogoutMessage);
+const wrapper    = () => localVxPay._paymentFrame.postMessage(new VXPayLogoutMessage);
 
 /**
  * @param {VXPay} vxpay
@@ -6,12 +10,14 @@ import VXPayLogoutMessage from './../../Message/Actions/VXPayLogoutMessage'
  * @constructor
  */
 const VXPayLogoutTriggerMiddleware = (vxpay) => {
-	const caller = (frame) => frame.postMessage(new VXPayLogoutMessage);
+	localVxPay = vxpay;
 
 	if (!vxpay.state.hasToken) {
-		vxpay._hooks.onTransferToken(() => vxpay.paymentFrame.then(caller));
+		if (!vxpay._hooks.hasOnTransferToken(wrapper)) {
+			vxpay._hooks.onTransferToken(wrapper);
+		}
 	} else {
-		vxpay.paymentFrame.then(caller);
+		sendLogout(vxpay._paymentFrame);
 	}
 
 	return vxpay;

@@ -1,5 +1,5 @@
 import {assert}                     from 'chai'
-import {describe, it, xit}          from 'mocha'
+import {describe, it, beforeEach}          from 'mocha'
 import sinon                        from 'sinon'
 import VXPayTestFx                  from './../../Fixtures/VXPayTestFx'
 import VXPay                        from './../../../src/VXPay'
@@ -21,24 +21,24 @@ describe('VXPayLogoutTriggerMiddleware', () => {
 		done();
 	});
 
-	xdescribe('#run()', () => {
+	describe('#run()', () => {
 		it('Should set a hook if token not yet received', () => {
 			// should have 2 default handlers
-			assert.lengthOf(vxpay.hooks._onTransferToken, 2);
+			assert.lengthOf(vxpay._hooks._onTransferToken, 2);
 
 			const after = VXPayLogoutTriggerMiddleware(vxpay);
 
 			// and now another one
-			assert.lengthOf(vxpay.hooks._onTransferToken, 3);
+			assert.lengthOf(vxpay._hooks._onTransferToken, 3);
 			assert.instanceOf(after, VXPay);
 		});
-		xit('Should NOT set the hooks on consecutive call', () => {
+		it('Should NOT set the hooks on consecutive call', () => {
 			VXPayLogoutTriggerMiddleware(vxpay);
-			assert.equal(vxpay.hooks._onTransferToken.length, 3);
+			assert.lengthOf(vxpay._hooks._onTransferToken, 3);
 
 			// call again - not another hook set
 			VXPayLogoutTriggerMiddleware(vxpay);
-			assert.equal(vxpay.hooks._onTransferToken.length, 3);
+			assert.lengthOf(vxpay._hooks._onTransferToken, 3);
 		});
 		it('Should send a postMessage if token already present', () => {
 			// mark token
@@ -68,12 +68,13 @@ describe('VXPayLogoutTriggerMiddleware', () => {
 			VXPayLogoutTriggerMiddleware(vxpay);
 
 			// mark token
-			vxpay.hooks.trigger(
+			vxpay._hooks.trigger(
 				VXPayPaymentHooksConfig.ON_TRANSFER_TOKEN,
 				[new VXPayTransferTokenMessage('token')]
 			);
 
 			// check mock
+			assert.isTrue(vxpay.state.hasToken);
 			assert.isTrue(vxpay._paymentFrame.postMessage.called);
 			assert.equal(
 				JSON.stringify(vxpay._paymentFrame.postMessage.getCall(0).args[0]),
