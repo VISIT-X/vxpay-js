@@ -5,7 +5,8 @@ os:
 - osx
 
 cache:
-  bundler: true
+  - bundler
+  - npm
 
 # test step is auto-configured: npm run test
 
