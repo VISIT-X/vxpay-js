@@ -1,16 +1,16 @@
 import VXPayFlow   from './../../Config/VXPayFlow'
 import VXPayRoutes from '../../Config/VXPayRoutes'
 
-class VXPayOpenLimitedPaymentCommand {
+class VXPayLimitedPayment {
 	/**
 	 * @param {VXPay} vxpay
 	 * @return {VXPay}
 	 */
-	static run(vxpay) {
-		vxpay.logger.log('VXPayOpenLimitedPaymentCommand()');
+	static open(vxpay) {
+		vxpay.logger.log('VXPayLimitedPayment()');
 
 		vxpay.paymentFrame.then(frame => frame
-			.sendOptions(VXPayOpenLimitedPaymentCommand.PARAMS)
+			.sendOptions(VXPayLimitedPayment.PARAMS)
 			.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
 			.changeRoute(VXPayRoutes.LIMIT)
 			.initSession()
@@ -20,9 +20,9 @@ class VXPayOpenLimitedPaymentCommand {
 	}
 }
 
-VXPayOpenLimitedPaymentCommand.PARAMS = {
+VXPayLimitedPayment.PARAMS = {
 	flow: VXPayFlow.LIMIT,
 	paytype: ''
 };
 
-export default VXPayOpenLimitedPaymentCommand;
+export default VXPayLimitedPayment;

@@ -13,31 +13,21 @@ import {default as PaymentCommand}           from '../../src/VXPay/Middleware/Co
 /**
  * @link https://sinonjs.org/releases/latest/sandbox/
  */
-describe('#openLogin()', () => {
+describe('#openPayment()', () => {
 	const sandbox = sinon.createSandbox();
 
 	/** @var {VXPay} */
 	let VxPayJs;
 
-	const fakeInitPaymentFrame = (vxpay, resolve) => {
-		resolve(vxpay);
-	};
-
-	const resolveGlobalVxPay = (vxpay) => {
-		return new Promise(resolve => {
-			resolve(vxpay);
-		});
-	};
-
 	beforeEach(() => {
 		VxPayJs = new VXPay(new VXPayConfig(VXPayTestFx.getWindow()));
 
 		// fake the middleware to resolve with global object
-		sandbox.stub(VXPayPayment, 'init').callsFake(fakeInitPaymentFrame);
+		sandbox.stub(VXPayPayment, 'init').callsFake(VXPayTestFx.fakeInitPaymentFrame);
 		sandbox.spy(VXPayTokenForTab, 'reset');
 		sandbox.spy(VXPayShowForTab, 'trigger');
-		sandbox.stub(VXPayWhen, 'tokenTransferred').callsFake(resolveGlobalVxPay);
-		sandbox.stub(PaymentCommand, 'open').callsFake(resolveGlobalVxPay);
+		sandbox.stub(VXPayWhen, 'tokenTransferred').callsFake(VXPayTestFx.resolveGlobalVxPay);
+		sandbox.stub(PaymentCommand, 'open').callsFake(VXPayTestFx.resolveGlobalVxPay);
 	});
 
 	afterEach(sandbox.restore);

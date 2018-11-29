@@ -1,16 +1,16 @@
 import VXPayFlow   from './../../Config/VXPayFlow'
 import VXPayRoutes from '../../Config/VXPayRoutes'
 
-class VXPayOpenSettingsCommand {
+class VXPaySettings {
 	/**
 	 * @param {VXPay} vxpay
 	 * @return {VXPay}
 	 */
-	static run(vxpay) {
-		vxpay.logger.log('VXPayOpenSettingsCommand()');
+	static open(vxpay) {
+		vxpay.logger.log('VXPaySettings()');
 
 		vxpay.paymentFrame.then(frame => frame
-			.sendOptions(VXPayOpenSettingsCommand.PARAMS)
+			.sendOptions(VXPaySettings.PARAMS)
 			.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
 			.changeRoute(VXPayRoutes.SETTINGS)
 			.initSession()
@@ -20,9 +20,9 @@ class VXPayOpenSettingsCommand {
 	}
 }
 
-VXPayOpenSettingsCommand.PARAMS = {
+VXPaySettings.PARAMS = {
 	flow:    VXPayFlow.SETTINGS,
 	paytype: '' // reset paytype
 };
 
-export default VXPayOpenSettingsCommand;
+export default VXPaySettings;

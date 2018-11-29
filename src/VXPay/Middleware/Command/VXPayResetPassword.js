@@ -2,16 +2,16 @@ import VXPayUrlHelper from './../../VXPayUrlHelper'
 import VXPayFlow      from './../../Config/VXPayFlow'
 import VXPayRoutes    from '../../Config/VXPayRoutes'
 
-export default class VXPayResetPasswordCommand {
+export default class VXPayResetPassword {
 	/**
 	 * @param {VXPay} vxpay
 	 * @param {Object} flowOptions
 	 * @return {VXPay}
 	 */
 	static run(vxpay, flowOptions = {}) {
-		vxpay.logger.log('VXPayResetPasswordCommand()');
+		vxpay.logger.log('VXPayResetPassword()');
 
-		const options = Object.assign({}, VXPayResetPasswordCommand.getParams(vxpay.config), flowOptions);
+		const options = Object.assign({}, VXPayResetPassword.getParams(vxpay.config), flowOptions);
 
 		vxpay.paymentFrame.then(frame => frame
 			.initSession()
