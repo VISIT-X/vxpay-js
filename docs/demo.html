@@ -383,6 +383,7 @@
 	__init = function() {
 	config          = new VX.VXPayConfig(window);
 	config.logging  = true;
+//	config.enableTab  = true;
 	vxpay           = new VX.VXPay(config);
 
 	configPopulateAllFrom(config);

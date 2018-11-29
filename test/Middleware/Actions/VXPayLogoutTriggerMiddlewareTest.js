@@ -21,7 +21,7 @@ describe('VXPayLogoutTriggerMiddleware', () => {
 		done();
 	});
 
-	describe('#run()', () => {
+	describe('#reset()', () => {
 		it('Should set a hook if token not yet received', () => {
 			// should have 2 default handlers
 			assert.lengthOf(vxpay._hooks._onTransferToken, 2);
@@ -47,7 +47,7 @@ describe('VXPayLogoutTriggerMiddleware', () => {
 			// mock
 			sinon.spy(vxpay._paymentFrame, 'postMessage');
 
-			// run
+			// reset
 			VXPayLogoutTriggerMiddleware(vxpay);
 
 			// check mock
@@ -64,7 +64,7 @@ describe('VXPayLogoutTriggerMiddleware', () => {
 			// mock
 			sinon.spy(vxpay._paymentFrame, 'postMessage');
 
-			// run
+			// reset
 			VXPayLogoutTriggerMiddleware(vxpay);
 
 			// mark token

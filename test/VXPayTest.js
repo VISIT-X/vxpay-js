@@ -1,12 +1,26 @@
-import {assert}          from 'chai'
-import {describe, it}    from 'mocha'
-import VXPay             from './../src/VXPay'
-import VXPayConfig       from './../src/VXPay/VXPayConfig'
-import VXPayLogger       from './../src/VXPay/VXPayLogger'
-import VXPayTestFx       from './Fixtures/VXPayTestFx'
-import VXPayHelperFrame  from './../src/VXPay/Dom/Frame/VXPayHelperFrame'
-import VXPayPaymentFrame from './../src/VXPay/Dom/Frame/VXPayPaymentFrame'
-import VXPayPaymentTab   from './../src/VXPay/Dom/Frame/VXPayPaymentTab'
+import {assert}                              from 'chai';
+import {describe, it, beforeEach, afterEach} from 'mocha';
+import sinon                                 from 'sinon';
+import VXPay                                 from './../src/VXPay';
+import VXPayConfig                           from './../src/VXPay/VXPayConfig';
+import VXPayLogger                           from './../src/VXPay/VXPayLogger';
+import VXPayTestFx                           from './Fixtures/VXPayTestFx';
+import VXPayHelperFrame                      from './../src/VXPay/Dom/Frame/VXPayHelperFrame';
+import VXPayHelper                           from '../src/VXPay/Middleware/Frames/VXPayHelper';
+
+let VxPayJs = {};
+let logs    = [];
+
+const storeLogs = string => logs.push(string);
+
+beforeEach(() => {
+	VxPayJs = new VXPay(new VXPayConfig(VXPayTestFx.getWindow()));
+	sinon.stub(VxPayJs._logger, 'log').callsFake(storeLogs);
+});
+
+afterEach(() => {
+	logs = [];
+});
 
 describe('VXPay', () => {
 	describe('#constructor()', () => {
@@ -62,29 +76,6 @@ describe('VXPay', () => {
 			}, TypeError, 'Helper frame should be an instance of VXPayHelperFrame');
 		});
 	});
-	describe('#paymentFrame()', () => {
-		xit('Can accept VXPayPaymentFrame on the fly', () => {
-			const window     = VXPayTestFx.getWindow();
-			const pay        = new VXPay(new VXPayConfig(window));
-			const frame      = new VXPayPaymentFrame(window.document, 'https://example.com');
-			pay.paymentFrame = frame;
-			assert.equal(frame, pay.paymentFrame);
-		});
-		xit('Can accept VXPayPaymentTab on the fly', () => {
-			const window     = VXPayTestFx.getWindow();
-			const config     = new VXPayConfig(window);
-			const pay        = new VXPay(config);
-			const frame      = new VXPayPaymentTab(window.document, 'test', config);
-			pay.paymentFrame = frame;
-			assert.equal(frame, pay.paymentFrame);
-		});
-		it('Only a valid payment frame can be accepted', () => {
-			const pay = new VXPay(new VXPayConfig(VXPayTestFx.getWindow()));
-			assert.throws(() => {
-				pay.paymentFrame = {};
-			}, TypeError, 'Payment frame should be an instance of VXPayPaymentFrame or VXPayPaymentTab');
-		});
-	});
 	describe('#hooks()', () => {
 		it('Should return a Promise of hooks config for compatibility reasons', () => {
 			const pay = new VXPay(new VXPayConfig(VXPayTestFx.getWindow()));
@@ -93,13 +84,13 @@ describe('VXPay', () => {
 	});
 	describe('#apiVersion()', () => {
 		it('Can accept API version on the fly', () => {
-			const pay        = new VXPay(new VXPayConfig(VXPayTestFx.getWindow()));
+			const pay      = new VXPay(new VXPayConfig(VXPayTestFx.getWindow()));
 			pay.apiVersion = 123;
 			assert.equal(123, pay.apiVersion);
 		});
 		it('API version should change the payment URL', () => {
-			const pay = new VXPay(new VXPayConfig(VXPayTestFx.getWindow())),
-			      before = pay.config.getPaymentFrameUrl();
+			const pay    = new VXPay(new VXPayConfig(VXPayTestFx.getWindow()));
+			const before = pay.config.getPaymentFrameUrl();
 
 			// change API version
 			pay.apiVersion = 555;
@@ -108,6 +99,16 @@ describe('VXPay', () => {
 
 			assert.include(after, 555);
 			assert.notEqual(before, after);
-		})
+		});
+	});
+	describe('#initHelperFrame()', () => {
+		it('Should return a Promise', () => assert.instanceOf(VxPayJs.initHelperFrame(), Promise));
+		// not sure why, can't spy on a function :/
+		it('Should call corresponding middleware', () => {
+			sinon.spy(VXPayHelper, 'init');
+			VxPayJs.initHelperFrame();
+			assert.isTrue(VXPayHelper.init.called);
+			VXPayHelper.init.restore();
+		});
 	});
 });

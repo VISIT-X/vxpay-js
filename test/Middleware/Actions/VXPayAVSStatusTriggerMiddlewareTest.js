@@ -19,7 +19,7 @@ describe('VXPayAVSStatusTriggerMiddleware', () => {
 		done();
 	});
 
-	describe('#run()', () => {
+	describe('#reset()', () => {
 		it('Should send a postMessage', () => {
 			// mock postMessage
 			sinon.spy(vxpay._paymentFrame, 'postMessage');

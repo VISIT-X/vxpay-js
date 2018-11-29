@@ -7,7 +7,7 @@ import VXPayConfig                      from './../../../src/VXPay/VXPayConfig';
 import VXPayOnAVSStatusListenMiddleware from './../../../src/VXPay/Middleware/Actions/VXPayOnAVSStatusListenMiddleware';
 
 describe('VXPayOnAVSStatusListenMiddleware', () => {
-	describe('#run()', () => {
+	describe('#reset()', () => {
 
 		/** @var {VXPay} */
 		let vxpay;

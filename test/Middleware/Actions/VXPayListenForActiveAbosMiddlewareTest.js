@@ -17,7 +17,7 @@ describe('VXPayListenForActiveAbosMiddleware', () => {
 		done();
 	});
 
-	describe('#run()', () => {
+	describe('#reset()', () => {
 		it('Should set a hook if not yet set up', () => {
 			const handler = () => {};
 

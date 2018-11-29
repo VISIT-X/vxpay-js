@@ -19,7 +19,7 @@ describe('VXPayActiveAbosTriggerMiddleware', () => {
 		done();
 	});
 
-	describe('#run()', () => {
+	describe('#reset()', () => {
 		it('Should send a postMessage if token already received', () => {
 			// mock postMessage
 			sinon.spy(vxpay._paymentFrame, 'postMessage');
