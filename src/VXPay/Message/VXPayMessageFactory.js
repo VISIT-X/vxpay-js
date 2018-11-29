@@ -30,50 +30,50 @@ export default class VXPayMessageFactory {
 		}
 
 		switch (message.type) {
-			case VXPayMessage.TYPE_HAS_LOGIN_COOKIE:
+			case VXPayMessage.T_COOKIE:
 				return new VXPayHasSessionCookieMessage(!!message.data);
 
-			case VXPayMessage.TYPE_AVS_STATUS:
+			case VXPayMessage.T_AVS:
 				return new VXPayAVSStatusMessage(VXPayAVSStatus.fromData(message.data));
 
-			case VXPayMessage.TYPE_BALANCE:
+			case VXPayMessage.T_BALANCE:
 				return VXPayBalanceMessage.fromData(message.data);
 
-			case VXPayMessage.TYPE_LOGGED_OUT:
+			case VXPayMessage.T_LOGGED_OUT:
 				return new VXPayLoggedOutMessage;
 
-			case VXPayMessage.TYPE_ACTIVE_ABOS:
+			case VXPayMessage.T_ABOS:
 				return VXPayActiveAbosMessage.fromData(message.data);
 
-			case VXPayMessage.TYPE_CONTENT_LOADED:
+			case VXPayMessage.T_CONTENT:
 				return new VXPayContentLoadedMessage();
 
-			case VXPayMessage.TYPE_IFRAME_READY:
+			case VXPayMessage.T_IFR_RDY:
 				return new VXPayIframeReadyMessage();
 
-			case VXPayMessage.TYPE_HOOK:
+			case VXPayMessage.T_HOOK:
 				return VXPayHookMessageFactory.fromData(message.data);
 
-			case VXPayMessage.TYPE_VIEW_READY:
+			case VXPayMessage.T_VIEW_RDY:
 				return new VXPayViewReadyMessage();
 
-			case VXPayMessage.TYPE_IFRAME_CLOSE:
+			case VXPayMessage.T_IFR_CLOSE:
 				return new VXPayIframeCloseMessage(message.data);
 
-			case VXPayMessage.TYPE_IS_VISIBLE:
+			case VXPayMessage.T_VISIBLE:
 				return new VXPayIsVisibleMessage();
 
-			case VXPayMessage.TYPE_SUCCESS:
+			case VXPayMessage.T_SUCCESS:
 				return new VXPaySuccessMessage(message.data);
 
-			case VXPayMessage.TYPE_IS_LOGGED_IN:
+			case VXPayMessage.T_IS_LOGGED:
 				return new VXPayIsLoggedInResponseMessage(message.data);
 		}
 
 		// default
 		// transfer token?
-		if (message.type.indexOf(VXPayMessage.TRANSFER_TOKEN_PREFIX) === 0) {
-			const token = message.type.substr(VXPayMessage.TRANSFER_TOKEN_PREFIX.length);
+		if (message.type.indexOf(VXPayMessage.TT_PREFIX) === 0) {
+			const token = message.type.substr(VXPayMessage.TT_PREFIX.length);
 			return new VXPayTransferTokenMessage(token);
 		}
 

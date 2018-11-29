@@ -1,5 +1,5 @@
-import VXPayPaymentRoutes from './../../Config/VXPayPaymentRoutes'
-import VXPayFlow          from './../../Config/VXPayFlow'
+import VXPayRoutes from '../../Config/VXPayRoutes'
+import VXPayFlow   from './../../Config/VXPayFlow'
 
 /**
  * @param {VXPay} vxpay
@@ -14,7 +14,7 @@ const VXPayOpenOpenBalanceCommand = (vxpay, flowOptions = {}) => {
 		.initSession()
 		.sendOptions(Object.assign({}, {'flow': VXPayFlow.OP_COMPENSATION}, flowOptions))
 		.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
-		.changeRoute(VXPayPaymentRoutes.OP_COMPENSATION)
+		.changeRoute(VXPayRoutes.OP_COMP)
 	);
 
 	return vxpay;

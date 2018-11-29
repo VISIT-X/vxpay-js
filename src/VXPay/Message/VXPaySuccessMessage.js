@@ -6,7 +6,7 @@ class VXPaySuccessMessage extends VXPayMessage {
 	 * @param {Object} data
 	 */
 	constructor(data = VXPaySuccessMessage.USER_DATA_STRUCT) {
-		super(VXPayMessage.TYPE_SUCCESS);
+		super(VXPayMessage.T_SUCCESS);
 		this.user = new VXPayUser();
 
 		// populate user model

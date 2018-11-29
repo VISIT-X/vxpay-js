@@ -1,6 +1,6 @@
-import VXPayPaymentType   from './../../Config/VXPayPaymentType'
-import VXPayFlow          from './../../Config/VXPayFlow'
-import VXPayPaymentRoutes from './../../Config/VXPayPaymentRoutes'
+import VXPayPaymentType from './../../Config/VXPayPaymentType'
+import VXPayFlow        from './../../Config/VXPayFlow'
+import VXPayRoutes      from '../../Config/VXPayRoutes'
 
 class VXPayVoiceCall {
 	/**
@@ -13,7 +13,7 @@ class VXPayVoiceCall {
 		vxpay.paymentFrame.then(frame => frame
 			.sendOptions(VXPayVoiceCall.PARAMS)
 			.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
-			.changeRoute(VXPayPaymentRoutes.VOICE_CALL)
+			.changeRoute(VXPayRoutes.VOICE_CALL)
 			.initSession()
 		);
 

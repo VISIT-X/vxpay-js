@@ -3,7 +3,7 @@ import VXPayAbo     from './../../Model/VXPayAbo'
 
 class VXPayActiveAbosMessage extends VXPayMessage {
 	constructor() {
-		super(VXPayMessage.TYPE_ACTIVE_ABOS);
+		super(VXPayMessage.T_ABOS);
 		this.abos = [];
 	}
 
@@ -22,15 +22,15 @@ class VXPayActiveAbosMessage extends VXPayMessage {
 		const instance = new VXPayActiveAbosMessage;
 
 		// instantiate models
-		Object.keys(data).forEach(key => {
+		Object.keys(data).forEach(k => {
 			const model      = new VXPayAbo();
-			model.amount     = data[key].amount;
-			model.endDate    = data[key].endDate;
-			model.isActive   = data[key].isActive;
-			model.isFreeAbo  = data[key].isFreeAbo;
-			model.isPaidAbo  = data[key].isPaidAbo;
-			model.isTrialAbo = data[key].isTrialAbo;
-			model.name       = data[key].name;
+			model.amount     = data[k].amount;
+			model.endDate    = data[k].endDate;
+			model.isActive   = data[k].isActive;
+			model.isFreeAbo  = data[k].isFreeAbo;
+			model.isPaidAbo  = data[k].isPaidAbo;
+			model.isTrialAbo = data[k].isTrialAbo;
+			model.name       = data[k].name;
 
 			// append
 			instance.add(model);

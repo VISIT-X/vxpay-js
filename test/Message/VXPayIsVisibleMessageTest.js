@@ -6,11 +6,11 @@ describe('VXPayIsVisibleMessage', () => {
 	describe('#constructor()', () => {
 		it('Should construct a correct object', () => {
 			const msg = new VXPayIsVisibleMessage();
-			assert.equal(VXPayMessage.TYPE_IS_VISIBLE, msg.type, "Type doesn't match!");
+			assert.equal(VXPayMessage.T_VISIBLE, msg.type, "Type doesn't match!");
 
 			// try to build with an invalid type
-			const msg2 = new VXPayIsVisibleMessage(VXPayMessage.TYPE_ACTION_GET_AVS_STATUS);
-			assert.equal(VXPayMessage.TYPE_IS_VISIBLE, msg2.type, "Type doesn't match!");
+			const msg2 = new VXPayIsVisibleMessage(VXPayMessage.TA_AVS);
+			assert.equal(VXPayMessage.T_VISIBLE, msg2.type, "Type doesn't match!");
 		})
 	});
 	describe('#toString()', () => {

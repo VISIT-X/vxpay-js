@@ -5,9 +5,9 @@ import VXPayGetBalanceMessage from './../../Message/Actions/VXPayGetBalanceMessa
  * @return {VXPay}
  * @constructor
  */
-const VXPayBalanceTriggerMiddleware = (vxpay) => {
-	vxpay._paymentFrame.postMessage(new VXPayGetBalanceMessage);
+const VXPayBalanceTrigger = (vxpay) => {
+	vxpay._paymentFrame.message(new VXPayGetBalanceMessage);
 	return vxpay;
 };
 
-export default VXPayBalanceTriggerMiddleware;
+export default VXPayBalanceTrigger;

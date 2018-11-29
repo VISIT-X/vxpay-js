@@ -1,12 +1,12 @@
-import {assert}                         from 'chai';
-import {describe, it, beforeEach}       from 'mocha';
-import sinon                            from 'sinon';
-import VXPayTestFx                      from './../../Fixtures/VXPayTestFx';
-import VXPay                            from './../../../src/VXPay';
-import VXPayConfig                      from './../../../src/VXPay/VXPayConfig';
-import VXPayOnAVSStatusListenMiddleware from './../../../src/VXPay/Middleware/Actions/VXPayOnAVSStatusListenMiddleware';
+import {assert}                   from 'chai';
+import {describe, it, beforeEach} from 'mocha';
+import sinon                      from 'sinon';
+import VXPayTestFx                from './../../Fixtures/VXPayTestFx';
+import VXPay                      from './../../../src/VXPay';
+import VXPayConfig                from './../../../src/VXPay/VXPayConfig';
+import VXPayOnAVSStatusListen     from '../../../src/VXPay/Middleware/Actions/VXPayOnAVSStatusListen';
 
-describe('VXPayOnAVSStatusListenMiddleware', () => {
+describe('VXPayOnAVSStatusListen', () => {
 	describe('#reset()', () => {
 
 		/** @var {VXPay} */
@@ -23,7 +23,7 @@ describe('VXPayOnAVSStatusListenMiddleware', () => {
 			const handler = () => {};
 			assert.isFalse(vxpay._hooks.hasOnAVSStatus(handler));
 
-			const after = VXPayOnAVSStatusListenMiddleware(vxpay, handler, handler);
+			const after = VXPayOnAVSStatusListen(vxpay, handler, handler);
 
 			assert.isTrue(vxpay._hooks.hasOnAVSStatus(handler));
 			assert.instanceOf(after, VXPay);
@@ -31,10 +31,10 @@ describe('VXPayOnAVSStatusListenMiddleware', () => {
 		it('Should NOT set a hook on consecutive call (for same handler)', () => {
 			const handler = () => {};
 
-			VXPayOnAVSStatusListenMiddleware(vxpay, handler, () => {});
+			VXPayOnAVSStatusListen(vxpay, handler, () => {});
 			assert.lengthOf(vxpay._hooks._onAVSStatus, 1);
 
-			VXPayOnAVSStatusListenMiddleware(vxpay, handler, () => {});
+			VXPayOnAVSStatusListen(vxpay, handler, () => {});
 			assert.lengthOf(vxpay._hooks._onAVSStatus, 1);
 		});
 		it('Should reject on error', done => {
@@ -45,7 +45,7 @@ describe('VXPayOnAVSStatusListenMiddleware', () => {
 
 			vxpay._hooks = undefined;
 
-			VXPayOnAVSStatusListenMiddleware(vxpay, done, reject);
+			VXPayOnAVSStatusListen(vxpay, done, reject);
 		});
 	});
 });

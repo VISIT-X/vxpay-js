@@ -23,7 +23,7 @@ class VXPayModalConfig {
 	 * @private
 	 */
 	static _throwOnInvalid(value) {
-		if (!VXPayValidator.isModalConfigValueAllowed(value)) {
+		if (!VXPayValidator.isModalConfValOk(value)) {
 			throw new TypeError('Value not allowed. Try one of: VXPayModalConfig.YES, VXPayModalConfig.NO');
 		}
 	}

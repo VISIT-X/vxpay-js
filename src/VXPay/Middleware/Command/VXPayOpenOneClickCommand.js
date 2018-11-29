@@ -1,5 +1,5 @@
-import VXPayFlow          from './../../Config/VXPayFlow'
-import VXPayPaymentRoutes from './../../Config/VXPayPaymentRoutes'
+import VXPayFlow   from './../../Config/VXPayFlow'
+import VXPayRoutes from '../../Config/VXPayRoutes'
 
 class VXPayOpenOneClickCommand {
 	/**
@@ -14,7 +14,7 @@ class VXPayOpenOneClickCommand {
 			.initSession()
 			.sendOptions(Object.assign({}, VXPayOpenOneClickCommand.PARAMS, flowOptions))
 			.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
-			.changeRoute(VXPayPaymentRoutes.ONE_CLICK)
+			.changeRoute(VXPayRoutes.ONE_CLICK)
 		);
 
 		return vxpay;

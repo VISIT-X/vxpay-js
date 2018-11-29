@@ -1,5 +1,5 @@
-import VXPayFlow          from './../../Config/VXPayFlow'
-import VXPayPaymentRoutes from './../../Config/VXPayPaymentRoutes'
+import VXPayFlow   from './../../Config/VXPayFlow'
+import VXPayRoutes from '../../Config/VXPayRoutes'
 
 /**
  * @param {VXPay} vxpay
@@ -14,7 +14,7 @@ const VXPayOpenVipAboTrialCommand = (vxpay, flowOptions = {}) => {
 		.initSession()
 		.sendOptions(Object.assign({}, {'flow': VXPayFlow.TRIAL_VIP_ABO}, flowOptions))
 		.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
-		.changeRoute(VXPayPaymentRoutes.ABO)
+		.changeRoute(VXPayRoutes.ABO)
 	);
 
 	return vxpay;

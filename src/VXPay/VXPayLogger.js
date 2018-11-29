@@ -29,16 +29,9 @@ class VXPayLogger {
 			message: JSON.stringify(arguments)
 		});
 	}
-
-	/**
-	 * @return {Array<String>}
-	 */
-	get container() {
-		return this._container;
-	}
 }
 
-VXPayLogger.LOG_INCOMING = '<-- []';
-VXPayLogger.LOG_OUTGOING = '--> []';
+VXPayLogger.IN  = '<-- []';
+VXPayLogger.OUT = '--> []';
 
 export default VXPayLogger;

@@ -1,5 +1,5 @@
-import VXPayFlow               from './../../Config/VXPayFlow'
-import VXPayPaymentRoutes      from './../../Config/VXPayPaymentRoutes'
+import VXPayFlow   from './../../Config/VXPayFlow'
+import VXPayRoutes from '../../Config/VXPayRoutes'
 
 class VXPayOpenLimitedPaymentCommand {
 	/**
@@ -12,7 +12,7 @@ class VXPayOpenLimitedPaymentCommand {
 		vxpay.paymentFrame.then(frame => frame
 			.sendOptions(VXPayOpenLimitedPaymentCommand.PARAMS)
 			.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
-			.changeRoute(VXPayPaymentRoutes.LIMIT)
+			.changeRoute(VXPayRoutes.LIMIT)
 			.initSession()
 		);
 

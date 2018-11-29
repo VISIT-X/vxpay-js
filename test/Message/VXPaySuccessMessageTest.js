@@ -7,7 +7,7 @@ describe('VXPaySuccessMessage', () => {
 	describe('#constructor()', () => {
 		it('Should construct a success message', () => {
 			const successMessage = new VXPaySuccessMessage();
-			assert.equal(VXPayMessage.TYPE_SUCCESS, successMessage.type);
+			assert.equal(VXPayMessage.T_SUCCESS, successMessage.type);
 		});
 		it('Should populate a `uhash` param if provided with the one', () => {
 			const uHash = 'some-test-string';

@@ -4,7 +4,7 @@ import VXPayBalance  from './../../Model/VXPayBalance'
 
 class VXPayBalanceMessage extends VXPayMessage {
 	constructor() {
-		super(VXPayMessage.TYPE_BALANCE);
+		super(VXPayMessage.T_BALANCE);
 		this.balance = new VXPayBalance();
 	}
 

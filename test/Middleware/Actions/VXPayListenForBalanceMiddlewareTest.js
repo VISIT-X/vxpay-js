@@ -1,11 +1,11 @@
-import {assert}                           from 'chai'
-import {describe, it, beforeEach}         from 'mocha'
-import VXPay                              from './../../../src/VXPay'
-import VXPayConfig                        from './../../../src/VXPay/VXPayConfig'
-import VXPayTestFx                        from './../../Fixtures/VXPayTestFx'
-import VXPayListenForBalanceMiddleware    from './../../../src/VXPay/Middleware/Actions/VXPayListenForBalanceMiddleware'
+import {assert}                   from 'chai'
+import {describe, it, beforeEach} from 'mocha'
+import VXPay                      from './../../../src/VXPay'
+import VXPayConfig                from './../../../src/VXPay/VXPayConfig'
+import VXPayTestFx                from './../../Fixtures/VXPayTestFx'
+import VXPayListenForBalance      from '../../../src/VXPay/Middleware/Actions/VXPayListenForBalance'
 
-describe('VXPayListenForBalanceMiddleware', () => {
+describe('VXPayListenForBalance', () => {
 
 	/** @var {VXPay} */
 	let vxpay;
@@ -23,7 +23,7 @@ describe('VXPayListenForBalanceMiddleware', () => {
 
 			assert.isFalse(vxpay._hooks.hasOnBalance(() => {}));
 
-			const after = VXPayListenForBalanceMiddleware(vxpay, handler, handler);
+			const after = VXPayListenForBalance(vxpay, handler, handler);
 			assert.instanceOf(after, VXPay);
 
 			// should have a onBalance handler
@@ -33,11 +33,11 @@ describe('VXPayListenForBalanceMiddleware', () => {
 		it('Should not set the hooks on consecutive call', () => {
 			const handler = () => {};
 
-			VXPayListenForBalanceMiddleware(vxpay, handler, handler);
+			VXPayListenForBalance(vxpay, handler, handler);
 			assert.equal(1, vxpay._hooks.onBalance.length);
 
 			// call again - not another hook set
-			VXPayListenForBalanceMiddleware(vxpay, handler, handler);
+			VXPayListenForBalance(vxpay, handler, handler);
 			assert.equal(1, vxpay._hooks.onBalance.length);
 		});
 		it('Should reject on error', done => {
@@ -49,7 +49,7 @@ describe('VXPayListenForBalanceMiddleware', () => {
 				done();
 			};
 
-			const after = VXPayListenForBalanceMiddleware(vxpay, () => {}, reject);
+			const after = VXPayListenForBalance(vxpay, () => {}, reject);
 			assert.instanceOf(after, VXPay);
 		})
 	});

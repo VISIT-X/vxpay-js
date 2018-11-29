@@ -36,13 +36,13 @@ describe('VXPayHookMessageFactory', () => {
 		});
 		it('Returns VXPayLoggedInMessage on LOGIN', () => {
 			assert.instanceOf(
-				VXPayHookMessageFactory.fromData({hook: VXPayHookMessage.HOOK_LOGIN}),
+				VXPayHookMessageFactory.fromData({hook: VXPayHookMessage.H_LOGIN}),
 				VXPayLoggedInMessage
 			);
 		});
 		it('Returns VXPayFlowChangedHookMessage on change of flow', () => {
 			const hook = {
-				      hook:     VXPayHookMessage.HOOK_FLOW_CHANGED,
+				      hook:     VXPayHookMessage.H_FLOW,
 				      prevFlow: VXPayFlow.ONE_CLICK,
 				      flow:     VXPayFlow.LOGIN
 			      },
@@ -54,37 +54,37 @@ describe('VXPayHookMessageFactory', () => {
 		});
 		it('Returns VXPayHookPaymentMessage on PAYMENT', () => {
 			assert.instanceOf(
-				VXPayHookMessageFactory.fromData({hook: VXPayHookMessage.HOOK_PAYMENT}),
+				VXPayHookMessageFactory.fromData({hook: VXPayHookMessage.H_PAYMENT}),
 				VXPayHookPaymentMessage
 			);
 		});
 		it('Returns VXPayHookSignupMessage on SIGNUP', () => {
 			assert.instanceOf(
-				VXPayHookMessageFactory.fromData({hook: VXPayHookMessage.HOOK_SIGNUP}),
+				VXPayHookMessageFactory.fromData({hook: VXPayHookMessage.H_SIGNUP}),
 				VXPayHookSignupMessage
 			);
 		});
 		it('Returns VXPayHookComfortSettingsChangedMessage on COMFORT_SETTINGS_CHANGED', () => {
 			assert.instanceOf(
-				VXPayHookMessageFactory.fromData({hook: VXPayHookMessage.HOOK_COMFORT_SETTINGS_CHANGED}),
+				VXPayHookMessageFactory.fromData({hook: VXPayHookMessage.H_C_SETTINGS}),
 				VXPayHookComfortSettingsChangedMessage
 			);
 		});
 		it('Returns VXPayHookEmailVerifiedMessage on EMAIL_VERIFIED', () => {
 			assert.instanceOf(
-				VXPayHookMessageFactory.fromData({hook: VXPayHookMessage.HOOK_EMAIL_VERIFIED}),
+				VXPayHookMessageFactory.fromData({hook: VXPayHookMessage.H_E_VERIFIED}),
 				VXPayHookEmailVerifiedMessage
 			);
 		});
 		it('Returns VXPayHookEmailNotVerifiedMessage on EMAIL_NOT_VERIFIED', () => {
 			assert.instanceOf(
-				VXPayHookMessageFactory.fromData({hook: VXPayHookMessage.HOOK_EMAIL_NOT_VERIFIED}),
+				VXPayHookMessageFactory.fromData({hook: VXPayHookMessage.H_E_NOT_VERIFIED}),
 				VXPayHookEmailNotVerifiedMessage
 			);
 		});
 		it('Returns VXPayHookPasswordChangedMessage on PASSWORD_CHANGED', () => {
 			assert.instanceOf(
-				VXPayHookMessageFactory.fromData({hook: VXPayHookMessage.HOOK_PASSWORD_CHANGED}),
+				VXPayHookMessageFactory.fromData({hook: VXPayHookMessage.H_PASS}),
 				VXPayHookPasswordChangedMessage
 			);
 		});

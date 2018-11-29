@@ -5,7 +5,7 @@
  * @return {VXPay}
  * @constructor
  */
-const VXPayOnAVSStatusListenMiddleware = (vxpay, resolve, reject) => {
+const VXPayOnAVSStatusListen = (vxpay, resolve, reject) => {
 	try {
 		if (!vxpay._hooks.hasOnAVSStatus(resolve)) {
 			vxpay._hooks.onAVSStatus(resolve);
@@ -17,4 +17,4 @@ const VXPayOnAVSStatusListenMiddleware = (vxpay, resolve, reject) => {
 	}
 };
 
-export default VXPayOnAVSStatusListenMiddleware;
+export default VXPayOnAVSStatusListen;

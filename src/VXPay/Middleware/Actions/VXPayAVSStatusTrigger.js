@@ -5,9 +5,9 @@ import VXPayGetAVSStatusMessage from './../../Message/Actions/VXPayGetAVSStatusM
  * @return {VXPay}
  * @constructor
  */
-const VXPayAVSStatusTriggerMiddleware = (vxpay) => {
-	vxpay._paymentFrame.postMessage(new VXPayGetAVSStatusMessage);
+const VXPayAVSStatusTrigger = (vxpay) => {
+	vxpay._paymentFrame.message(new VXPayGetAVSStatusMessage);
 	return vxpay;
 };
 
-export default VXPayAVSStatusTriggerMiddleware;
+export default VXPayAVSStatusTrigger;

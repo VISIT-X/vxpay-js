@@ -5,7 +5,7 @@ class VXPayIsLoggedInResponseMessage extends VXPayMessage {
 	 * @param {Boolean} loggedIn
 	 */
 	constructor(loggedIn = false) {
-		super(VXPayMessage.TYPE_IS_LOGGED_IN);
+		super(VXPayMessage.T_IS_LOGGED);
 		this.loggedIn = loggedIn;
 	}
 }

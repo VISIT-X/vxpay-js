@@ -10,13 +10,13 @@ describe('VXPayChangeRouteMessage', () => {
 			const route = 'new-route';
 			const msg   = new VXPayChangeRouteMessage(route);
 
-			assert.equal(msg.type, VXPayMessage.TYPE_CHANGE_ROUTE);
+			assert.equal(msg.type, VXPayMessage.T_ROUTE);
 			assert.equal(msg.route, route);
 		});
 		it('Should not have a route when not provided', () => {
 			const msg = new VXPayChangeRouteMessage;
 
-			assert.equal(msg.type, VXPayMessage.TYPE_CHANGE_ROUTE);
+			assert.equal(msg.type, VXPayMessage.T_ROUTE);
 			assert.isTrue(typeof msg.route === 'undefined');
 		});
 		it('Should convert to JSON when toString is called', () => {

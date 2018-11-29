@@ -2,6 +2,6 @@ import VXPayHookMessage from './VXPayHookMessage'
 
 export default class VXPayHookPasswordChangedMessage extends VXPayHookMessage {
 	constructor() {
-		super(VXPayHookMessage.HOOK_PASSWORD_CHANGED);
+		super(VXPayHookMessage.H_PASS);
 	}
 }

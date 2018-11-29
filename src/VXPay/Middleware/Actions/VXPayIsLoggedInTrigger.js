@@ -6,8 +6,8 @@ import VXPayIsLoggedInActionMessage   from './../../Message/Actions/VXPayIsLogge
  * @param {Function} reject
  * @constructor
  */
-const VXPayIsLoggedInTriggerMiddleware = (vxpay, resolve, reject) => {
-	vxpay.logger.log('VXPayIsLoggedInTriggerMiddleware()');
+const VXPayIsLoggedInTrigger = (vxpay, resolve, reject) => {
+	vxpay.logger.log('VXPayIsLoggedInTrigger()');
 
 	try {
 		// is hook setup?
@@ -15,7 +15,7 @@ const VXPayIsLoggedInTriggerMiddleware = (vxpay, resolve, reject) => {
 			vxpay._hooks.onIsLoggedIn(resolve);
 		}
 
-		vxpay._paymentFrame.postMessage(new VXPayIsLoggedInActionMessage);
+		vxpay._paymentFrame.message(new VXPayIsLoggedInActionMessage);
 	} catch (err) {
 		reject(err);
 	}
@@ -23,4 +23,4 @@ const VXPayIsLoggedInTriggerMiddleware = (vxpay, resolve, reject) => {
 	return vxpay;
 };
 
-export default VXPayIsLoggedInTriggerMiddleware;
+export default VXPayIsLoggedInTrigger;

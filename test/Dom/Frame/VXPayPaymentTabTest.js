@@ -5,16 +5,16 @@ import {given}                       from 'mocha-testdata';
 import VXPayPaymentTab               from './../../../src/VXPay/Dom/Frame/VXPayPaymentTab';
 import VXPayTestFx                   from './../../Fixtures/VXPayTestFx';
 import VXPayConfig                   from './../../../src/VXPay/VXPayConfig';
-import VXPayPaymentHooksConfig       from './../../../src/VXPay/Config/VXPayPaymentHooksConfig';
-import VXPayLanguage                 from './../../../src/VXPay/VXPayLanguage';
-import VXPayFlow                     from './../../../src/VXPay/Config/VXPayFlow';
-import VXPayPaymentRoutes            from '../../../src/VXPay/Config/VXPayPaymentRoutes';
-import VXPayPaymentFrame             from '../../../src/VXPay/Dom/Frame/VXPayPaymentFrame';
-import VXPayIsLoggedInActionMessage  from '../../../src/VXPay/Message/Actions/VXPayIsLoggedInActionMessage';
-import VXPayAdditionalOptionsMessage from '../../../src/VXPay/Message/VXPayAdditionalOptionsMessage';
-import {JSDOM}                       from 'jsdom';
-import VXPayUpdateParamsMessage      from '../../../src/VXPay/Message/VXPayUpdateParamsMessage';
-import VXPayInitSessionMessage       from '../../../src/VXPay/Message/VXPayInitSessionMessage';
+import VXPayPaymentHooksConfig      from './../../../src/VXPay/Config/VXPayPaymentHooksConfig';
+import VXPayLanguage                from './../../../src/VXPay/VXPayLanguage';
+import VXPayFlow                    from './../../../src/VXPay/Config/VXPayFlow';
+import VXPayRoutes                  from '../../../src/VXPay/Config/VXPayRoutes';
+import VXPayPaymentFrame            from '../../../src/VXPay/Dom/Frame/VXPayPaymentFrame';
+import VXPayIsLoggedInActionMessage from '../../../src/VXPay/Message/Actions/VXPayIsLoggedInActionMessage';
+import VXPayAdditionalOptions       from '../../../src/VXPay/Message/VXPayAdditionalOptions';
+import {JSDOM}                      from 'jsdom';
+import VXPayUpdateParamsMessage     from '../../../src/VXPay/Message/VXPayUpdateParamsMessage';
+import VXPayInitSessionMessage      from '../../../src/VXPay/Message/VXPayInitSessionMessage';
 
 describe('VXPayPaymentTab', () => {
 
@@ -77,11 +77,11 @@ describe('VXPayPaymentTab', () => {
 	});
 	describe('#changeRoute', () => {
 		it('Changes route to default with no param', () => {
-			tab.changeRoute(VXPayPaymentRoutes.AUTO_RECHARGE);
+			tab.changeRoute(VXPayRoutes.RECHARGE);
 			tab.changeRoute();
 			assert.equal(tab.route, VXPayPaymentTab.DEFAULT_ROUTE);
 		});
-		given(VXPayPaymentRoutes.getAllowed())
+		given(VXPayRoutes.getAllowed())
 			.test('Stores the changed route', route => {
 				tab.changeRoute(route);
 				assert.equal(tab.route, route);
@@ -118,27 +118,27 @@ describe('VXPayPaymentTab', () => {
 			});
 		});
 	});
-	describe('#postMessage()', () => {
+	describe('#message()', () => {
 		it('Routes messages to iFrame if it is an ActionMessage', () => {
 			const message = new VXPayIsLoggedInActionMessage();
 
-			sinon.spy(tab._invisibleFrame, 'postMessage');
+			sinon.spy(tab._invisibleFrame, 'message');
 
-			tab.postMessage(message);
+			tab.message(message);
 
-			assert.isTrue(tab._invisibleFrame.postMessage.called);
-			assert.equal(tab._invisibleFrame.postMessage.getCall(0).args[0], message);
-			tab._invisibleFrame.postMessage.restore();
+			assert.isTrue(tab._invisibleFrame.message.called);
+			assert.equal(tab._invisibleFrame.message.getCall(0).args[0], message);
+			tab._invisibleFrame.message.restore();
 		});
 		it('Routes messages to tab if it is NOT an ActionMessage and will wait for tab to open', () => {
-			const message = new VXPayAdditionalOptionsMessage({'test': 'some'});
+			const message = new VXPayAdditionalOptions({'test': 'some'});
 
-			tab.postMessage(message);
+			tab.message(message);
 
 			assert.isNull(tab._window);
 		});
 		it('Routes messages to tab if it is NOT an ActionMessage and execute after load', () => {
-			const message      = new VXPayAdditionalOptionsMessage({'test': 'some'});
+			const message      = new VXPayAdditionalOptions({'test': 'some'});
 			const vxpPayWindow = (new JSDOM(VXPayTestFx.DOC)).window;
 
 			sinon.spy(vxpPayWindow, 'postMessage');
@@ -146,7 +146,7 @@ describe('VXPayPaymentTab', () => {
 			// set dummy function to window.open
 			tab._document.defaultView.open = (url, name) => vxpPayWindow;
 
-			tab.postMessage(message);
+			tab.message(message);
 			return tab.triggerLoad().then(() => {
 				assert.isTrue(vxpPayWindow.postMessage.called);
 				vxpPayWindow.postMessage.restore();
@@ -154,18 +154,18 @@ describe('VXPayPaymentTab', () => {
 		})
 	});
 	describe('#sendAdditionalOptions()', () => {
-		it('Should send a postMessage to tab with options', () => {
+		it('Should send a message to tab with options', () => {
 			const additional = {'test': 'some'};
-			const message    = new VXPayAdditionalOptionsMessage(additional);
+			const message    = new VXPayAdditionalOptions(additional);
 
-			sinon.spy(tab, 'postMessage');
+			sinon.spy(tab, 'message');
 
 			tab.sendAdditionalOptions(additional);
 
-			assert.isTrue(tab.postMessage.called);
-			assert.equal(tab.postMessage.getCall(0).args[0].toString(), message.toString());
+			assert.isTrue(tab.message.called);
+			assert.equal(tab.message.getCall(0).args[0].toString(), message.toString());
 
-			tab.postMessage.restore();
+			tab.message.restore();
 		});
 		it('Should merge options with config', () => {
 			// set some config values
@@ -177,32 +177,32 @@ describe('VXPayPaymentTab', () => {
 			tab = new VXPayPaymentTab(doc, 'test', config, hooks);
 
 			const additional = {'pfm': 'some'};
-			const message    = new VXPayAdditionalOptionsMessage(additional);
+			const message    = new VXPayAdditionalOptions(additional);
 
-			sinon.spy(tab, 'postMessage');
+			sinon.spy(tab, 'message');
 
 			tab.sendAdditionalOptions(additional);
 
-			assert.isTrue(tab.postMessage.called);
-			assert.equal(tab.postMessage.getCall(0).args[0].toString(), message.toString());
+			assert.isTrue(tab.message.called);
+			assert.equal(tab.message.getCall(0).args[0].toString(), message.toString());
 			assert.equal(tab.config.pfm, 'some');
 
-			tab.postMessage.restore();
+			tab.message.restore();
 		})
 	});
 	describe('#sendUpdateParams()', () => {
-		it('Should send a postMessage to tab with params', () => {
+		it('Should send a message to tab with params', () => {
 			const params = {'test': 'some'};
 			const message    = new VXPayUpdateParamsMessage(params);
 
-			sinon.spy(tab, 'postMessage');
+			sinon.spy(tab, 'message');
 
 			tab.sendUpdateParams(params);
 
-			assert.isTrue(tab.postMessage.called);
-			assert.equal(tab.postMessage.getCall(0).args[0].toString(), message.toString());
+			assert.isTrue(tab.message.called);
+			assert.equal(tab.message.getCall(0).args[0].toString(), message.toString());
 
-			tab.postMessage.restore();
+			tab.message.restore();
 		})
 	});
 	describe('#hide()', () => {
@@ -231,30 +231,30 @@ describe('VXPayPaymentTab', () => {
 		})
 	});
 	describe('#initSession()', () => {
-		it('Should send a postMessage', () => {
+		it('Should send a message', () => {
 			const token = 'some-token-test-token';
 			const message = new VXPayInitSessionMessage(token);
 
-			sinon.spy(tab, 'postMessage');
+			sinon.spy(tab, 'message');
 
 			tab.initSession(token);
 
-			assert.isTrue(tab.postMessage.called);
-			assert.equal(tab.postMessage.getCall(0).args[0].toString(), message.toString());
+			assert.isTrue(tab.message.called);
+			assert.equal(tab.message.getCall(0).args[0].toString(), message.toString());
 
-			tab.postMessage.restore();
+			tab.message.restore();
 		});
-		it('Should send a postMessage even with no token', () => {
+		it('Should send a message even with no token', () => {
 			const message = new VXPayInitSessionMessage();
 
-			sinon.spy(tab, 'postMessage');
+			sinon.spy(tab, 'message');
 
 			tab.initSession();
 
-			assert.isTrue(tab.postMessage.called);
-			assert.equal(tab.postMessage.getCall(0).args[0].toString(), message.toString());
+			assert.isTrue(tab.message.called);
+			assert.equal(tab.message.getCall(0).args[0].toString(), message.toString());
 
-			tab.postMessage.restore();
+			tab.message.restore();
 		})
 	});
 });

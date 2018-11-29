@@ -6,7 +6,7 @@ describe('VXPayUpdateParamsMessageTest', () => {
 	describe('#constructor()', () => {
 		it('Should construct a correct object', () => {
 			const msg = new VXPayUpdateParamsMessage();
-			assert.equal(VXPayMessage.TYPE_UPDATE_PARAMS, msg.type, "Type doesn't match!");
+			assert.equal(VXPayMessage.T_PARAMS, msg.type, "Type doesn't match!");
 			assert.empty(msg.options);
 		})
 	});

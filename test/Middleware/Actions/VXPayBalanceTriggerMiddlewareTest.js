@@ -1,13 +1,13 @@
-import {assert}                      from 'chai';
-import {describe, it, beforeEach}    from 'mocha';
-import sinon                         from 'sinon';
-import VXPay                         from './../../../src/VXPay';
-import VXPayConfig                   from './../../../src/VXPay/VXPayConfig';
-import VXPayTestFx                   from './../../Fixtures/VXPayTestFx';
-import VXPayBalanceTriggerMiddleware from './../../../src/VXPay/Middleware/Actions/VXPayBalanceTriggerMiddleware';
-import VXPayGetBalanceMessage        from './../../../src/VXPay/Message/Actions/VXPayGetBalanceMessage';
+import {assert}                   from 'chai';
+import {describe, it, beforeEach} from 'mocha';
+import sinon                      from 'sinon';
+import VXPay                      from './../../../src/VXPay';
+import VXPayConfig                from './../../../src/VXPay/VXPayConfig';
+import VXPayTestFx                from './../../Fixtures/VXPayTestFx';
+import VXPayBalanceTrigger        from './../../../src/VXPay/Middleware/Actions/VXPayBalanceTriggerMiddleware';
+import VXPayGetBalanceMessage     from './../../../src/VXPay/Message/Actions/VXPayGetBalanceMessage';
 
-describe('VXPayActiveAbosTriggerMiddleware', () => {
+describe('VXPayActiveAbosTrigger', () => {
 
 	/** @var {VXPay} */
 	let vxpay;
@@ -20,22 +20,22 @@ describe('VXPayActiveAbosTriggerMiddleware', () => {
 	});
 
 	describe('#reset()', () => {
-		it('Should send a postMessage if token already received', () => {
-			// mock postMessage
-			sinon.spy(vxpay._paymentFrame, 'postMessage');
+		it('Should send a message if token already received', () => {
+			// mock message
+			sinon.spy(vxpay._paymentFrame, 'message');
 
 			// call middleware
-			const after = VXPayBalanceTriggerMiddleware(vxpay);
+			const after = VXPayBalanceTrigger(vxpay);
 			assert.instanceOf(after, VXPay);
 
 			// check post message sent (compare in JSON)
 			assert.equal(
-				JSON.stringify(vxpay._paymentFrame.postMessage.getCall(0).args[0]),
+				JSON.stringify(vxpay._paymentFrame.message.getCall(0).args[0]),
 				(new VXPayGetBalanceMessage).toString()
 			);
 
 			// clean up
-			vxpay._paymentFrame.postMessage.restore();
+			vxpay._paymentFrame.message.restore();
 		});
 	});
 });

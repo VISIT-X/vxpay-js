@@ -22,8 +22,8 @@ export default class VXPayHelper {
 		if (vxpay.config.logging) {
 			vxpay.helperFrame
 				.hooks
-				.onAny(msg => vxpay.logger.log(VXPayLogger.LOG_INCOMING, msg))
-				.onBeforeSend(msg => vxpay.logger.log(VXPayLogger.LOG_OUTGOING, msg));
+				.onAny(msg => vxpay.logger.log(VXPayLogger.IN, msg))
+				.onBeforeSend(msg => vxpay.logger.log(VXPayLogger.OUT, msg));
 		}
 
 		vxpay.helperFrame.triggerLoad();

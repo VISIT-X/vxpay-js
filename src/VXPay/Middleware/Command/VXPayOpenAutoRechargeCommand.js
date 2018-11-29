@@ -1,5 +1,5 @@
-import VXPayFlow          from './../../Config/VXPayFlow'
-import VXPayPaymentRoutes from './../../Config/VXPayPaymentRoutes'
+import VXPayFlow   from './../../Config/VXPayFlow'
+import VXPayRoutes from '../../Config/VXPayRoutes'
 
 class VXPayOpenAutoRechargeCommand {
 	/**
@@ -14,7 +14,7 @@ class VXPayOpenAutoRechargeCommand {
 			.initSession()
 			.sendOptions(Object.assign({}, VXPayOpenAutoRechargeCommand.PARAMS, flowOptions))
 			.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
-			.changeRoute(VXPayPaymentRoutes.AUTO_RECHARGE)
+			.changeRoute(VXPayRoutes.RECHARGE)
 		);
 
 		return vxpay;

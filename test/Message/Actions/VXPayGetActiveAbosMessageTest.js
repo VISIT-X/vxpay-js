@@ -8,7 +8,7 @@ describe('VXPayGetActiveAbosMessage', () => {
 		it('Should build a valid message', () => {
 			assert.equal(
 				(new VXPayGetActiveAbosMessage()).type,
-				VXPayMessage.TYPE_ACTION_GET_ACTIVE_ABOS
+				VXPayMessage.TA_ABOS
 			);
 		});
 	});

@@ -9,7 +9,7 @@ describe('VXPayIframeCloseMessage', () => {
 		it('Should build a valid object with no params', () => {
 			const msg = new VXPayIframeCloseMessage;
 			assert.instanceOf(msg, VXPayIframeCloseMessage);
-			assert.equal(msg.type, VXPayMessage.TYPE_IFRAME_CLOSE);
+			assert.equal(msg.type, VXPayMessage.T_IFR_CLOSE);
 		});
 		it('Should build a valid object with any data', () => {
 			const msgString = VXPayTestFx.getMessage('iframe-close'),
@@ -17,7 +17,7 @@ describe('VXPayIframeCloseMessage', () => {
 			      msg       = new VXPayIframeCloseMessage(data);
 
 			assert.instanceOf(msg, VXPayIframeCloseMessage);
-			assert.equal(msg.type, VXPayMessage.TYPE_IFRAME_CLOSE);
+			assert.equal(msg.type, VXPayMessage.T_IFR_CLOSE);
 			assert.equal(msg.data, data);
 		});
 	});

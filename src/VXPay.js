@@ -1,43 +1,43 @@
-import VXPayConfig                        from './VXPay/VXPayConfig';
-import VXPayLogger                        from './VXPay/VXPayLogger';
-import VXPayHelperFrame                   from './VXPay/Dom/Frame/VXPayHelperFrame';
-import VXPayPaymentFrame                  from './VXPay/Dom/Frame/VXPayPaymentFrame';
-import VXPayPaymentTab                    from './VXPay/Dom/Frame/VXPayPaymentTab';
-import VXPayHelper                        from './VXPay/Middleware/Frames/VXPayHelper';
-import VXPayOnAVSStatusListenMiddleware   from './VXPay/Middleware/Actions/VXPayOnAVSStatusListenMiddleware';
-import VXPayAVSStatusTriggerMiddleware    from './VXPay/Middleware/Actions/VXPayAVSStatusTriggerMiddleware';
-import VXPayListenForBalanceMiddleware    from './VXPay/Middleware/Actions/VXPayListenForBalanceMiddleware';
-import VXPayBalanceTriggerMiddleware      from './VXPay/Middleware/Actions/VXPayBalanceTriggerMiddleware';
-import VXPayListenForActiveAbosMiddleware from './VXPay/Middleware/Actions/VXPayListenForActiveAbosMiddleware';
-import VXPayActiveAbosTriggerMiddleware   from './VXPay/Middleware/Actions/VXPayActiveAbosTriggerMiddleware';
-import VXPayListenForLogoutMiddleware     from './VXPay/Middleware/Actions/VXPayListenForLogoutMiddleware';
-import VXPayLogoutTriggerMiddleware       from './VXPay/Middleware/Actions/VXPayLogoutTriggerMiddleware';
-import VXPayState                         from './VXPay/Model/VXPayState';
-import VXPayLogin                         from './VXPay/Middleware/Command/VXPayLogin';
-import VXPaySignUp                        from './VXPay/Middleware/Command/VXPaySignUp';
-import VXPayVoiceCall                     from './VXPay/Middleware/Command/VXPayVoiceCall';
-import VXPayOpenPaymentCommand            from './VXPay/Middleware/Command/VXPayOpenPaymentCommand';
-import VXPayOpenSettingsCommand           from './VXPay/Middleware/Command/VXPayOpenSettingsCommand';
-import VXPayOpenAboCommand                from './VXPay/Middleware/Command/VXPayOpenAboCommand';
-import VXPayResetPasswordCommand          from './VXPay/Middleware/Command/VXPayResetPasswordCommand';
-import VXPayLostPasswordCommand           from './VXPay/Middleware/Command/VXPayLostPasswordCommand';
-import VXPayOpenLimitedPaymentCommand     from './VXPay/Middleware/Command/VXPayOpenLimitedPaymentCommand';
-import VXPayOpenVipAboTrialCommand        from './VXPay/Middleware/Command/VXPayOpenVipAboTrialCommand';
-import VXPayOpenPremiumAboCommand         from './VXPay/Middleware/Command/VXPayOpenPremiumAboCommand';
-import VXPayOpenAVSCommand                from './VXPay/Middleware/Command/VXPayOpenAVSCommand';
-import VXPayOpenPromoCodeCommand          from './VXPay/Middleware/Command/VXPayOpenPromoCodeCommand';
-import VXPayOpenOneClickCommand           from './VXPay/Middleware/Command/VXPayOpenOneClickCommand';
-import VXPayOpenAutoRechargeCommand       from './VXPay/Middleware/Command/VXPayOpenAutoRechargeCommand';
-import VXPayOpenOpenBalanceCommand        from './VXPay/Middleware/Command/VXPayOpenOpenBalanceCommand';
-import VXPayShowForTab                    from './VXPay/Middleware/Frames/VXPayShowForTab';
-import VXPayPaymentHooksConfig            from './VXPay/Config/VXPayPaymentHooksConfig';
-import VXPayHookRouter                    from './VXPay/Message/Hooks/VXPayHookRouter';
-import VXPayEventListener                 from './VXPay/Event/VXPayEventListener';
-import VXPayIframe                        from './VXPay/Dom/VXPayIframe';
-import VXPayIsLoggedInTriggerMiddleware   from './VXPay/Middleware/Actions/VXPayIsLoggedInTriggerMiddleware';
-import VXPayTokenForTab                   from './VXPay/Middleware/Frames/VXPayTokenForTab';
-import VXPayWhen                          from './VXPay/Middleware/VXPayWhen';
-import VXPayPayment                       from './VXPay/Middleware/Frames/VXPayPayment';
+import VXPayConfig                    from './VXPay/VXPayConfig';
+import VXPayLogger                    from './VXPay/VXPayLogger';
+import VXPayHelperFrame               from './VXPay/Dom/Frame/VXPayHelperFrame';
+import VXPayPaymentFrame              from './VXPay/Dom/Frame/VXPayPaymentFrame';
+import VXPayPaymentTab                from './VXPay/Dom/Frame/VXPayPaymentTab';
+import VXPayHelper                    from './VXPay/Middleware/Frames/VXPayHelper';
+import VXPayOnAVSStatusListen         from './VXPay/Middleware/Actions/VXPayOnAVSStatusListen';
+import VXPayAVSStatusTrigger          from './VXPay/Middleware/Actions/VXPayAVSStatusTrigger';
+import VXPayListenForBalance          from './VXPay/Middleware/Actions/VXPayListenForBalance';
+import VXPayBalanceTrigger            from './VXPay/Middleware/Actions/VXPayBalanceTrigger';
+import VXPayListenForActiveAbos       from './VXPay/Middleware/Actions/VXPayListenForActiveAbos';
+import VXPayActiveAbosTrigger         from './VXPay/Middleware/Actions/VXPayActiveAbosTrigger';
+import VXPayListenForLogout           from './VXPay/Middleware/Actions/VXPayListenForLogout';
+import VXPayLogoutTrigger             from './VXPay/Middleware/Actions/VXPayLogoutTrigger';
+import VXPayState                     from './VXPay/Model/VXPayState';
+import VXPayLogin                     from './VXPay/Middleware/Command/VXPayLogin';
+import VXPaySignUp                    from './VXPay/Middleware/Command/VXPaySignUp';
+import VXPayVoiceCall                 from './VXPay/Middleware/Command/VXPayVoiceCall';
+import VXPayOpenPaymentCommand        from './VXPay/Middleware/Command/VXPayOpenPaymentCommand';
+import VXPayOpenSettingsCommand       from './VXPay/Middleware/Command/VXPayOpenSettingsCommand';
+import VXPayOpenAboCommand            from './VXPay/Middleware/Command/VXPayOpenAboCommand';
+import VXPayResetPasswordCommand      from './VXPay/Middleware/Command/VXPayResetPasswordCommand';
+import VXPayLostPasswordCommand       from './VXPay/Middleware/Command/VXPayLostPasswordCommand';
+import VXPayOpenLimitedPaymentCommand from './VXPay/Middleware/Command/VXPayOpenLimitedPaymentCommand';
+import VXPayOpenVipAboTrialCommand    from './VXPay/Middleware/Command/VXPayOpenVipAboTrialCommand';
+import VXPayOpenPremiumAboCommand     from './VXPay/Middleware/Command/VXPayOpenPremiumAboCommand';
+import VXPayOpenAVSCommand            from './VXPay/Middleware/Command/VXPayOpenAVSCommand';
+import VXPayOpenPromoCodeCommand      from './VXPay/Middleware/Command/VXPayOpenPromoCodeCommand';
+import VXPayOpenOneClickCommand       from './VXPay/Middleware/Command/VXPayOpenOneClickCommand';
+import VXPayOpenAutoRechargeCommand   from './VXPay/Middleware/Command/VXPayOpenAutoRechargeCommand';
+import VXPayOpenOpenBalanceCommand    from './VXPay/Middleware/Command/VXPayOpenOpenBalanceCommand';
+import VXPayShowForTab                from './VXPay/Middleware/Frames/VXPayShowForTab';
+import VXPayPaymentHooksConfig        from './VXPay/Config/VXPayPaymentHooksConfig';
+import VXPayHookRouter                from './VXPay/Message/Hooks/VXPayHookRouter';
+import VXPayEventListener             from './VXPay/Event/VXPayEventListener';
+import VXPayIframe                    from './VXPay/Dom/VXPayIframe';
+import VXPayIsLoggedInTrigger         from './VXPay/Middleware/Actions/VXPayIsLoggedInTrigger';
+import VXPayTokenForTab               from './VXPay/Middleware/Frames/VXPayTokenForTab';
+import VXPayWhen                      from './VXPay/Middleware/VXPayWhen';
+import VXPayPayment                   from './VXPay/Middleware/Frames/VXPayPayment';
 
 export default class VXPay {
 	/**
@@ -365,7 +365,7 @@ export default class VXPay {
 		return new Promise((resolve, reject) => {
 			this._initPaymentFrame(!this.config.enableTab)
 				.then(VXPayWhen.tokenTransferred)
-				.then(vxpay => VXPayIsLoggedInTriggerMiddleware(vxpay, resolve, reject))
+				.then(vxpay => VXPayIsLoggedInTrigger(vxpay, resolve, reject))
 				.catch(reject);
 		});
 	}
@@ -377,8 +377,8 @@ export default class VXPay {
 		return new Promise((resolve, reject) => {
 			return this._initPaymentFrame(!this.config.enableTab)
 				.then(VXPayWhen.tokenTransferred)
-				.then(vxpay => VXPayOnAVSStatusListenMiddleware(vxpay, resolve, reject))
-				.then(VXPayAVSStatusTriggerMiddleware)
+				.then(vxpay => VXPayOnAVSStatusListen(vxpay, resolve, reject))
+				.then(VXPayAVSStatusTrigger)
 				.catch(reject);
 		});
 	}
@@ -390,8 +390,8 @@ export default class VXPay {
 		return new Promise((resolve, reject) => {
 			this._initPaymentFrame(!this.config.enableTab)
 				.then(VXPayWhen.tokenTransferred)
-				.then(vxpay => VXPayListenForBalanceMiddleware(vxpay, resolve, reject))
-				.then(VXPayBalanceTriggerMiddleware)
+				.then(vxpay => VXPayListenForBalance(vxpay, resolve, reject))
+				.then(VXPayBalanceTrigger)
 				.catch(reject);
 		});
 	}
@@ -403,8 +403,8 @@ export default class VXPay {
 		return new Promise((resolve, reject) => {
 			this._initPaymentFrame(!this.config.enableTab)
 				.then(VXPayWhen.tokenTransferred)
-				.then(vxpay => VXPayListenForActiveAbosMiddleware(vxpay, resolve, reject))
-				.then(VXPayActiveAbosTriggerMiddleware)
+				.then(vxpay => VXPayListenForActiveAbos(vxpay, resolve, reject))
+				.then(VXPayActiveAbosTrigger)
 				.catch(reject);
 		});
 	}
@@ -415,8 +415,8 @@ export default class VXPay {
 	logout() {
 		return new Promise((resolve, reject) => {
 			this._initPaymentFrame()
-				.then(vxpay => VXPayListenForLogoutMiddleware(vxpay, resolve, reject))
-				.then(VXPayLogoutTriggerMiddleware)
+				.then(vxpay => VXPayListenForLogout(vxpay, resolve, reject))
+				.then(VXPayLogoutTrigger)
 				.catch(reject);
 		});
 	}

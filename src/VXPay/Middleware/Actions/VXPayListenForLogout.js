@@ -5,7 +5,7 @@
  * @return {VXPay}
  * @constructor
  */
-const VXPayListenForLogoutMiddleware = (vxpay, resolve, reject) => {
+const VXPayListenForLogout = (vxpay, resolve, reject) => {
 	try {
 		if (!vxpay._hooks.hasOnLogout(resolve)) {
 			vxpay._hooks.onLogout(resolve);
@@ -17,4 +17,4 @@ const VXPayListenForLogoutMiddleware = (vxpay, resolve, reject) => {
 	}
 };
 
-export default VXPayListenForLogoutMiddleware;
+export default VXPayListenForLogout;

@@ -2,7 +2,6 @@ import VXPayIframe                  from './../VXPayIframe';
 import VXPayHasSessionCookieMessage from './../../Message/VXPayHasSessionCookieMessage';
 import VXPayMessageFactory          from './../../Message/VXPayMessageFactory';
 import VXPayEventListener           from './../../Event/VXPayEventListener';
-import VXPayHelperHooksConfig       from './../../Config/VXPayHelperHooksConfig';
 import VXPayHooksConfig             from './../../Config/VXPayHooksConfig';
 
 class VXPayHelperFrame extends VXPayIframe {
@@ -17,7 +16,7 @@ class VXPayHelperFrame extends VXPayIframe {
 		super(document, url, id, style);
 		this._cookieMsg  = null;
 		this._frame.name = 'vxpay-helper';
-		this._hooks      = new VXPayHelperHooksConfig();
+		this._hooks      = new VXPayHooksConfig();
 	}
 
 	/**
@@ -65,7 +64,7 @@ class VXPayHelperFrame extends VXPayIframe {
 
 	_markLoaded() {
 		super._markLoaded();
-		this._hooks.trigger(VXPayHelperHooksConfig.ON_LOAD, [], this._frame.id + '<VXPayHelperFrame>');
+		this._hooks.trigger(VXPayHooksConfig.ON_LOAD, [], this._frame.id + '<VXPayHelperFrame>');
 	}
 
 	/**
@@ -73,9 +72,9 @@ class VXPayHelperFrame extends VXPayIframe {
 	 * @param {String|VXPayMessage} message
 	 * @param {String} origin
 	 */
-	postMessage(message, origin = '*') {
-		this._hooks.trigger(VXPayHelperHooksConfig.ON_BEFORE_SEND, [message], this._frame.id + '<VXPayHelperFrame>');
-		super.postMessage(message, origin);
+	message(message, origin = VXPayIframe.ORIGIN_ALL) {
+		this._hooks.trigger(VXPayHooksConfig.ON_BEFORE_SEND, [message], this._frame.id + '<VXPayHelperFrame>');
+		super.message(message, origin);
 	}
 
 	triggerLoad() {
@@ -91,7 +90,7 @@ class VXPayHelperFrame extends VXPayIframe {
 	}
 
 	/**
-	 * @return {VXPayHelperHooksConfig}
+	 * @return {VXPayHooksConfig}
 	 */
 	get hooks() {
 		return this._hooks;
@@ -100,6 +99,6 @@ class VXPayHelperFrame extends VXPayIframe {
 
 VXPayHelperFrame.STYLE_DEFAULT = {display: 'none'};
 
-VXPayHelperFrame.NAME = 'vx-helper-frame-payment';
+VXPayHelperFrame.NAME = 'vx-helper-frame';
 
 export default VXPayHelperFrame;

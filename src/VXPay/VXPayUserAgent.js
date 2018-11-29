@@ -1,6 +1,6 @@
 import mobile from 'is-mobile'
 
-export default class VXPayUserAgentHelper {
+export default class VXPayUserAgent {
 	/**
 	 * @param {String} uaString
 	 */

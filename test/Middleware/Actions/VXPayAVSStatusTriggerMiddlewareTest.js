@@ -1,13 +1,13 @@
-import {assert}                        from 'chai';
-import {describe, it, beforeEach}      from 'mocha';
-import sinon                           from 'sinon';
-import VXPay                           from './../../../src/VXPay';
-import VXPayConfig                     from './../../../src/VXPay/VXPayConfig';
-import VXPayTestFx                     from './../../Fixtures/VXPayTestFx';
-import VXPayAVSStatusTriggerMiddleware from './../../../src/VXPay/Middleware/Actions/VXPayAVSStatusTriggerMiddleware';
-import VXPayGetAVSStatusMessage        from './../../../src/VXPay/Message/Actions/VXPayGetAVSStatusMessage';
+import {assert}                   from 'chai';
+import {describe, it, beforeEach} from 'mocha';
+import sinon                      from 'sinon';
+import VXPay                      from './../../../src/VXPay';
+import VXPayConfig                from './../../../src/VXPay/VXPayConfig';
+import VXPayTestFx                from './../../Fixtures/VXPayTestFx';
+import VXPayAVSStatusTrigger      from '../../../src/VXPay/Middleware/Actions/VXPayAVSStatusTrigger';
+import VXPayGetAVSStatusMessage   from './../../../src/VXPay/Message/Actions/VXPayGetAVSStatusMessage';
 
-describe('VXPayAVSStatusTriggerMiddleware', () => {
+describe('VXPayAVSStatusTrigger', () => {
 
 	/** @var {VXPay} */
 	let vxpay;
@@ -20,12 +20,12 @@ describe('VXPayAVSStatusTriggerMiddleware', () => {
 	});
 
 	describe('#reset()', () => {
-		it('Should send a postMessage', () => {
-			// mock postMessage
-			sinon.spy(vxpay._paymentFrame, 'postMessage');
+		it('Should send a message', () => {
+			// mock message
+			sinon.spy(vxpay._paymentFrame, 'message');
 
 			// call middleware
-			const after = VXPayAVSStatusTriggerMiddleware(vxpay);
+			const after = VXPayAVSStatusTrigger(vxpay);
 
 			// hooks count not changed
 			assert.lengthOf(vxpay._hooks._onTransferToken, 2);
@@ -33,12 +33,12 @@ describe('VXPayAVSStatusTriggerMiddleware', () => {
 
 			// check post message sent (compare in JSON)
 			assert.equal(
-				JSON.stringify(vxpay._paymentFrame.postMessage.getCall(0).args[0]),
+				JSON.stringify(vxpay._paymentFrame.message.getCall(0).args[0]),
 				(new VXPayGetAVSStatusMessage).toString()
 			);
 
 			// clean up
-			vxpay._paymentFrame.postMessage.restore();
+			vxpay._paymentFrame.message.restore();
 		});
 	});
 });

@@ -5,7 +5,7 @@
  * @return {VXPay}
  * @constructor
  */
-const VXPayListenForActiveAbosMiddleware = (vxpay, resolve, reject) => {
+const VXPayListenForActiveAbos = (vxpay, resolve, reject) => {
 	try {
 		if (!vxpay._hooks.hasOnActiveAbos(resolve)) {
 			vxpay._hooks.onActiveAbos(resolve);
@@ -17,4 +17,4 @@ const VXPayListenForActiveAbosMiddleware = (vxpay, resolve, reject) => {
 	return vxpay;
 };
 
-export default VXPayListenForActiveAbosMiddleware;
+export default VXPayListenForActiveAbos;

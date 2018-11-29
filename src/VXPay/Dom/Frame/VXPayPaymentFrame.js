@@ -1,12 +1,12 @@
-import VXPayIframe                   from './../VXPayIframe';
-import VXPayInitSessionMessage       from './../../Message/VXPayInitSessionMessage';
-import VXPayUpdateParamsMessage      from './../../Message/VXPayUpdateParamsMessage';
-import VXPayChangeRouteMessage       from './../../Message/VXPayChangeRouteMessage';
-import VXPayUserAgentHelper          from './../../VXPayUserAgentHelper';
-import VXPayDomHelper                from './../VXPayDomHelper';
-import VXPayIsVisibleMessage         from './../../Message/VXPayIsVisibleMessage';
-import VXPayAdditionalOptionsMessage from './../../Message/VXPayAdditionalOptionsMessage';
-import VXPayPaymentHooksConfig       from './../../Config/VXPayPaymentHooksConfig';
+import VXPayIframe              from './../VXPayIframe';
+import VXPayInitSessionMessage  from './../../Message/VXPayInitSessionMessage';
+import VXPayUpdateParamsMessage from './../../Message/VXPayUpdateParamsMessage';
+import VXPayChangeRouteMessage  from './../../Message/VXPayChangeRouteMessage';
+import VXPayUserAgent           from '../../VXPayUserAgent';
+import VXPayDomHelper           from './../VXPayDomHelper';
+import VXPayIsVisibleMessage    from './../../Message/VXPayIsVisibleMessage';
+import VXPayAdditionalOptions   from '../../Message/VXPayAdditionalOptions';
+import VXPayPaymentHooksConfig  from './../../Config/VXPayPaymentHooksConfig';
 
 class VXPayPaymentFrame extends VXPayIframe {
 	/**
@@ -60,7 +60,7 @@ class VXPayPaymentFrame extends VXPayIframe {
 	 */
 	static getDefaultStyles(document = undefined) {
 		const uaString      = typeof document !== 'undefined' ? document.defaultView.navigator.userAgent : '';
-		const userAgent     = new VXPayUserAgentHelper(uaString);
+		const userAgent     = new VXPayUserAgent(uaString);
 		const bodyElement   = typeof document !== 'undefined' ? document.getElementsByTagName('body').item(0) : null;
 		const defaultStyles = {
 			border:     'none',
@@ -106,7 +106,7 @@ class VXPayPaymentFrame extends VXPayIframe {
 	 * @param {String} origin
 	 * @return {VXPayPaymentFrame}
 	 */
-	postMessage(message, origin = VXPayIframe.ORIGIN_ALL) {
+	message(message, origin = VXPayIframe.ORIGIN_ALL) {
 		this._hooks.trigger(VXPayPaymentHooksConfig.ON_BEFORE_SEND, [message], this._frame.id);
 
 		if (this._frame.contentWindow !== null) {
@@ -128,7 +128,7 @@ class VXPayPaymentFrame extends VXPayIframe {
 		token = token || null;
 
 		// init lazy loading session
-		this.postMessage(new VXPayInitSessionMessage(token));
+		this.message(new VXPayInitSessionMessage(token));
 		this._sessionInitialized = true;
 
 		return this;
@@ -139,7 +139,7 @@ class VXPayPaymentFrame extends VXPayIframe {
 	 * @return {VXPayPaymentFrame}
 	 */
 	sendOptions(options = {}) {
-		this.postMessage(new VXPayUpdateParamsMessage(options));
+		this.message(new VXPayUpdateParamsMessage(options));
 		return this;
 	}
 
@@ -148,7 +148,7 @@ class VXPayPaymentFrame extends VXPayIframe {
 	 * @return {VXPayPaymentFrame}
 	 */
 	sendAdditionalOptions(options = {}) {
-		this.postMessage(new VXPayAdditionalOptionsMessage(options));
+		this.message(new VXPayAdditionalOptions(options));
 		return this;
 	}
 
@@ -157,7 +157,7 @@ class VXPayPaymentFrame extends VXPayIframe {
 	 * @returns {VXPayPaymentFrame}
 	 */
 	sendUpdateParams(params) {
-		this.postMessage(new VXPayUpdateParamsMessage(params));
+		this.message(new VXPayUpdateParamsMessage(params));
 		return this;
 	}
 
@@ -166,17 +166,17 @@ class VXPayPaymentFrame extends VXPayIframe {
 	 * @return {VXPayPaymentFrame}
 	 */
 	changeRoute(route = '') {
-		return this.postMessage(new VXPayChangeRouteMessage(route));
+		return this.message(new VXPayChangeRouteMessage(route));
 	}
 
 	/**
 	 * [@param {VXPayViewReadyMessage} message]
 	 */
 	setVisible() {
-		this.postMessage(new VXPayIsVisibleMessage());
+		this.message(new VXPayIsVisibleMessage());
 	}
 }
 
-VXPayPaymentFrame.NAME = 'vx-payment-frame-payment';
+VXPayPaymentFrame.NAME = 'vx-payment-frame';
 
 export default VXPayPaymentFrame;

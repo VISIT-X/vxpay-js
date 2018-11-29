@@ -1,13 +1,13 @@
-import {assert}                         from 'chai';
-import {describe, it, beforeEach}       from 'mocha';
-import sinon                            from 'sinon';
-import VXPay                            from './../../../src/VXPay';
-import VXPayConfig                      from './../../../src/VXPay/VXPayConfig';
-import VXPayTestFx                      from './../../Fixtures/VXPayTestFx';
-import VXPayIsLoggedInTriggerMiddleware from './../../../src/VXPay/Middleware/Actions/VXPayIsLoggedInTriggerMiddleware';
-import VXPayIsLoggedInActionMessage     from './../../../src/VXPay/Message/Actions/VXPayIsLoggedInActionMessage';
+import {assert}                     from 'chai';
+import {describe, it, beforeEach}   from 'mocha';
+import sinon                        from 'sinon';
+import VXPay                        from './../../../src/VXPay';
+import VXPayConfig                  from './../../../src/VXPay/VXPayConfig';
+import VXPayTestFx                  from './../../Fixtures/VXPayTestFx';
+import VXPayIsLoggedInTrigger       from '../../../src/VXPay/Middleware/Actions/VXPayIsLoggedInTrigger';
+import VXPayIsLoggedInActionMessage from './../../../src/VXPay/Message/Actions/VXPayIsLoggedInActionMessage';
 
-describe('VXPayIsLoggedInTriggerMiddleware', () => {
+describe('VXPayIsLoggedInTrigger', () => {
 
 	/** @var {VXPay} */
 	let vxpay;
@@ -26,7 +26,7 @@ describe('VXPayIsLoggedInTriggerMiddleware', () => {
 			// should not have a onIsLoggedIn handler
 			assert.isFalse(vxpay._hooks.hasOnIsLoggedIn(handler));
 
-			const after = VXPayIsLoggedInTriggerMiddleware(vxpay, handler, handler);
+			const after = VXPayIsLoggedInTrigger(vxpay, handler, handler);
 
 			// and now SHOULD have
 			assert.isTrue(vxpay._hooks.hasOnIsLoggedIn(handler));
@@ -35,27 +35,27 @@ describe('VXPayIsLoggedInTriggerMiddleware', () => {
 		it('Should not set the hooks on consecutive call', () => {
 			const handler = () => {};
 
-			VXPayIsLoggedInTriggerMiddleware(vxpay, handler, handler);
+			VXPayIsLoggedInTrigger(vxpay, handler, handler);
 			assert.equal(1, vxpay._hooks.onIsLoggedIn.length);
 
 			// call again - not another hook set
-			VXPayIsLoggedInTriggerMiddleware(vxpay, handler, handler);
+			VXPayIsLoggedInTrigger(vxpay, handler, handler);
 			assert.equal(1, vxpay._hooks.onIsLoggedIn.length);
 		});
-		it('Should send a postMessage when hook setup', () => {
-			// mock postMessage
-			sinon.spy(vxpay._paymentFrame, 'postMessage');
+		it('Should send a message when hook setup', () => {
+			// mock message
+			sinon.spy(vxpay._paymentFrame, 'message');
 
 			// set dummy handler
 			const handler = () => {};
 			vxpay._hooks.onIsLoggedIn(handler);
 
 			// call middleware
-			const after = VXPayIsLoggedInTriggerMiddleware(vxpay, handler, handler);
+			const after = VXPayIsLoggedInTrigger(vxpay, handler, handler);
 
 			// check post message sent (compare in JSON)
 			assert.equal(
-				JSON.stringify(vxpay._paymentFrame.postMessage.getCall(0).args[0]),
+				JSON.stringify(vxpay._paymentFrame.message.getCall(0).args[0]),
 				(new VXPayIsLoggedInActionMessage).toString()
 			);
 			assert.instanceOf(after, VXPay);
@@ -69,7 +69,7 @@ describe('VXPayIsLoggedInTriggerMiddleware', () => {
 			// unset payment frame
 			vxpay._hooks = undefined;
 
-			VXPayIsLoggedInTriggerMiddleware(vxpay, done, reject);
+			VXPayIsLoggedInTrigger(vxpay, done, reject);
 		});
 	});
 });

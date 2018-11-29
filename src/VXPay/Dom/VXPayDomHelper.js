@@ -1,7 +1,6 @@
 class VXPayDomHelper {
 
 	/**
-	 * @see VXPayDomHelperFactory::getHelper
 	 * @param {Window} window
 	 * @param {jQuery} jQuery
 	 * @param {Fx} Fx

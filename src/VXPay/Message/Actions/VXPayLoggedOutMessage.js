@@ -2,7 +2,7 @@ import VXPayMessage from '../../VXPayMessage'
 
 class VXPayLoggedOutMessage extends VXPayMessage {
 	constructor() {
-		super(VXPayMessage.TYPE_LOGGED_OUT);
+		super(VXPayMessage.T_LOGGED_OUT);
 		// this.loggedIn = false; - do we need it?
 	}
 }

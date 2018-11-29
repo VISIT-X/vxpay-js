@@ -5,7 +5,7 @@
  * @return {VXPay}
  * @constructor
  */
-const VXPayListenForBalanceMiddleware = (vxpay, resolve, reject) => {
+const VXPayListenForBalance = (vxpay, resolve, reject) => {
 	try {
 		if (!vxpay._hooks.hasOnBalance(resolve)) {
 			vxpay._hooks.onBalance(resolve);
@@ -17,4 +17,4 @@ const VXPayListenForBalanceMiddleware = (vxpay, resolve, reject) => {
 	}
 };
 
-export default VXPayListenForBalanceMiddleware;
+export default VXPayListenForBalance;

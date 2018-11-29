@@ -39,8 +39,8 @@ export default class VXPayPayment {
 			// do we need logging?
 			if (vxpay.config.logging) {
 				vxpay._hooks
-					.onAny(msg => vxpay.logger.log(VXPayLogger.LOG_INCOMING, msg))
-					.onBeforeSend(msg => vxpay.logger.log(VXPayLogger.LOG_OUTGOING, msg));
+					.onAny(msg => vxpay.logger.log(VXPayLogger.IN, msg))
+					.onBeforeSend(msg => vxpay.logger.log(VXPayLogger.OUT, msg));
 			}
 
 			// set resolve hook

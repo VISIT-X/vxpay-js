@@ -118,7 +118,7 @@ describe('VXPayHookRouter', () => {
 	it('Will trigger `onAny` & `onLogin` when user loggs in', () => {
 		const config      = new VXPayPaymentHooksConfig(),
 		      eventString = VXPayTestFx.getMessage('hook-login'),
-		      msgInstance = new VXPayHookMessage(VXPayHookMessage.HOOK_LOGIN),
+		      msgInstance = new VXPayHookMessage(VXPayHookMessage.H_LOGIN),
 		      trigger     = sinon.spy(config, 'trigger');
 
 		// call router function

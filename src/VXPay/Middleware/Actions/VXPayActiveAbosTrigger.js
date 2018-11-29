@@ -5,9 +5,9 @@ import VXPayGetActiveAbosMessage from './../../Message/Actions/VXPayGetActiveAbo
  * @return {VXPay}
  * @constructor
  */
-const VXPayActiveAbosTriggerMiddleware = (vxpay) => {
-	vxpay._paymentFrame.postMessage(new VXPayGetActiveAbosMessage);
+const VXPayActiveAbosTrigger = (vxpay) => {
+	vxpay._paymentFrame.message(new VXPayGetActiveAbosMessage);
 	return vxpay;
 };
 
-export default VXPayActiveAbosTriggerMiddleware;
+export default VXPayActiveAbosTrigger;
