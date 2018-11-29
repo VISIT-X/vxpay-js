@@ -16,7 +16,7 @@ import VXPayState                     from './VXPay/Model/VXPayState';
 import VXPayLogin                     from './VXPay/Middleware/Command/VXPayLogin';
 import VXPaySignUp                    from './VXPay/Middleware/Command/VXPaySignUp';
 import VXPayVoiceCall                 from './VXPay/Middleware/Command/VXPayVoiceCall';
-import VXPayOpenPaymentCommand        from './VXPay/Middleware/Command/VXPayOpenPaymentCommand';
+import {default as PaymentCommand}    from './VXPay/Middleware/Command/VXPayPayment';
 import VXPayOpenSettingsCommand       from './VXPay/Middleware/Command/VXPayOpenSettingsCommand';
 import VXPayOpenAboCommand            from './VXPay/Middleware/Command/VXPayOpenAboCommand';
 import VXPayResetPasswordCommand      from './VXPay/Middleware/Command/VXPayResetPasswordCommand';
@@ -146,7 +146,7 @@ export default class VXPay {
 				.then(VXPayTokenForTab.reset)
 				.then(VXPayShowForTab.trigger)
 				.then(VXPayWhen.tokenTransferred)
-				.then(vxpay => VXPayOpenPaymentCommand.run(vxpay, flowOptions))
+				.then(vxpay => PaymentCommand.open(vxpay, flowOptions))
 				.then(resolve)
 				.catch(reject);
 		});

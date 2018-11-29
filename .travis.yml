@@ -15,6 +15,7 @@ stages:
   - test
   - build
   - deploy
+  - coverage
 
 node_js:
 - 8
@@ -55,3 +56,9 @@ jobs:
       api_key: "$API_KEY"
       on:
         tags: true
+
+  - stage: coverage
+    name: "Submit coverage to Coveralls"
+    if: branch = master # on master only
+    script:
+      - npm run coveralls

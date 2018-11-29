@@ -22,7 +22,7 @@ class VXPayVoiceCall {
 }
 
 VXPayVoiceCall.PARAMS = {
-	flow:    VXPayFlow.MONEY_CHARGE,
+	flow:    VXPayFlow.CHARGE,
 	paytype: VXPayPaymentType.VOICE_CALL
 };
 

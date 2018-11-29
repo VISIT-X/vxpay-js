@@ -7,7 +7,7 @@ class VXPayFlow {
 			VXPayFlow.AVS,
 			VXPayFlow.LIMIT,
 			VXPayFlow.LOGIN,
-			VXPayFlow.MONEY_CHARGE,
+			VXPayFlow.CHARGE,
 			VXPayFlow.OP_COMPENSATION,
 			VXPayFlow.PASSWORD_RESET,
 			VXPayFlow.PASSWORD_LOST,
@@ -29,7 +29,7 @@ class VXPayFlow {
 	 * @return {string}
 	 */
 	static getDefault() {
-		return VXPayFlow.MONEY_CHARGE;
+		return VXPayFlow.CHARGE;
 	}
 }
 
@@ -37,7 +37,7 @@ VXPayFlow.AVS             = 'avs';
 VXPayFlow.LIMIT           = 'limit';
 VXPayFlow.LOGIN           = 'login';
 VXPayFlow.SIGNUP          = 'signup';
-VXPayFlow.MONEY_CHARGE    = 'moneycharge';
+VXPayFlow.CHARGE          = 'moneycharge';
 VXPayFlow.OP_COMPENSATION = 'opcompensation';
 VXPayFlow.AUTO_RECHARGE   = 'autorecharge';
 VXPayFlow.PASSWORD_RESET  = 'pwdreset';

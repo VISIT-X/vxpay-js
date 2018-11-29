@@ -51,7 +51,7 @@ class VXPayHelperFrame extends VXPayIframe {
 	getLoginCookie() {
 		return new Promise((resolve, reject) => {
 			if (null !== this._cookieMsg) {
-				resolve(this._cookieMsg);
+				return resolve(this._cookieMsg);
 			}
 
 			VXPayEventListener.addEvent(

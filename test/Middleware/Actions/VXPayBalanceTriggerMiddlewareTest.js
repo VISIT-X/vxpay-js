@@ -4,7 +4,7 @@ import sinon                      from 'sinon';
 import VXPay                      from './../../../src/VXPay';
 import VXPayConfig                from './../../../src/VXPay/VXPayConfig';
 import VXPayTestFx                from './../../Fixtures/VXPayTestFx';
-import VXPayBalanceTrigger        from './../../../src/VXPay/Middleware/Actions/VXPayBalanceTriggerMiddleware';
+import VXPayBalanceTrigger        from './../../../src/VXPay/Middleware/Actions/VXPayBalanceTrigger';
 import VXPayGetBalanceMessage     from './../../../src/VXPay/Message/Actions/VXPayGetBalanceMessage';
 
 describe('VXPayActiveAbosTrigger', () => {
