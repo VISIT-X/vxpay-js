@@ -8,7 +8,7 @@ describe('VXPayContentLoadedMessage', () => {
 		it('Should build a correct object', () => {
 			assert.equal(
 				(new VXPayContentLoadedMessage()).type,
-				VXPayMessage.TYPE_CONTENT_LOADED
+				VXPayMessage.T_CONTENT
 			);
 		});
 		it('Should convert to JSON when toString is called', () => {

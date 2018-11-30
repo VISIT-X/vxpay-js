@@ -8,7 +8,7 @@ describe('VXPayGetActiveAbosMessage', () => {
 		it('Should build a valid message', () => {
 			assert.equal(
 				(new VXPayLogoutMessage()).type,
-				VXPayMessage.TYPE_ACTION_LOGOUT
+				VXPayMessage.TA_LOGOUT
 			);
 		});
 	});

@@ -1,11 +1,11 @@
-import VXPayEnvironment     from './VXPayEnvironment'
-import VXPayLanguage        from './VXPayLanguage'
-import VXPayValidator       from './VXPayValidator'
-import VXPayFlow            from './Config/VXPayFlow'
-import VXPayIframe          from './Dom/VXPayIframe'
-import VXPayModalConfig     from './Config/VXPayModalConfig'
-import VXPayUrlHelper       from './VXPayUrlHelper'
-import VXPayUserAgentHelper from './VXPayUserAgentHelper'
+import VXPayEnvironment from './VXPayEnvironment'
+import VXPayLanguage    from './VXPayLanguage'
+import VXPayValidator   from './VXPayValidator'
+import VXPayFlow        from './Config/VXPayFlow'
+import VXPayIframe      from './Dom/VXPayIframe'
+import VXPayModalConfig from './Config/VXPayModalConfig'
+import VXPayUrlHelper   from './VXPayUrlHelper'
+import VXPayUserAgent   from './VXPayUserAgent'
 
 class VXPayConfig {
 	/**
@@ -26,7 +26,7 @@ class VXPayConfig {
 		};
 
 		this._pfm        = '';
-		this._enableTab  = (new VXPayUserAgentHelper(window.navigator.userAgent || '')).isMobile();
+		this._enableTab  = (new VXPayUserAgent(window.navigator.userAgent || '')).isMobile();
 		this._host       = '';
 		this._token      = '';
 		this._promoCode  = '';
@@ -184,7 +184,7 @@ class VXPayConfig {
 	 * @param {String} value
 	 */
 	set env(value) {
-		if (!VXPayValidator.isEnvironmentSupported(value)) {
+		if (!VXPayValidator.isEnvOk(value)) {
 			throw new TypeError('Environment ' + value + ' is not supported. Please select one of ' + VXPayEnvironment.getAvailable())
 		}
 
@@ -216,7 +216,7 @@ class VXPayConfig {
 	 * @param {String} value
 	 */
 	set language(value) {
-		if (!VXPayValidator.isLanguageSupported(value)) {
+		if (!VXPayValidator.isLangOk(value)) {
 			const msg = 'Unsupported language: ' + value.toString() + '. Allowed: ' + VXPayLanguage.getAvailable().join(', ');
 			throw new TypeError(msg);
 		}
@@ -236,7 +236,7 @@ class VXPayConfig {
 	 * @see VXPayFlow
 	 */
 	set flow(value) {
-		if (!VXPayValidator.isFlowAllowed(value)) {
+		if (!VXPayValidator.isFlowOk(value)) {
 			const msg = 'Flow not allowed: ' + value.toString()
 				+ '. Select one of: ' + VXPayFlow.getAllowed().join(', ');
 			throw new TypeError(msg);

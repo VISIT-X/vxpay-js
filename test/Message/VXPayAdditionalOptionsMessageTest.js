@@ -1,13 +1,13 @@
-import {assert}                      from 'chai';
-import {describe, it}                from 'mocha';
-import VXPayMessage                  from './../../src/VXPay/VXPayMessage';
-import VXPayAdditionalOptionsMessage from './../../src/VXPay/Message/VXPayAdditionalOptionsMessage';
+import {assert}               from 'chai';
+import {describe, it}         from 'mocha';
+import VXPayMessage           from './../../src/VXPay/VXPayMessage';
+import VXPayAdditionalOptions from '../../src/VXPay/Message/VXPayAdditionalOptions';
 
 describe('VXPayAdditionalOptionsMessageTest', () => {
 	describe('#constructor()', () => {
 		it('Should construct a correct object', () => {
-			const msg = new VXPayAdditionalOptionsMessage();
-			assert.equal(VXPayMessage.TYPE_ADDITIONAL_INFO, msg.type, 'Type doesn\'t match!');
+			const msg = new VXPayAdditionalOptions();
+			assert.equal(VXPayMessage.T_INFO, msg.type, 'Type doesn\'t match!');
 			assert.empty(msg.options);
 		});
 	});
@@ -15,11 +15,11 @@ describe('VXPayAdditionalOptionsMessageTest', () => {
 		it('Should convert to JSON when called', () => {
 			assert.equal(
 				'{"type":"modalbox-additional-info","isAction":false,"options":{}}',
-				(new VXPayAdditionalOptionsMessage).toString()
+				(new VXPayAdditionalOptions).toString()
 			);
 			assert.equal(
 				'{"type":"modalbox-additional-info","isAction":false,"options":{"test":"foobar"}}',
-				(new VXPayAdditionalOptionsMessage({test: 'foobar'})).toString()
+				(new VXPayAdditionalOptions({test: 'foobar'})).toString()
 			);
 		});
 	});

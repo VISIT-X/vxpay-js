@@ -1,11 +1,11 @@
-import {assert}                        from 'chai'
-import {describe, it}                  from 'mocha'
-import VXPay                           from './../../../src/VXPay'
-import VXPayConfig                     from './../../../src/VXPay/VXPayConfig'
-import VXPayTestFx                     from './../../Fixtures/VXPayTestFx'
-import VXPayListenForLogoutMiddleware  from './../../../src/VXPay/Middleware/Actions/VXPayListenForLogoutMiddleware'
+import {assert}                   from 'chai';
+import {describe, it, beforeEach} from 'mocha';
+import VXPay                      from './../../../src/VXPay';
+import VXPayConfig                from './../../../src/VXPay/VXPayConfig';
+import VXPayTestFx                from './../../Fixtures/VXPayTestFx';
+import VXPayListenForLogout       from '../../../src/VXPay/Middleware/Actions/VXPayListenForLogout';
 
-describe('VXPayListenForLogoutMiddleware', () => {
+describe('VXPayListenForLogout', () => {
 
 	/** @var {VXPay} */
 	let vxpay;
@@ -17,40 +17,40 @@ describe('VXPayListenForLogoutMiddleware', () => {
 		done();
 	});
 
-	xdescribe('#run()', () => {
+	describe('#reset()', () => {
 		it('Should set a hook if not yet set up', () => {
 			const handler = () => {};
 
 			// should not have a onIsLoggedIn handler
-			assert.isFalse(vxpay.hooks.hasOnLogout(handler));
+			assert.isFalse(vxpay._hooks.hasOnLogout(handler));
 
-			const after = VXPayListenForLogoutMiddleware(vxpay, handler, handler);
+			const after = VXPayListenForLogout(vxpay, handler, handler);
 
 			// and now SHOULD have
-			assert.isTrue(vxpay.hooks.hasOnLogout(handler));
+			assert.isTrue(vxpay._hooks.hasOnLogout(handler));
 			assert.instanceOf(after, VXPay);
 		});
 		it('Should not set the hooks on consecutive call', () => {
 			const handler = () => {};
 
-			VXPayListenForLogoutMiddleware(vxpay, handler, handler);
-			assert.equal(1, vxpay.hooks._onLogout.length);
+			VXPayListenForLogout(vxpay, handler, handler);
+			assert.equal(1, vxpay._hooks.onLogout.length);
 
 			// call again - not another hook set
-			VXPayListenForLogoutMiddleware(vxpay, handler, handler);
-			assert.equal(1, vxpay.hooks._onLogout.length);
+			VXPayListenForLogout(vxpay, handler, handler);
+			assert.equal(1, vxpay._hooks.onLogout.length);
 		});
 		it('Should reject on error', done => {
-			// unset payment frame
-			vxpay._paymentFrame = undefined;
+			// unset hooks
+			vxpay._hooks = undefined;
 
 			const reject = (err) => {
 				assert.instanceOf(err, Error);
 				done();
 			};
 
-			const after = VXPayListenForLogoutMiddleware(vxpay, () => {}, reject);
+			const after = VXPayListenForLogout(vxpay, done, reject);
 			assert.instanceOf(after, VXPay);
-		})
+		});
 	});
 });

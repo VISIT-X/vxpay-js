@@ -9,7 +9,7 @@ describe('VXPayInitSessionMessage', () => {
 			const msg = new VXPayInitSessionMessage(token);
 
 			assert.equal(token, msg.token, "Token doesn't match!");
-			assert.equal(VXPayMessage.TYPE_INIT_SESSION, msg.type, "Type doesn't march!");
+			assert.equal(VXPayMessage.T_SESSION, msg.type, "Type doesn't march!");
 		})
 	});
 	describe('#toString()', () => {

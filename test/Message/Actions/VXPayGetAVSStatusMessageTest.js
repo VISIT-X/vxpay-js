@@ -8,7 +8,7 @@ describe('VXPayGetAVSStatusMessage', () => {
 		it('Should build a valid message', () => {
 			assert.equal(
 				(new VXPayGetAVSStatusMessage()).type,
-				VXPayMessage.TYPE_ACTION_GET_AVS_STATUS
+				VXPayMessage.TA_AVS
 			);
 		});
 	});

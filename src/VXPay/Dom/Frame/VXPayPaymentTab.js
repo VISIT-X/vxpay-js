@@ -1,10 +1,11 @@
-import VXPayUpdateParamsMessage      from '../../Message/VXPayUpdateParamsMessage';
-import VXPayPaymentFrame             from './VXPayPaymentFrame';
-import VXPayPaymentHooksConfig       from './../../Config/VXPayPaymentHooksConfig';
-import VXPayAdditionalOptionsMessage from '../../Message/VXPayAdditionalOptionsMessage';
-import VXPayInitSessionMessage       from '../../Message/VXPayInitSessionMessage';
-import VXPayChangeRouteMessage       from '../../Message/VXPayChangeRouteMessage';
-import VXPayDeferred                 from '../../VXPayDeferred';
+import VXPayUpdateParamsMessage from '../../Message/VXPayUpdateParamsMessage';
+import VXPayPaymentFrame        from './VXPayPaymentFrame';
+import VXPayPaymentHooksConfig  from './../../Config/VXPayPaymentHooksConfig';
+import VXPayAdditionalOptions   from '../../Message/VXPayAdditionalOptions';
+import VXPayInitSessionMessage  from '../../Message/VXPayInitSessionMessage';
+import VXPayChangeRouteMessage  from '../../Message/VXPayChangeRouteMessage';
+import VXPayDeferred            from '../../VXPayDeferred';
+import VXPayIframe              from '../VXPayIframe';
 
 /**
  * @link https://www.npmjs.com/package/es6-interface
@@ -88,7 +89,7 @@ class VXPayPaymentTab {
 	 */
 	sendOptions(options = {}) {
 		this._config.merge(options);
-		this.postMessage(new VXPayUpdateParamsMessage(options));
+		this.message(new VXPayUpdateParamsMessage(options));
 		return this;
 	}
 
@@ -98,7 +99,7 @@ class VXPayPaymentTab {
 	 */
 	sendAdditionalOptions(options = {}) {
 		this._config.merge(options);
-		this.postMessage(new VXPayAdditionalOptionsMessage(options));
+		this.message(new VXPayAdditionalOptions(options));
 		return this;
 	}
 
@@ -107,7 +108,7 @@ class VXPayPaymentTab {
 	 * @returns {VXPayPaymentTab}
 	 */
 	sendUpdateParams(params) {
-		this.postMessage(new VXPayUpdateParamsMessage(params));
+		this.message(new VXPayUpdateParamsMessage(params));
 		return this;
 	}
 
@@ -117,14 +118,14 @@ class VXPayPaymentTab {
 	 * @param {String} origin
 	 * @return {VXPayPaymentTab}
 	 */
-	postMessage(message, origin = '*') {
+	message(message, origin = VXPayIframe.ORIGIN_ALL) {
 		if (!message.isAction) {
 			this._deferred.promise.then(() => {
 				this._hooks.trigger(VXPayPaymentHooksConfig.ON_BEFORE_SEND, [message], this._name);
 				this._window.postMessage(message.toString(), origin);
 			});
 		} else {
-			this._invisibleFrame.postMessage(message, origin);
+			this._invisibleFrame.message(message, origin);
 		}
 
 		return this;
@@ -135,7 +136,7 @@ class VXPayPaymentTab {
 	 * @return {VXPayPaymentTab}
 	 */
 	initSession(token = undefined) {
-		this.postMessage(new VXPayInitSessionMessage(token));
+		this.message(new VXPayInitSessionMessage(token));
 		return this;
 	}
 
@@ -145,21 +146,18 @@ class VXPayPaymentTab {
 	 */
 	changeRoute(route = VXPayPaymentTab.DEFAULT_ROUTE) {
 		this._route = route;
-		return this.postMessage(new VXPayChangeRouteMessage(route));
+		return this.message(new VXPayChangeRouteMessage(route));
 	}
 
 	/**
 	 * [@param {VXPayViewReadyMessage} message]
 	 */
-	setVisible() {
-		// this.triggerLoad();
-	}
+	setVisible() {}
 
 	/**
 	 * @return {VXPayPaymentTab}
 	 */
 	show() {
-//		this.triggerLoad();
 		return this;
 	}
 
@@ -169,7 +167,7 @@ class VXPayPaymentTab {
 	hide() {
 		if (this._window && !this._window.closed) {
 			this._window.close();
-			this._window = null;
+			this.resetWindow();
 		}
 
 		// reset internal state
@@ -179,9 +177,13 @@ class VXPayPaymentTab {
 
 		return this;
 	}
+
+	resetWindow() {
+		this._window = null;
+	}
 }
 
-VXPayPaymentTab.NAME = 'vx-payment-tab-payment';
+VXPayPaymentTab.NAME = 'vx-payment-tab';
 
 VXPayPaymentTab.DEFAULT_ROUTE = '/';
 

@@ -4,8 +4,8 @@ class VXPayInitSessionMessage extends VXPayMessage {
 	/**
 	 * @param {String} token
 	 */
-	constructor(token = null) {
-		super(VXPayMessage.TYPE_INIT_SESSION);
+	constructor(token = undefined) {
+		super(VXPayMessage.T_SESSION);
 		this.token = token;
 	}
 }

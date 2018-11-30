@@ -1,11 +1,11 @@
-import {assert}                  from 'chai'
-import {describe, it, beforeEach}            from 'mocha'
-import VXPay                     from './../../../src/VXPay'
-import VXPayConfig               from './../../../src/VXPay/VXPayConfig'
-import VXPayTestFx               from './../../Fixtures/VXPayTestFx'
-import VXPayWhenTokenTransferred from './../../../src/VXPay/Middleware/Condition/VXPayWhenTokenTransferred'
-import VXPayTransferTokenMessage from './../../../src/VXPay/Message/VXPayTransferTokenMessage'
-import VXPayPaymentHooksConfig   from "../../../src/VXPay/Config/VXPayPaymentHooksConfig";
+import {assert}                   from 'chai';
+import {describe, it, beforeEach} from 'mocha';
+import VXPay                      from './../../../src/VXPay';
+import VXPayConfig                from './../../../src/VXPay/VXPayConfig';
+import VXPayTestFx                from './../../Fixtures/VXPayTestFx';
+import VXPayWhen                  from './../../../src/VXPay/Middleware/VXPayWhen';
+import VXPayTransferTokenMessage  from './../../../src/VXPay/Message/VXPayTransferTokenMessage';
+import VXPayPaymentHooksConfig    from '../../../src/VXPay/Config/VXPayPaymentHooksConfig';
 
 describe('VXPayWhenTokenTransferred', () => {
 	/** @var {VXPay} */
@@ -18,14 +18,15 @@ describe('VXPayWhenTokenTransferred', () => {
 		done();
 	});
 
-	describe('#run()', () => {
+	describe('#reset()', () => {
 		it('Should return a Promise', () => {
-			assert.instanceOf(VXPayWhenTokenTransferred(vxpay), Promise)
+			assert.instanceOf(VXPayWhen.tokenTransferred(vxpay), Promise);
 		});
 		it('Resolves when token already present', done => {
 			vxpay.state.markHasToken(new VXPayTransferTokenMessage('token'));
 
-			VXPayWhenTokenTransferred(vxpay)
+			VXPayWhen
+				.tokenTransferred(vxpay)
 				.then(returned => {
 					assert.instanceOf(returned, VXPay);
 
@@ -33,12 +34,13 @@ describe('VXPayWhenTokenTransferred', () => {
 					assert.equal(2, returned._hooks._onTransferToken.length);
 				})
 				// instead of .finally(done)
-				.then(done, done)
+				.then(done, done);
 		});
 		it('Will resolve when token transferred', done => {
 			assert.equal(2, vxpay._hooks._onTransferToken.length);
 
-			VXPayWhenTokenTransferred(vxpay)
+			VXPayWhen
+				.tokenTransferred(vxpay)
 				.then(returned => {
 					assert.instanceOf(returned, VXPay);
 
@@ -52,6 +54,17 @@ describe('VXPayWhenTokenTransferred', () => {
 				VXPayPaymentHooksConfig.ON_TRANSFER_TOKEN,
 				[new VXPayTransferTokenMessage('token')]
 			);
+		});
+		it('Will reject on error', done => {
+			// make it fail
+			vxpay._hooks = undefined;
+
+			VXPayWhen
+				.tokenTransferred(vxpay)
+				.catch(reason => {
+					assert.instanceOf(reason, Error);
+					done();
+				});
 		});
 	});
 });

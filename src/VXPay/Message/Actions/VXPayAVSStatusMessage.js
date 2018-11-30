@@ -6,7 +6,7 @@ export default class VXPayAVSStatusMessage extends VXPayMessage {
 	 * @param {VXPayAVSStatus} status
 	 */
 	constructor(status = new VXPayAVSStatus) {
-		super(VXPayMessage.TYPE_AVS_STATUS);
+		super(VXPayMessage.T_AVS);
 		this.status = status;
 	}
 }

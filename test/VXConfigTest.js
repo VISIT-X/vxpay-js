@@ -9,8 +9,8 @@ import VXPayTestFx      from './Fixtures/VXPayTestFx'
 describe('VXConfig', () => {
 	describe('#constructor()', () => {
 		it('Will set default values', () => {
-			const config      = new VXPayConfig(VXPayTestFx.getWindow()),
-			      defaultLang = VXPayLanguage.getDefault();
+			const config      = new VXPayConfig(VXPayTestFx.getWindow());
+			const defaultLang = VXPayLanguage.getDefault();
 
 			assert.isFalse(config.logging, 'Logging is disabled by default');
 			assert.equal(config.env, VXPayEnvironment.getDefault(), 'Development by default');
@@ -22,9 +22,9 @@ describe('VXConfig', () => {
 	});
 	describe('#env()', () => {
 		it('Will only accept defined environments', () => {
-			const config = new VXPayConfig(VXPayTestFx.getWindow()),
-			      newEnv = 'bgangdnad',
-			      msg    = 'Environment ' + newEnv + ' is not supported. Please select one of ' + VXPayEnvironment.getAvailable();
+			const config = new VXPayConfig(VXPayTestFx.getWindow());
+			const newEnv = 'bgangdnad';
+			const msg    = 'Environment ' + newEnv + ' is not supported. Please select one of ' + VXPayEnvironment.getAvailable();
 
 			// default is DEV
 			assert.equal(VXPayEnvironment.getDefault(), config.env);
@@ -43,9 +43,9 @@ describe('VXConfig', () => {
 	});
 	describe('#language()', () => {
 		it('Will only accept defined languages', () => {
-			const config  = new VXPayConfig(VXPayTestFx.getWindow()),
-			      newLang = 'fr',
-			      msg     = 'Unsupported language: ' + newLang + '. Allowed: ' + VXPayLanguage.getAvailable().join(', ');
+			const config  = new VXPayConfig(VXPayTestFx.getWindow());
+			const newLang = 'fr';
+			const msg     = 'Unsupported language: ' + newLang + '. Allowed: ' + VXPayLanguage.getAvailable().join(', ');
 
 			// default is DE
 			assert.equal(VXPayLanguage.getDefault(), config.language);
@@ -64,9 +64,9 @@ describe('VXConfig', () => {
 	});
 	describe('#flow()', () => {
 		it('Will only accept defined flows', () => {
-			const config  = new VXPayConfig(VXPayTestFx.getWindow()),
-			      newFlow = 'bfdbfdabdbfdab',
-			      msg     = 'Flow not allowed: ' + newFlow + '. Select one of: ' + VXPayFlow.getAllowed().join(', ');
+			const config  = new VXPayConfig(VXPayTestFx.getWindow());
+			const newFlow = 'bfdbfdabdbfdab';
+			const msg     = 'Flow not allowed: ' + newFlow + '. Select one of: ' + VXPayFlow.getAllowed().join(', ');
 
 			// default is login
 			assert.equal(VXPayFlow.getDefault(), config.flow);

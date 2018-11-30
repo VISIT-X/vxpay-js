@@ -2,7 +2,7 @@ import VXPayMessage from './../../VXPayMessage'
 
 class VXPayGetBalanceMessage extends VXPayMessage {
 	constructor() {
-		super(VXPayMessage.TYPE_ACTION_GET_BALANCE);
+		super(VXPayMessage.TA_BALANCE);
 		this.isAction = true;
 	}
 }

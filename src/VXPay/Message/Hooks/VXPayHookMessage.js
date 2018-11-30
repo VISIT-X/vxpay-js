@@ -1,24 +1,24 @@
-import VXPayMessage from './../../VXPayMessage'
+import VXPayMessage from './../../VXPayMessage';
 
 class VXPayHookMessage extends VXPayMessage {
 
 	/**
 	 * @param {string} hook
 	 */
-	constructor(hook = VXPayHookMessage.HOOK_UNKNOWN) {
-		super(VXPayMessage.TYPE_HOOK);
+	constructor(hook = VXPayHookMessage.H_NA) {
+		super(VXPayMessage.T_HOOK);
 		this.hook = hook;
 	}
 }
 
-VXPayHookMessage.HOOK_UNKNOWN                  = 'dummy-unknown';
-VXPayHookMessage.HOOK_FLOW_CHANGED             = 'flowChanged';
-VXPayHookMessage.HOOK_LOGIN                    = 'login';
-VXPayHookMessage.HOOK_PAYMENT                  = 'payment';
-VXPayHookMessage.HOOK_SIGNUP                   = 'signup';
-VXPayHookMessage.HOOK_COMFORT_SETTINGS_CHANGED = 'comfortSettingsChanged';
-VXPayHookMessage.HOOK_EMAIL_VERIFIED           = 'emailVerified';
-VXPayHookMessage.HOOK_EMAIL_NOT_VERIFIED       = 'emailNotVerified';
-VXPayHookMessage.HOOK_PASSWORD_CHANGED         = 'passwordChanged';
+VXPayHookMessage.H_NA             = 'dummy-unknown';
+VXPayHookMessage.H_FLOW           = 'flowChanged';
+VXPayHookMessage.H_LOGIN          = 'login';
+VXPayHookMessage.H_PAYMENT        = 'payment';
+VXPayHookMessage.H_SIGNUP         = 'signup';
+VXPayHookMessage.H_C_SETTINGS     = 'comfortSettingsChanged';
+VXPayHookMessage.H_E_VERIFIED     = 'emailVerified';
+VXPayHookMessage.H_E_NOT_VERIFIED = 'emailNotVerified';
+VXPayHookMessage.H_PASS           = 'passwordChanged';
 
 export default VXPayHookMessage;

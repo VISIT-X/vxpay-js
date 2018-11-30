@@ -20,28 +20,28 @@ export default class VXPayHookMessageFactory {
 		}
 
 		switch (data.hook) {
-			case VXPayHookMessage.HOOK_FLOW_CHANGED:
+			case VXPayHookMessage.H_FLOW:
 				return new VXPayFlowChangedHookMessage(data.prevFlow, data.flow);
 
-			case VXPayHookMessage.HOOK_LOGIN:
+			case VXPayHookMessage.H_LOGIN:
 				return new VXPayLoggedInMessage();
 
-			case VXPayHookMessage.HOOK_PAYMENT:
+			case VXPayHookMessage.H_PAYMENT:
 				return new VXPayHookPaymentMessage();
 
-			case VXPayHookMessage.HOOK_SIGNUP:
+			case VXPayHookMessage.H_SIGNUP:
 				return new VXPayHookSignupMessage();
 
-			case VXPayHookMessage.HOOK_COMFORT_SETTINGS_CHANGED:
+			case VXPayHookMessage.H_C_SETTINGS:
 				return new VXPayHookComfortSettingsChangedMessage();
 
-			case VXPayHookMessage.HOOK_EMAIL_VERIFIED:
+			case VXPayHookMessage.H_E_VERIFIED:
 				return new VXPayHookEmailVerifiedMessage();
 
-			case VXPayHookMessage.HOOK_EMAIL_NOT_VERIFIED:
+			case VXPayHookMessage.H_E_NOT_VERIFIED:
 				return new VXPayHookEmailNotVerifiedMessage();
 
-			case VXPayHookMessage.HOOK_PASSWORD_CHANGED:
+			case VXPayHookMessage.H_PASS:
 				return new VXPayHookPasswordChangedMessage();
 
 			default:

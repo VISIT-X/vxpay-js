@@ -269,6 +269,33 @@ class VXPayPaymentHooksConfig extends VXPayHooksConfig {
 		clone._onLoad                   = [...this._onLoad];
 		return clone;
 	}
+
+	/**
+	 * @return {String[]}
+	 */
+	static getAvailable() {
+		return [
+			VXPayPaymentHooksConfig.ON_VIEW_READY,
+			VXPayPaymentHooksConfig.ON_IFRAME_READY,
+			VXPayPaymentHooksConfig.ON_CONTENT_LOADED,
+			VXPayPaymentHooksConfig.ON_CLOSE,
+			VXPayPaymentHooksConfig.ON_SUCCESS,
+			VXPayPaymentHooksConfig.ON_LOGIN,
+			VXPayPaymentHooksConfig.ON_LOGOUT,
+			VXPayPaymentHooksConfig.ON_FLOW_CHANGE,
+			VXPayPaymentHooksConfig.ON_IS_LOGGED_IN,
+			VXPayPaymentHooksConfig.ON_TRANSFER_TOKEN,
+			VXPayPaymentHooksConfig.ON_AVS_STATUS,
+			VXPayPaymentHooksConfig.ON_BALANCE,
+			VXPayPaymentHooksConfig.ON_ACTIVE_ABOS,
+			VXPayPaymentHooksConfig.ON_PAYMENT,
+			VXPayPaymentHooksConfig.ON_SIGNUP,
+			VXPayPaymentHooksConfig.ON_COMFORT_SETTINGS_CHANGE,
+			VXPayPaymentHooksConfig.ON_EMAIL_VERIFIED,
+			VXPayPaymentHooksConfig.ON_EMAIL_NOT_VERIFIED,
+			VXPayPaymentHooksConfig.ON_PASSWORD_CHANGED,
+		];
+	}
 }
 
 VXPayPaymentHooksConfig.ON_VIEW_READY              = 'onViewReady';

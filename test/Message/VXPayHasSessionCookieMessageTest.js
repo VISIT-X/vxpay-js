@@ -6,11 +6,11 @@ describe('VXPayHasSessionCookieMessage', () => {
 	describe('#constructor()', () => {
 		it('Should build a proper object', () => {
 			const message = new VXPayHasSessionCookieMessage(true);
-			assert.equal(message.type, VXPayMessage.TYPE_HAS_LOGIN_COOKIE);
+			assert.equal(message.type, VXPayMessage.T_COOKIE);
 			assert.isTrue(message.hasCookie);
 
 			const message2 = new VXPayHasSessionCookieMessage(false);
-			assert.equal(message2.type, VXPayMessage.TYPE_HAS_LOGIN_COOKIE);
+			assert.equal(message2.type, VXPayMessage.T_COOKIE);
 			assert.isFalse(message2.hasCookie);
 		})
 	});

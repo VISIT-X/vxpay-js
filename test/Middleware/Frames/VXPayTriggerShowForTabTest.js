@@ -2,12 +2,12 @@ import {assert}                   from 'chai'
 import {describe, it, beforeEach} from 'mocha'
 import sinon                      from 'sinon'
 import VXPay                      from './../../../src/VXPay'
-import VXPayTriggerShowForTab     from './../../../src/VXPay/Middleware/Frames/VXPayTriggerShowForTab'
+import VXPayShowForTab            from '../../../src/VXPay/Middleware/Frames/VXPayShowForTab'
 import VXPayTestFx                from './../../Fixtures/VXPayTestFx'
 import VXPayConfig                from './../../../src/VXPay/VXPayConfig'
 
-describe('VXPayTriggerShowForTab', () => {
-	xdescribe('#run()', () => {
+describe('VXPayShowForTab', () => {
+	xdescribe('#reset()', () => {
 		/** @var {VXPay} */
 		let vxpay;
 
@@ -17,7 +17,7 @@ describe('VXPayTriggerShowForTab', () => {
 			vxpay._initPaymentFrame().then(() => done());
 		});
 
-		it('Should return {VXPay}', () => assert.instanceOf(VXPayTriggerShowForTab(vxpay), VXPay))
+		it('Should return {VXPay}', () => assert.instanceOf(VXPayShowForTab(vxpay), VXPay))
 		it('Should show frame if tab enabled', () => {
 			vxpay.config.enableTab = true;
 
@@ -25,7 +25,7 @@ describe('VXPayTriggerShowForTab', () => {
 			sinon.spy(vxpay._paymentFrame, 'show');
 
 			// call!
-			VXPayTriggerShowForTab(vxpay);
+			VXPayShowForTab(vxpay);
 
 			assert.isTrue(vxpay._paymentFrame.show.called);
 

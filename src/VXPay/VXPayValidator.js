@@ -19,7 +19,7 @@ export default class VXPayValidator {
 	 * @param {String} language
 	 * @return {boolean}
 	 */
-	static isLanguageSupported(language) {
+	static isLangOk(language) {
 		return VXPayLanguage.getAvailable().indexOf(language) !== -1;
 	}
 
@@ -27,7 +27,7 @@ export default class VXPayValidator {
 	 * @param {String} env
 	 * @return {boolean}
 	 */
-	static isEnvironmentSupported(env) {
+	static isEnvOk(env) {
 		return VXPayEnvironment.getAvailable().indexOf(env) !== -1;
 	}
 
@@ -35,7 +35,7 @@ export default class VXPayValidator {
 	 * @param {String} flow
 	 * @return {boolean}
 	 */
-	static isFlowAllowed(flow) {
+	static isFlowOk(flow) {
 		return VXPayFlow.getAllowed().indexOf(flow) !== -1;
 	}
 
@@ -43,7 +43,7 @@ export default class VXPayValidator {
 	 * @param {Number} value
 	 * @return {boolean}
 	 */
-	static isModalConfigValueAllowed(value) {
+	static isModalConfValOk(value) {
 		return VXPayModalConfig.getAllowed().indexOf(value) !== -1;
 	}
 }

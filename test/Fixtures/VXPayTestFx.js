@@ -40,6 +40,24 @@ class VXPayTestFx {
 	static getDocument() {
 		return (new JSDOM(VXPayTestFx.DOC)).window.document;
 	}
+
+	/**
+	 * @param {any} vxpay
+	 * @param {Function} resolve
+	 */
+	static fakeInitPaymentFrame(vxpay, resolve) {
+		resolve(vxpay);
+	}
+
+	/**
+	 * @param {any} vxpay
+	 * @return {Promise<any>}
+	 */
+	static resolveGlobalVxPay(vxpay) {
+		return new Promise(resolve => {
+			resolve(vxpay);
+		});
+	}
 }
 
 VXPayTestFx.DOC = "<!DOCTYPE html><html><body id='body'>test</body></html>";

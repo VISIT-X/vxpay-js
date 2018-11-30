@@ -5,7 +5,7 @@ export default class VXPayChangeRouteMessage extends VXPayMessage {
 	 * @param {String} route
 	 */
 	constructor(route = '') {
-		super(VXPayMessage.TYPE_CHANGE_ROUTE);
+		super(VXPayMessage.T_ROUTE);
 
 		// change route message can be empty
 		if (route.length > 0) {

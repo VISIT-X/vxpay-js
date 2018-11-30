@@ -6,7 +6,7 @@ export default class VXPayFlowChangedHookMessage extends VXPayHookMessage {
 	 * @param {string} newFlow
 	 */
 	constructor(oldFlow = '', newFlow = '') {
-		super(VXPayHookMessage.HOOK_FLOW_CHANGED);
+		super(VXPayHookMessage.H_FLOW);
 		this.oldFlow  = oldFlow;
 		this.newFlow = newFlow;
 	}
