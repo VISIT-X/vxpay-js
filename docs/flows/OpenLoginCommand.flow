@@ -1,0 +1,24 @@
+sequenceDiagram
+    participant SPA
+    participant vxpay.js
+    participant VXPay
+
+SPA->>vxpay.js: VXPay.openLogin()
+Note right of VXPay:  Insert in DOM or<br/>open new tab
+vxpay.js-->>VXPay: Load frame
+Note right of VXPay:  Wait for token
+vxpay.js-->>SPA: {Promise<VXPay>}
+Note right of VXPay: Return a promise
+VXPay-->>vxpay.js: {type: "modalbox-content-loaded"}
+Note right of VXPay: Frame DOM loaded
+VXPay-->>vxpay.js: {type: "modalbox-iframe-ready"}
+Note right of VXPay: Frame ready
+VXPay-->>vxpay.js: {type: "modalbox-transfer-token", token: "TT_..."}
+Note right of VXPay: Frame send token
+vxpay.js-->>VXPay: {type: "modalbox-update-params"}
+Note right of VXPay: Update UI params
+vxpay.js-->>VXPay: {type: "modalbox-additional-info"}
+Note right of VXPay: Send additional info
+vxpay.js-->>VXPay: {type: "modalbox-change-route", "route": "/login"}
+Note right of VXPay: Switch to login
+vxpay.js-->>VXPay: {type: "modalbox-init-session"}
