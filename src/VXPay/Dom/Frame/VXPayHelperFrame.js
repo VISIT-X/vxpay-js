@@ -74,12 +74,15 @@ class VXPayHelperFrame extends VXPayIframe {
 	 */
 	message(message, origin = VXPayIframe.ORIGIN_ALL) {
 		this._hooks.trigger(VXPayHooksConfig.ON_BEFORE_SEND, [message], this._frame.id + '<VXPayHelperFrame>');
-		super.message(message, origin);
+		return super.message(message, origin);
 	}
 
+	/**
+	 * @return {boolean}
+	 */
 	triggerLoad() {
 		if (this._loaded) {
-			return;
+			return false;
 		}
 
 		this._frame
@@ -87,6 +90,8 @@ class VXPayHelperFrame extends VXPayIframe {
 			.getElementsByTagName('body')
 			.item(0)
 			.appendChild(this._frame);
+
+		return true;
 	}
 
 	/**

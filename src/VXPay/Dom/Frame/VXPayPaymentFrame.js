@@ -139,8 +139,7 @@ class VXPayPaymentFrame extends VXPayIframe {
 	 * @return {VXPayPaymentFrame}
 	 */
 	sendOptions(options = {}) {
-		this.message(new VXPayUpdateParamsMessage(options));
-		return this;
+		return this.message(new VXPayUpdateParamsMessage(options));
 	}
 
 	/**
@@ -148,8 +147,7 @@ class VXPayPaymentFrame extends VXPayIframe {
 	 * @return {VXPayPaymentFrame}
 	 */
 	sendAdditionalOptions(options = {}) {
-		this.message(new VXPayAdditionalOptions(options));
-		return this;
+		return this.message(new VXPayAdditionalOptions(options));
 	}
 
 	/**
@@ -157,11 +155,10 @@ class VXPayPaymentFrame extends VXPayIframe {
 	 * @returns {VXPayPaymentFrame}
 	 */
 	sendUpdateParams(params) {
-		this.message(new VXPayUpdateParamsMessage(params));
-		return this;
+		return this.message(new VXPayUpdateParamsMessage(params));
 	}
 
-	/**VXPay/Dom/Frame/VXPayPaymentFrame.js
+	/**
 	 * @param {String} route
 	 * @return {VXPayPaymentFrame}
 	 */
@@ -171,9 +168,10 @@ class VXPayPaymentFrame extends VXPayIframe {
 
 	/**
 	 * [@param {VXPayViewReadyMessage} message]
+	 * @return {VXPayPaymentFrame}
 	 */
 	setVisible() {
-		this.message(new VXPayIsVisibleMessage());
+		return this.message(new VXPayIsVisibleMessage());
 	}
 }
 
