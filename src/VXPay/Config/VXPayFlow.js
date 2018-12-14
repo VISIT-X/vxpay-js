@@ -36,7 +36,7 @@ class VXPayFlow {
 VXPayFlow.AVS             = 'avs';
 VXPayFlow.LIMIT           = 'limit';
 VXPayFlow.LOGIN           = 'login';
-VXPayFlow.SIGNUP          = 'signup';
+VXPayFlow.SIGNUP          = 'login';
 VXPayFlow.CHARGE          = 'moneycharge';
 VXPayFlow.OP_COMPENSATION = 'opcompensation';
 VXPayFlow.AUTO_RECHARGE   = 'autorecharge';
