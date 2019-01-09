@@ -25,7 +25,7 @@ __Things to note:__
 - All communication between the VXPayJS (lib) and VXPay happens via `window.postMessage`. Nevertheless, this should not be influencing the consumer application anyhow, as it is completely hidden from the end-developer.
 - Normal communication between the SPA (e.g. your code), library and VXPay should looks approximately like described on the chart below (`IsLoggedInAction` is just an example):
 
-![IsLoggedInAction](https://raw.githubusercontent.com/VISIT-X/vxpay-js/feature-mermaid/docs/charts/IsLoggedInAction.svg?sanitize=true)
+![IsLoggedInAction](https://raw.githubusercontent.com/VISIT-X/vxpay-js/master/docs/charts/IsLoggedInAction.svg?sanitize=true)
 
 __Possible deviations:__
 
