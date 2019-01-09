@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	});
 	// on language
 	document.getElementById('language').addEventListener('change', function() {
-		config.language = this.querySelector('[selected="selected"]').value;
+		config.language = this.value;
 		vxpay.config = config;
 	});
 });
