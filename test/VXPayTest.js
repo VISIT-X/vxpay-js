@@ -7,6 +7,8 @@ import VXPayLogger                           from './../src/VXPay/VXPayLogger';
 import VXPayTestFx                           from './Fixtures/VXPayTestFx';
 import VXPayHelperFrame                      from './../src/VXPay/Dom/Frame/VXPayHelperFrame';
 import VXPayHelper                           from '../src/VXPay/Middleware/Frames/VXPayHelper';
+import VXPayLanguage                         from '../src/VXPay/VXPayLanguage';
+
 
 let VxPayJs = {};
 let logs    = [];
@@ -110,5 +112,15 @@ describe('VXPay', () => {
 			assert.isTrue(VXPayHelper.init.called);
 			VXPayHelper.init.restore();
 		});
+	});
+    describe('#changeLanguage()', () => {
+		it('Should return a Promise', () => assert.instanceOf(VxPayJs.changeLanguage('EN'), Promise));
+		it('Should throw if invalid', () => {
+            assert.throws(() => {
+				VxPayJs.changeLanguage('RU');
+			}, TypeError, `Please choose one of: ${VXPayLanguage.getAvailable().toString()}`);
+        });
+		
+		
 	});
 });

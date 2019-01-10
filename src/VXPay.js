@@ -1,4 +1,5 @@
 import VXPayConfig                 from './VXPay/VXPayConfig';
+import VXPayLanguage               from './VXPay/VXPayLanguage';
 import VXPayLogger                 from './VXPay/VXPayLogger';
 import VXPayHelperFrame            from './VXPay/Dom/Frame/VXPayHelperFrame';
 import VXPayPaymentFrame           from './VXPay/Dom/Frame/VXPayPaymentFrame';
@@ -420,6 +421,34 @@ export default class VXPay {
 				.catch(reject);
 		});
 	}
+
+    _reloadByConfig(resolve = undefined){
+        this._paymentFrame.url = this.config.getPaymentFrameUrl();
+        this._hooks.onContentLoaded(() => resolve(this));
+    }
+    
+    /**
+     * @param {String}
+     */
+    changeLanguage(lng, flowOptions = {}) {
+        let allLng = VXPayLanguage.getAvailable();
+        if (allLng.indexOf(lng) < 0) {
+			throw new TypeError(`Please choose one of: ${allLng.toString()}`);
+		}
+        this.config._language = lng; 
+        return new Promise((resolve)=>{
+            this._reloadByConfig(resolve);
+        })
+            .then( vxpay => vxpay._paymentFrame )
+            .then(frame => frame
+                .sendOptions(Object.assign({}, {'flow': this.config.flow},flowOptions))
+                .sendAdditionalOptions(this.config.getAdditionalOptions())
+                .changeRoute(this.config.route)
+                .initSession()
+                
+            )
+            .then(frame => frame.show());
+    }
 
 	/**
 	 * @return {VXPayConfig}

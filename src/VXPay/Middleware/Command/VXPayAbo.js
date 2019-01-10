@@ -16,6 +16,7 @@ export default class VXPayAbo {
 			.changeRoute(VXPayRoutes.ABO)
 			.initSession()
 		);
+        vxpay.config.route = VXPayRoutes.ABO;
 
 		return vxpay;
 	}

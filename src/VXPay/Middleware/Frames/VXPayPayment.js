@@ -13,12 +13,10 @@ export default class VXPayPayment {
 		vxpay.logger.log('VXPayInitPaymentMiddleware()', load);
 
 		// check already initialized
-
         if (vxpay.state.isContentLoaded) {
             vxpay.logger.log('VXPayInitPaymentMiddleware() - already loaded, resolve ...');
-            if(vxpay._paymentFrame && vxpay._paymentFrame.url !== vxpay.config.getPaymentFrameUrl()) {
-                vxpay._paymentFrame.url = vxpay.config.getPaymentFrameUrl();
-                vxpay._hooks.onContentLoaded(() => resolve(vxpay));
+            if(vxpay._paymentFrame && vxpay._paymentFrame.url && vxpay._paymentFrame.url.substr(vxpay._paymentFrame.url.indexOf('lang=')+5, 2) !== vxpay.config._language){
+                vxpay._reloadByConfig(resolve);
             }
             else {
                 return resolve(vxpay);

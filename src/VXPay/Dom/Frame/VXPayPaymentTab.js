@@ -67,6 +67,18 @@ class VXPayPaymentTab {
 		return this._route;
 	}
 
+    /**
+	 * @param {string}
+	 */
+	set url(url) {
+        if (this._window) {
+           this.getNewTab(true);
+        }
+        else {
+            this.getNewTab(false);
+        }
+	}
+    
 	/**
 	 * Open the window
 	 */
