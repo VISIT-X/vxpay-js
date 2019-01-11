@@ -16,6 +16,7 @@ export default class VXPayPromoCode {
 			.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
 			.changeRoute(VXPayRoutes.PROMOCODE)
 		);
+        vxpay.config.route = VXPayRoutes.PROMOCODE;
 
 		return vxpay;
 	}

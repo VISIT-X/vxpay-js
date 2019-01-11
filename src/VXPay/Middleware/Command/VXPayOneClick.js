@@ -16,6 +16,7 @@ class VXPayOneClick {
 			.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
 			.changeRoute(VXPayRoutes.ONE_CLICK)
 		);
+        vxpay.config.route = VXPayRoutes.ONE_CLICK;
 
 		return vxpay;
 	}

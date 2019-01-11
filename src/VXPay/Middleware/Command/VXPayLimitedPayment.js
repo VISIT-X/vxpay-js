@@ -15,6 +15,7 @@ class VXPayLimitedPayment {
 			.changeRoute(VXPayRoutes.LIMIT)
 			.initSession()
 		);
+        vxpay.config.route = VXPayRoutes.LIMIT;
 
 		return vxpay;
 	}

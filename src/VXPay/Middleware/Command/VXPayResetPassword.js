@@ -19,6 +19,7 @@ export default class VXPayResetPassword {
 			.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
 			.changeRoute(VXPayRoutes.PASS_RESET)
 		);
+        vxpay.config.route = VXPayRoutes.PASS_RESET;
 
 		return vxpay;
 	}
