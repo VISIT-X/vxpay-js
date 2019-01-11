@@ -16,6 +16,8 @@ export default class VXPayVipAboTrial {
 			.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
 			.changeRoute(VXPayRoutes.ABO)
 		);
+
+		vxpay.config.flow  = VXPayFlow.TRIAL_VIP_ABO;
         vxpay.config.route = VXPayRoutes.ABO;
 
 		return vxpay;

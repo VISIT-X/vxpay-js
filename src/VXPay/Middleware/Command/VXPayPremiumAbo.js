@@ -16,6 +16,8 @@ export default class VXPayPremiumAbo {
 			.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
 			.changeRoute(VXPayRoutes.ABO)
 		);
+
+		vxpay.config.flow  = VXPayFlow.VXTV_ABO;
         vxpay.config.route = VXPayRoutes.ABO;
 
 		return vxpay;

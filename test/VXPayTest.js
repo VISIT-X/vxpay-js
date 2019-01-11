@@ -118,9 +118,9 @@ describe('VXPay', () => {
 		it('Should throw if invalid', () => {
             assert.throws(() => {
 				VxPayJs.changeLanguage('RU');
-			}, TypeError, `Please choose one of: ${VXPayLanguage.getAvailable().toString()}`);
+			}, TypeError, `Please choose one of: ${VXPayLanguage.getAvailable().join(', ')}`);
         });
-		
-		
+
+
 	});
 });

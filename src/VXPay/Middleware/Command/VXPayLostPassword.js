@@ -19,6 +19,8 @@ export default class VXPayLostPassword {
 			.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
 			.changeRoute(VXPayRoutes.PASS)
 		);
+
+		vxpay.config.flow  = VXPayFlow.PASSWORD_LOST;
         vxpay.config.route = VXPayRoutes.PASS;
 
 		return vxpay;

@@ -99,8 +99,24 @@ export default class VXPayState {
 		this._isSessionInitialized = true;
 	}
 
+	/**
+	 * @return {boolean}
+	 */
+	isFrameShown() {
+		return this._isFrameShown;
+	}
+
+	markFrameShown() {
+		this._isFrameShown = true;
+	}
+
+	markFrameHidden() {
+		this._isFrameShown = false;
+	}
+
 	reset() {
 		this._isFrameReady         = false;
+		this._isFrameShown         = false;
 		this._token                = undefined;
 		this._isContentLoaded      = false;
 		this._isSessionInitialized = false;

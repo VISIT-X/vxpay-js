@@ -15,6 +15,8 @@ class VXPaySettings {
 			.changeRoute(VXPayRoutes.SETTINGS)
 			.initSession()
 		);
+
+		vxpay.config.flow  = VXPayFlow.SETTINGS;
         vxpay.config.route = VXPayRoutes.SETTINGS;
 
 		return vxpay;

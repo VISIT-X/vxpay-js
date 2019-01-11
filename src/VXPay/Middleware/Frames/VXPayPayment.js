@@ -58,10 +58,13 @@ export default class VXPayPayment {
 				// show frame and send isVisible
 				.onViewReady(vxpay._paymentFrame.setVisible.bind(vxpay._paymentFrame))
 				.onViewReady(vxpay._paymentFrame.show.bind(vxpay._paymentFrame))
+				.onViewReady(vxpay.state.markFrameShown.bind(vxpay.state))
 				.onSuccess(vxpay._paymentFrame.hide.bind(vxpay._paymentFrame))
 				.onSuccess(vxpay.state.reset)
+				.onSuccess(vxpay.state.markFrameHidden.bind(vxpay.state))
 				.onClose(vxpay._paymentFrame.hide.bind(vxpay._paymentFrame))
 				.onClose(vxpay.state.reset)
+				.onClose(vxpay.state.markFrameHidden.bind(vxpay.state))
 				.onContentLoaded(() => resolve(vxpay));
 
 			vxpay.startListening();

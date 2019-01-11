@@ -16,8 +16,10 @@ export default class VXPayLogin {
 			.changeRoute(VXPayRoutes.LOGIN)
 			.initSession()
 		);
+
+		vxpay.config.flow  = VXPayFlow.LOGIN;
         vxpay.config.route = VXPayRoutes.LOGIN;
-        
+
 		return vxpay;
 	}
 }

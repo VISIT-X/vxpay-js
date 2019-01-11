@@ -16,7 +16,10 @@ class VXPayAutoRecharge {
 			.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
 			.changeRoute(VXPayRoutes.RECHARGE)
 		);
+
+		vxpay.config.flow  = VXPayFlow.AUTO_RECHARGE;
         vxpay.config.route = VXPayRoutes.RECHARGE;
+
 		return vxpay;
 	}
 }

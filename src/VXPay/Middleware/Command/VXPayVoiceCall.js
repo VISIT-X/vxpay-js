@@ -16,6 +16,8 @@ class VXPayVoiceCall {
 			.changeRoute(VXPayRoutes.VOICE_CALL)
 			.initSession()
 		);
+
+		vxpay.config.flow  = VXPayFlow.CHARGE;
         vxpay.config.route = VXPayRoutes.VOICE_CALL;
 
 		return vxpay;

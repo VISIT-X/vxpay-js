@@ -422,33 +422,46 @@ export default class VXPay {
 		});
 	}
 
-    _reloadByConfig(resolve = undefined){
-        this._paymentFrame.url = this.config.getPaymentFrameUrl();
-        this._hooks.onContentLoaded(() => resolve(this));
-    }
-    
-    /**
-     * @param {String}
-     */
-    changeLanguage(lng, flowOptions = {}) {
-        let allLng = VXPayLanguage.getAvailable();
-        if (allLng.indexOf(lng) < 0) {
-			throw new TypeError(`Please choose one of: ${allLng.toString()}`);
+	/**
+	 * @param {Function} resolve
+	 * @private
+	 */
+	_reloadByConfig(resolve = undefined) {
+		if (this.state.isFrameShown()) {
+			this._paymentFrame.url = this.config.getPaymentFrameUrl();
+			this._hooks.onContentLoaded(() => resolve(this));
+		} else {
+			resolve(this);
 		}
-        this.config._language = lng; 
-        return new Promise((resolve)=>{
-            this._reloadByConfig(resolve);
-        })
-            .then( vxpay => vxpay._paymentFrame )
-            .then(frame => frame
-                .sendOptions(Object.assign({}, {'flow': this.config.flow},flowOptions))
-                .sendAdditionalOptions(this.config.getAdditionalOptions())
-                .changeRoute(this.config.route)
-                .initSession()
-                
-            )
-            .then(frame => frame.show());
-    }
+	}
+
+	/**
+	 * @param {String} lng
+	 * @param {Object} flowOptions
+	 * @throws {TypeError}
+	 */
+	changeLanguage(lng, flowOptions = {}) {
+		let allLng = VXPayLanguage.getAvailable();
+
+		if (allLng.indexOf(lng) < 0) {
+			throw new TypeError('Please choose one of: ' + allLng.join(', '));
+		}
+
+		// reset config value
+		this.config.language = lng;
+
+		return new Promise((resolve) => {this._reloadByConfig(resolve)})
+			.then(vxpay => {
+				if (vxpay.state.isFrameShown()) {
+					vxpay._paymentFrame
+						.sendOptions(Object.assign({}, {'flow': this.config.flow}, flowOptions))
+						.sendAdditionalOptions(this.config.getAdditionalOptions())
+						.changeRoute(this.config.route)
+						.initSession()
+						.show();
+				}
+			});
+	}
 
 	/**
 	 * @return {VXPayConfig}

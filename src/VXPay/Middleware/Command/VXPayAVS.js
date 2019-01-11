@@ -16,7 +16,9 @@ export default class VXPayAVS {
 			.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
 			.changeRoute(VXPayRoutes.AVS)
 		);
+
         vxpay.config.route = VXPayRoutes.AVS;
+		vxpay.config.flow  = VXPayFlow.AVS;
 
 		return vxpay;
 	}
