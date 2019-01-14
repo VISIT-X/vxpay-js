@@ -74,7 +74,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "9fb4c8dfe851da35b9c8";
+/******/ 	var hotCurrentHash = "f6ebbd515ebf5455d897";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -965,7 +965,7 @@ function () {
 VXPayFlow.AVS = 'avs';
 VXPayFlow.LIMIT = 'limit';
 VXPayFlow.LOGIN = 'login';
-VXPayFlow.SIGNUP = 'signup';
+VXPayFlow.SIGNUP = 'login';
 VXPayFlow.CHARGE = 'moneycharge';
 VXPayFlow.OP_COMPENSATION = 'opcompensation';
 VXPayFlow.AUTO_RECHARGE = 'autorecharge';
@@ -5354,6 +5354,19 @@ function () {
     get: function get() {
       return this._route;
     }
+    /**
+    * @param {string}
+    */
+
+  }, {
+    key: "url",
+    set: function set(url) {
+      if (this._window) {
+        this.getNewTab(true);
+      } else {
+        this.getNewTab(false);
+      }
+    }
   }]);
 
   return VXPayPaymentTab;
@@ -5776,6 +5789,20 @@ function () {
     value: function markSessionInitialized() {
       this._isSessionInitialized = true;
     }
+    /**
+     * @return {boolean}
+     */
+
+  }, {
+    key: "markIsFrameOpen",
+    value: function markIsFrameOpen() {
+      this._isFrameOpen = true;
+    }
+  }, {
+    key: "markIsFrameClose",
+    value: function markIsFrameClose() {
+      this._isFrameOpen = false;
+    }
   }, {
     key: "reset",
     value: function reset() {
@@ -5784,6 +5811,7 @@ function () {
       this._isContentLoaded = false;
       this._isSessionInitialized = false;
       this._isFrameInProgress = false;
+      this._isFrameOpen = false;
     }
   }, {
     key: "isFrameInProgress",
@@ -5858,6 +5886,11 @@ function () {
     key: "transferToken",
     get: function get() {
       return this._token;
+    }
+  }, {
+    key: "isFrameOpen",
+    get: function get() {
+      return this._isFrameOpen;
     }
   }]);
 
@@ -5941,6 +5974,7 @@ function () {
           'flow': Config_VXPayFlow.LOGIN
         }, flowOptions)).sendAdditionalOptions(vxpay.config.getAdditionalOptions()).changeRoute(Config_VXPayRoutes.LOGIN).initSession();
       });
+      vxpay.config.route = Config_VXPayRoutes.LOGIN;
       return vxpay;
     }
   }]);
@@ -5982,6 +6016,7 @@ function () {
           'flow': Config_VXPayFlow.SIGNUP
         }, flowOptions)).sendAdditionalOptions(vxpay.config.getAdditionalOptions()).changeRoute(Config_VXPayRoutes.SIGN_UP).initSession();
       });
+      vxpay.config.route = Config_VXPayRoutes.SIGN_UP;
       return vxpay;
     }
   }]);
@@ -6031,6 +6066,7 @@ function () {
       vxpay.paymentFrame.then(function (frame) {
         return frame.sendOptions(VXPayVoiceCall.PARAMS).sendAdditionalOptions(vxpay.config.getAdditionalOptions()).changeRoute(Config_VXPayRoutes.VOICE_CALL).initSession();
       });
+      vxpay.config.route = Config_VXPayRoutes.VOICE_CALL;
       return vxpay;
     }
   }]);
@@ -6074,6 +6110,7 @@ function () {
       vxpay.paymentFrame.then(function (frame) {
         return frame.sendOptions(Object.assign({}, VXPayPayment.PARAMS, flowOptions)).sendAdditionalOptions(vxpay.config.getAdditionalOptions()).changeRoute(Config_VXPayRoutes.PAYMENT).initSession();
       });
+      vxpay.config.route = Config_VXPayRoutes.PAYMENT;
       return vxpay;
     }
   }]);
@@ -6116,6 +6153,7 @@ function () {
       vxpay.paymentFrame.then(function (frame) {
         return frame.sendOptions(VXPaySettings.PARAMS).sendAdditionalOptions(vxpay.config.getAdditionalOptions()).changeRoute(Config_VXPayRoutes.SETTINGS).initSession();
       });
+      vxpay.config.route = Config_VXPayRoutes.SETTINGS;
       return vxpay;
     }
   }]);
@@ -6162,6 +6200,7 @@ function () {
           'flow': Config_VXPayFlow.VIP_ABO
         }, flowOptions)).sendAdditionalOptions(vxpay.config.getAdditionalOptions()).changeRoute(Config_VXPayRoutes.ABO).initSession();
       });
+      vxpay.config.route = Config_VXPayRoutes.ABO;
       return vxpay;
     }
   }]);
@@ -6203,6 +6242,7 @@ function () {
       vxpay.paymentFrame.then(function (frame) {
         return frame.initSession().sendOptions(options).sendAdditionalOptions(vxpay.config.getAdditionalOptions()).changeRoute(Config_VXPayRoutes.PASS_RESET);
       });
+      vxpay.config.route = Config_VXPayRoutes.PASS_RESET;
       return vxpay;
     }
     /**
@@ -6260,6 +6300,7 @@ function () {
       vxpay.paymentFrame.then(function (frame) {
         return frame.initSession().sendOptions(options).sendAdditionalOptions(vxpay.config.getAdditionalOptions()).changeRoute(Config_VXPayRoutes.PASS);
       });
+      vxpay.config.route = Config_VXPayRoutes.PASS;
       return vxpay;
     }
     /**
@@ -6313,6 +6354,7 @@ function () {
       vxpay.paymentFrame.then(function (frame) {
         return frame.sendOptions(VXPayLimitedPayment.PARAMS).sendAdditionalOptions(vxpay.config.getAdditionalOptions()).changeRoute(Config_VXPayRoutes.LIMIT).initSession();
       });
+      vxpay.config.route = Config_VXPayRoutes.LIMIT;
       return vxpay;
     }
   }]);
@@ -6358,6 +6400,7 @@ function () {
           'flow': Config_VXPayFlow.TRIAL_VIP_ABO
         }, flowOptions)).sendAdditionalOptions(vxpay.config.getAdditionalOptions()).changeRoute(Config_VXPayRoutes.ABO);
       });
+      vxpay.config.route = Config_VXPayRoutes.ABO;
       return vxpay;
     }
   }]);
@@ -6399,6 +6442,7 @@ function () {
           'flow': Config_VXPayFlow.VXTV_ABO
         }, flowOptions)).sendAdditionalOptions(vxpay.config.getAdditionalOptions()).changeRoute(Config_VXPayRoutes.ABO);
       });
+      vxpay.config.route = Config_VXPayRoutes.ABO;
       return vxpay;
     }
   }]);
@@ -6440,6 +6484,7 @@ function () {
           'flow': Config_VXPayFlow.AVS
         }, flowOptions)).sendAdditionalOptions(vxpay.config.getAdditionalOptions()).changeRoute(Config_VXPayRoutes.AVS);
       });
+      vxpay.config.route = Config_VXPayRoutes.AVS;
       return vxpay;
     }
   }]);
@@ -6480,6 +6525,7 @@ function () {
           'flow': Config_VXPayFlow.PROMOCODE
         }, flowOptions)).sendAdditionalOptions(vxpay.config.getAdditionalOptions()).changeRoute(Config_VXPayRoutes.PROMOCODE);
       });
+      vxpay.config.route = Config_VXPayRoutes.PROMOCODE;
       return vxpay;
     }
   }]);
@@ -6519,6 +6565,7 @@ function () {
       vxpay.paymentFrame.then(function (frame) {
         return frame.initSession().sendOptions(Object.assign({}, VXPayOneClick.PARAMS, flowOptions)).sendAdditionalOptions(vxpay.config.getAdditionalOptions()).changeRoute(Config_VXPayRoutes.ONE_CLICK);
       });
+      vxpay.config.route = Config_VXPayRoutes.ONE_CLICK;
       return vxpay;
     }
   }]);
@@ -6565,6 +6612,7 @@ function () {
       vxpay.paymentFrame.then(function (frame) {
         return frame.initSession().sendOptions(Object.assign({}, VXPayAutoRecharge.PARAMS, flowOptions)).sendAdditionalOptions(vxpay.config.getAdditionalOptions()).changeRoute(Config_VXPayRoutes.RECHARGE);
       });
+      vxpay.config.route = Config_VXPayRoutes.RECHARGE;
       return vxpay;
     }
   }]);
@@ -6612,6 +6660,7 @@ function () {
           'flow': Config_VXPayFlow.OP_COMPENSATION
         }, flowOptions)).sendAdditionalOptions(vxpay.config.getAdditionalOptions()).changeRoute(Config_VXPayRoutes.OP_COMP);
       });
+      vxpay.config.route = Config_VXPayRoutes.OP_COMP;
       return vxpay;
     }
   }]);
@@ -6927,7 +6976,12 @@ function () {
 
       if (vxpay.state.isContentLoaded) {
         vxpay.logger.log('VXPayInitPaymentMiddleware() - already loaded, resolve ...');
-        return resolve(vxpay);
+
+        if (vxpay._paymentFrame && vxpay._paymentFrame.url && vxpay._paymentFrame.url.substr(vxpay._paymentFrame.url.indexOf('lang=') + 5, 2) !== vxpay.config._language) {
+          vxpay._reloadByConfig(resolve);
+        } else {
+          return resolve(vxpay);
+        }
       } // or in progress
 
 
@@ -6957,9 +7011,9 @@ function () {
 
 
         vxpay._hooks // state updates
-        .onIframeReady(vxpay.state.markFrameReady.bind(vxpay.state)).onContentLoaded(vxpay.state.markContentLoaded.bind(vxpay.state)).onTransferToken(vxpay.state.markHasToken.bind(vxpay.state)) // functional hooks
+        .onIframeReady(vxpay.state.markFrameReady.bind(vxpay.state)).onIframeReady(vxpay.state.markIsFrameOpen.bind(vxpay.state)).onContentLoaded(vxpay.state.markContentLoaded.bind(vxpay.state)).onTransferToken(vxpay.state.markHasToken.bind(vxpay.state)) // functional hooks
         .onTransferToken(vxpay.config.setTokenFromMessage.bind(vxpay.config)).onFlowChange(vxpay.config.updateFlow.bind(vxpay.config)) // show frame and send isVisible
-        .onViewReady(vxpay._paymentFrame.setVisible.bind(vxpay._paymentFrame)).onViewReady(vxpay._paymentFrame.show.bind(vxpay._paymentFrame)).onSuccess(vxpay._paymentFrame.hide.bind(vxpay._paymentFrame)).onSuccess(vxpay.state.reset).onClose(vxpay._paymentFrame.hide.bind(vxpay._paymentFrame)).onClose(vxpay.state.reset).onContentLoaded(function () {
+        .onViewReady(vxpay._paymentFrame.setVisible.bind(vxpay._paymentFrame)).onViewReady(vxpay._paymentFrame.show.bind(vxpay._paymentFrame)).onSuccess(vxpay._paymentFrame.hide.bind(vxpay._paymentFrame)).onSuccess(vxpay.state.reset).onSuccess(vxpay.state.markIsFrameClose.bind(vxpay.state)).onClose(vxpay._paymentFrame.hide.bind(vxpay._paymentFrame)).onClose(vxpay.state.reset).onClose(vxpay.state.markIsFrameClose.bind(vxpay.state)).onContentLoaded(function () {
           return resolve(vxpay);
         });
 
@@ -6988,6 +7042,7 @@ function VXPay_classCallCheck(instance, Constructor) { if (!(instance instanceof
 function VXPay_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function VXPay_createClass(Constructor, protoProps, staticProps) { if (protoProps) VXPay_defineProperties(Constructor.prototype, protoProps); if (staticProps) VXPay_defineProperties(Constructor, staticProps); return Constructor; }
+
 
 
 
@@ -7452,6 +7507,54 @@ function () {
         }).then(Actions_VXPayLogoutTrigger).catch(reject);
       });
     }
+  }, {
+    key: "_reloadByConfig",
+    value: function _reloadByConfig() {
+      var _this26 = this;
+
+      var resolve = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : undefined;
+      this._paymentFrame.url = this.config.getPaymentFrameUrl();
+
+      this._hooks.onContentLoaded(function () {
+        return resolve(_this26);
+      });
+    }
+    /**
+     * @param {String}
+     */
+
+  }, {
+    key: "changeLanguage",
+    value: function changeLanguage(lng) {
+      var _this27 = this;
+
+      var flowOptions = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      var allLng = VXPay_VXPayLanguage.getAvailable();
+
+      if (allLng.indexOf(lng) < 0) {
+        throw new TypeError("Please choose one of: ".concat(allLng.toString()));
+      }
+
+      this.config._language = lng;
+
+      if (this.state.isFrameOpen) {
+        return new Promise(function (resolve) {
+          _this27._reloadByConfig(resolve);
+        }).then(function (vxpay) {
+          return vxpay._paymentFrame;
+        }).then(function (frame) {
+          return frame.sendOptions(Object.assign({}, {
+            'flow': _this27.config.flow
+          }, flowOptions)).sendAdditionalOptions(_this27.config.getAdditionalOptions()).changeRoute(_this27.config.route).initSession();
+        }).then(function (frame) {
+          return frame.show();
+        });
+      } else {
+        return new Promise(function (resolve) {
+          resolve(_this27);
+        });
+      }
+    }
     /**
      * @return {VXPayConfig}
      */
@@ -7557,19 +7660,19 @@ function () {
   }, {
     key: "hooks",
     get: function get() {
-      var _this26 = this;
+      var _this28 = this;
 
       return new Promise(function (resolve) {
-        return resolve(_this26._hooks);
+        return resolve(_this28._hooks);
       });
     }
   }, {
     key: "paymentFrame",
     get: function get() {
-      var _this27 = this;
+      var _this29 = this;
 
       return new Promise(function (resolve, reject) {
-        _this27._initPaymentFrame().then(function (vxpay) {
+        _this29._initPaymentFrame().then(function (vxpay) {
           return resolve(vxpay._paymentFrame);
         }).catch(reject);
       });
