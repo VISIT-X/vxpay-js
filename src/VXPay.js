@@ -431,23 +431,29 @@ export default class VXPay {
      * @param {String}
      */
     changeLanguage(lng, flowOptions = {}) {
-        let allLng = VXPayLanguage.getAvailable();
-        if (allLng.indexOf(lng) < 0) {
+		let allLng = VXPayLanguage.getAvailable();
+		if (allLng.indexOf(lng) < 0) {
 			throw new TypeError(`Please choose one of: ${allLng.toString()}`);
 		}
-        this.config._language = lng; 
-        return new Promise((resolve)=>{
-            this._reloadByConfig(resolve);
-        })
-            .then( vxpay => vxpay._paymentFrame )
-            .then(frame => frame
-                .sendOptions(Object.assign({}, {'flow': this.config.flow},flowOptions))
-                .sendAdditionalOptions(this.config.getAdditionalOptions())
-                .changeRoute(this.config.route)
-                .initSession()
-                
-            )
-            .then(frame => frame.show());
+		this.config._language = lng;
+		if (this.state.isFrameOpen) {
+			return new Promise((resolve) => {
+				this._reloadByConfig(resolve);
+		})
+				.then(vxpay => vxpay._paymentFrame)
+				.then(frame => frame
+				.sendOptions(Object.assign({}, {'flow': this.config.flow}, flowOptions))
+				.sendAdditionalOptions(this.config.getAdditionalOptions())
+					.changeRoute(this.config.route)
+					.initSession()
+				)
+				.then(frame => frame.show());
+		}
+		else {
+			return new Promise((resolve) => {
+				resolve(this);
+			});
+		}
     }
 
 	/**
