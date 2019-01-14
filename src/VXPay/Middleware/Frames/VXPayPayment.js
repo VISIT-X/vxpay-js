@@ -50,6 +50,7 @@ export default class VXPayPayment {
 			vxpay._hooks
 			// state updates
 				.onIframeReady(vxpay.state.markFrameReady.bind(vxpay.state))
+				.onIframeReady(vxpay.state.markIsFrameOpen.bind(vxpay.state))
 				.onContentLoaded(vxpay.state.markContentLoaded.bind(vxpay.state))
 				.onTransferToken(vxpay.state.markHasToken.bind(vxpay.state))
 				// functional hooks
@@ -60,8 +61,10 @@ export default class VXPayPayment {
 				.onViewReady(vxpay._paymentFrame.show.bind(vxpay._paymentFrame))
 				.onSuccess(vxpay._paymentFrame.hide.bind(vxpay._paymentFrame))
 				.onSuccess(vxpay.state.reset)
+				.onSuccess(vxpay.state.markIsFrameClose.bind(vxpay.state))
 				.onClose(vxpay._paymentFrame.hide.bind(vxpay._paymentFrame))
 				.onClose(vxpay.state.reset)
+				.onClose(vxpay.state.markIsFrameClose.bind(vxpay.state))
 				.onContentLoaded(() => resolve(vxpay));
 
 			vxpay.startListening();
