@@ -13,10 +13,15 @@ export default class VXPayPayment {
 		vxpay.logger.log('VXPayInitPaymentMiddleware()', load);
 
 		// check already initialized
-		if (vxpay.state.isContentLoaded) {
-			vxpay.logger.log('VXPayInitPaymentMiddleware() - already loaded, resolve ...');
-			return resolve(vxpay);
-		}
+        if (vxpay.state.isContentLoaded) {
+            vxpay.logger.log('VXPayInitPaymentMiddleware() - already loaded, resolve ...');
+            if(vxpay._paymentFrame && vxpay._paymentFrame.url && vxpay._paymentFrame.url.substr(vxpay._paymentFrame.url.indexOf('lang=')+5, 2) !== vxpay.config._language){
+                vxpay._reloadByConfig(resolve);
+            }
+            else {
+                return resolve(vxpay);
+            }
+        }
 
 		// or in progress
 		if (vxpay.state.isFrameInProgress && !load) {
@@ -26,7 +31,6 @@ export default class VXPayPayment {
 
 		// tab or frame?
 		vxpay.state.isFrameInProgress = load;
-
 		if (vxpay.config.enableTab) {
 			vxpay._paymentFrame = new VXPayPaymentTab(vxpay.window.document, VXPayPaymentTab.NAME, vxpay.config, vxpay._hooks);
 		} else {
@@ -34,7 +38,6 @@ export default class VXPayPayment {
 				? new VXPayPaymentFrame(vxpay.window.document, vxpay.config.getPaymentFrameUrl(), VXPayPaymentFrame.NAME, vxpay._hooks)
 				: vxpay._paymentFrame;
 		}
-
 		if (!vxpay._paymentFrame.loaded) {
 			// do we need logging?
 			if (vxpay.config.logging) {

@@ -17,6 +17,7 @@ export default class VXPaySignUp {
 				.changeRoute(VXPayRoutes.SIGN_UP)
 				.initSession()
 			);
+        vxpay.config.route = VXPayRoutes.SIGN_UP;
 
 		return vxpay;
 	}

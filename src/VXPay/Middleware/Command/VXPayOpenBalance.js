@@ -16,6 +16,7 @@ export default class VXPayOpenBalance {
 			.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
 			.changeRoute(VXPayRoutes.OP_COMP)
 		);
+        vxpay.config.route = VXPayRoutes.OP_COMP;
 
 		return vxpay;
 	}
