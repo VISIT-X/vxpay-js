@@ -97,7 +97,7 @@ class VXPayPaymentFrame extends VXPayIframe {
 	 */
 	_markLoaded() {
 		super._markLoaded();
-		return this._hooks.trigger(VXPayPaymentHooksConfig.ON_LOAD, this._frame.id);
+		return this._hooks.trigger(VXPayPaymentHooksConfig.ON_LOAD, [], this._frame.id);
 	}
 
 	/**
@@ -173,6 +173,13 @@ class VXPayPaymentFrame extends VXPayIframe {
 	setVisible() {
 		return this.message(new VXPayIsVisibleMessage());
 	}
+
+	show() {
+		super.show();
+		this._hooks.trigger(VXPayPaymentHooksConfig.ON_SHOW, [], this._frame.id);
+
+	}
+
 }
 
 VXPayPaymentFrame.NAME = 'vx-payment-frame';

@@ -50,7 +50,7 @@ export default class VXPayPayment {
 			vxpay._hooks
 			// state updates
 				.onIframeReady(vxpay.state.markFrameReady.bind(vxpay.state))
-				.onIframeReady(vxpay.state.markIsFrameOpen.bind(vxpay.state))
+				.onShow(vxpay.state.markIsFrameOpen.bind(vxpay.state))
 				.onContentLoaded(vxpay.state.markContentLoaded.bind(vxpay.state))
 				.onTransferToken(vxpay.state.markHasToken.bind(vxpay.state))
 				// functional hooks

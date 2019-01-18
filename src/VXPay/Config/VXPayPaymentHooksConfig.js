@@ -22,6 +22,7 @@ class VXPayPaymentHooksConfig extends VXPayHooksConfig {
 		this._onEmailVerified          = [];
 		this._onEmailNotVerified       = [];
 		this._onPasswordChanged        = [];
+		this._onShow                   = [];
 	}
 
 	/**
@@ -218,6 +219,15 @@ class VXPayPaymentHooksConfig extends VXPayHooksConfig {
 	 * @param {Function} handler
 	 * @return {VXPayPaymentHooksConfig}
 	 */
+	onShow(handler) {
+		this._onShow.push(handler);
+		return this;
+	}
+
+	/**
+	 * @param {Function} handler
+	 * @return {VXPayPaymentHooksConfig}
+	 */
 	onEmailVerified(handler) {
 		this._onEmailVerified.push(handler);
 		return this;
@@ -267,6 +277,7 @@ class VXPayPaymentHooksConfig extends VXPayHooksConfig {
 		clone._onAny                    = [...this._onAny];
 		clone._onBeforeSend             = [...this._onBeforeSend];
 		clone._onLoad                   = [...this._onLoad];
+		clone._onShow                   = [...this._onShow];
 		return clone;
 	}
 
@@ -294,6 +305,7 @@ class VXPayPaymentHooksConfig extends VXPayHooksConfig {
 			VXPayPaymentHooksConfig.ON_EMAIL_VERIFIED,
 			VXPayPaymentHooksConfig.ON_EMAIL_NOT_VERIFIED,
 			VXPayPaymentHooksConfig.ON_PASSWORD_CHANGED,
+			VXPayPaymentHooksConfig.ON_SHOW,
 		];
 	}
 }
@@ -302,6 +314,7 @@ VXPayPaymentHooksConfig.ON_VIEW_READY              = 'onViewReady';
 VXPayPaymentHooksConfig.ON_IFRAME_READY            = 'onIframeReady';
 VXPayPaymentHooksConfig.ON_CONTENT_LOADED          = 'onContentLoaded';
 VXPayPaymentHooksConfig.ON_CLOSE                   = 'onClose';
+VXPayPaymentHooksConfig.ON_SHOW                    = 'onShow';
 VXPayPaymentHooksConfig.ON_SUCCESS                 = 'onSuccess';
 VXPayPaymentHooksConfig.ON_LOGIN                   = 'onLogin';
 VXPayPaymentHooksConfig.ON_LOGOUT                  = 'onLogout';
