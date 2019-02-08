@@ -67,11 +67,10 @@ class VXPayPaymentFrame extends VXPayIframe {
 			width:      '100%',
 			height:     '100%',
 			top:        '50%',
-			left:       '50%',
-			marginLeft: '-325px',  // margin does not seem to be applied :/
-			zIndex:     10001,
-			display:    'none',
-			transform:  'translate(-50%, -50%)'
+			left:      '50%',
+			display:   'none',
+			transform: 'translate(-50%, -50%)',
+			zIndex:    '9999',
 		};
 
 		defaultStyles.position = userAgent.isMobile()
@@ -87,7 +86,6 @@ class VXPayPaymentFrame extends VXPayIframe {
 				defaultStyles.maxHeight = VXPayDomHelper.getClientHeight(document.defaultView) + 'px';
 			}
 		}
-
 		return defaultStyles;
 	}
 
