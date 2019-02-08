@@ -33,7 +33,7 @@ class VXPayIframe extends VXPayEventListener {
 		// only apply if valid
 		if (null !== style) {
 			for (let item in style) {
-				this._frame.style.setProperty(item, style[item]);
+				this._frame.style[item] = style[item];
 			}
 		}
 	}
