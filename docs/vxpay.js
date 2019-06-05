@@ -1958,6 +1958,7 @@ function () {
     this._urls = {
       abg: VXPayConfig.ABG_DEFAULT.replace('{language}', this._language),
       privacy: VXPayConfig.PRIVACY_DEFAULT.replace('{language}', this._language),
+      ref:  '',
       ruri: '',
       suri: '',
       purl: ''
@@ -2027,7 +2028,7 @@ function () {
     key: "getAdditionalOptions",
     value: function getAdditionalOptions() {
       var urls = {
-        ref: this._wmId,
+        ref: this._urls.ref,
         ruri: this._urls.ruri,
         surl: this._urls.suri,
         aurl: this.abgUrl,
@@ -2082,6 +2083,22 @@ function () {
     value: function updateFlow(message) {
       this._flow = message.newFlow;
     }
+  }, {
+    key: "ref",
+    get: function get() {
+      return this._urls.ref;
+    }
+    /**
+     * @param {string} ref
+     */
+    ,
+    set: function set(ref) {
+      this._urls.ref = ref;
+    }
+    /**
+     * @return {string}
+     */
+
   }, {
     key: "ruri",
     get: function get() {
