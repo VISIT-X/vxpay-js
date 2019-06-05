@@ -20,6 +20,7 @@ class VXPayConfig {
 		this._urls     = {
 			abg:     VXPayConfig.ABG_DEFAULT.replace('{language}', this._language),
 			privacy: VXPayConfig.PRIVACY_DEFAULT.replace('{language}', this._language),
+			ref:     '',
 			ruri:    '',
 			suri:    '',
 			purl:    ''
@@ -57,6 +58,20 @@ class VXPayConfig {
 	 */
 	set ruri(ruri) {
 		this._urls.ruri = ruri;
+	}
+
+	/**
+	 * @return {string}
+	 */
+	get ref() {
+		return this._urls.ref;
+	}
+
+	/**
+	 * @param {string} ref
+	 */
+	set ref(ref) {
+		this._urls.ref = ref;
 	}
 
 	/**
@@ -122,7 +137,7 @@ class VXPayConfig {
 	 */
 	getAdditionalOptions() {
 		const urls = {
-			ref:   this._wmId,
+			ref:   this._urls.ref,
 			ruri:  this._urls.ruri,
 			surl:  this._urls.suri,
 			aurl:  this.abgUrl,
