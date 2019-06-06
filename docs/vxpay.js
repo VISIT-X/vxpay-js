@@ -2006,6 +2006,7 @@ function () {
         flow: this._flow,
         lang: this._language,
         pfm: this._pfm,
+        pfmsub: this._pfmsub,
         w: this._wmId,
         ws: this._wmSubRef,
         wt: this._wmToken,
@@ -2411,6 +2412,22 @@ function () {
     ,
     set: function set(value) {
       this._pfm = value;
+    }
+    /**
+     * @return {boolean}
+     */
+
+  }, {
+    key: "pfmsub",
+    get: function get() {
+      return this._pfmsub;
+    }
+    /**
+     * @param {string} value
+     */
+    ,
+    set: function set(value) {
+      this._pfmsub = value;
     }
     /**
      * @return {boolean}
