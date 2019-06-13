@@ -27,6 +27,7 @@ class VXPayConfig {
 		};
 
 		this._pfm        = '';
+		this._pfmsub     = '';
 		this._enableTab  = (new VXPayUserAgent(window.navigator.userAgent || '')).isMobile();
 		this._host       = '';
 		this._token      = '';
@@ -118,6 +119,7 @@ class VXPayConfig {
 			flow:        this._flow,
 			lang:        this._language,
 			pfm:         this._pfm,
+			pfmsub:      this._pfmsub,
 			w:           this._wmId,
 			ws:          this._wmSubRef,
 			wt:          this._wmToken,
@@ -423,6 +425,20 @@ class VXPayConfig {
 	 */
 	set pfm(value) {
 		this._pfm = value;
+	}
+
+	/**
+	 * @return {string}
+	 */
+	get pfmsub() {
+		return this._pfmsub;
+	}
+
+	/**
+	 * @param {string} value
+	 */
+	set pfmsub(value) {
+		this._pfmsub = value;
 	}
 
 	/**
