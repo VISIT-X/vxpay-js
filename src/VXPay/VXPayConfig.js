@@ -18,12 +18,13 @@ class VXPayConfig {
 		this._flow     = VXPayFlow.getDefault();
 		this._language = VXPayLanguage.getDefault();
 		this._urls     = {
-			abg:     VXPayConfig.ABG_DEFAULT.replace('{language}', this._language),
-			privacy: VXPayConfig.PRIVACY_DEFAULT.replace('{language}', this._language),
-			ref:     '',
-			ruri:    '',
-			suri:    '',
-			purl:    ''
+			abg:        VXPayConfig.ABG_DEFAULT.replace('{language}', this._language),
+			privacy:    VXPayConfig.PRIVACY_DEFAULT.replace('{language}', this._language),
+			ref:        '',
+			ruri:       '',
+			suri:       '',
+			successUrl: '',
+			purl:       ''
 		};
 
 		this._pfm        = '';
@@ -85,6 +86,20 @@ class VXPayConfig {
 	/**
 	 * @return {string}
 	 */
+	get successUrl() {
+		return this._urls.successUrl;
+	}
+
+	/**
+	 * @param {string} successUrl
+	 */
+	set successUrl(successUrl) {
+		this._urls.successUrl = successUrl;
+	}
+
+	/**
+	 * @return {string}
+	 */
 	get purl() {
 		return this._urls.purl;
 	}
@@ -130,6 +145,7 @@ class VXPayConfig {
 			pc:          this._promoCode,
 			tt:          this._token,
 			ruri:        this._urls.ruri,
+			successUrl:  this._urls.successUrl,
 			host:        this._host
 		};
 	}
