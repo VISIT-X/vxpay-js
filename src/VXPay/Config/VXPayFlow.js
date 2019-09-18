@@ -22,6 +22,7 @@ class VXPayFlow {
 			VXPayFlow.ONE_CLICK,
 			VXPayFlow.AUTO_RECHARGE,
 			VXPayFlow.SIGNUP,
+			VXPayFlow.MIGRATION,
 		];
 	}
 
@@ -51,5 +52,6 @@ VXPayFlow.SETTINGS        = 'vxsettings';
 VXPayFlow.CHANGE_CARD     = 'changecc';
 VXPayFlow.CHANGE_LS       = 'changels';
 VXPayFlow.ONE_CLICK       = 'oneclick';
+VXPayFlow.MIGRATION       = 'migration';
 
 export default VXPayFlow;
