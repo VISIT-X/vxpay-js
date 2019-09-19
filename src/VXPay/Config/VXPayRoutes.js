@@ -18,6 +18,7 @@ class VXPayRoutes {
 			VXPayRoutes.SETTINGS,
 			VXPayRoutes.VOICE_CALL,
 			VXPayRoutes.LIMIT,
+			VXPayRoutes.MIGRATION,
 		];
 	}
 }
@@ -36,5 +37,6 @@ VXPayRoutes.ONE_CLICK  = '/comfort';
 VXPayRoutes.SETTINGS   = '/user/settings';
 VXPayRoutes.VOICE_CALL = '/voicecall';
 VXPayRoutes.LIMIT      = '/limit';
+VXPayRoutes.MIGRATION  = '/migration';
 
 export default VXPayRoutes;

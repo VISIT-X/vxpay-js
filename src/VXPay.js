@@ -30,6 +30,7 @@ import VXPayPromoCode              from './VXPay/Middleware/Command/VXPayPromoCo
 import VXPayOneClick               from './VXPay/Middleware/Command/VXPayOneClick';
 import VXPayAutoRecharge           from './VXPay/Middleware/Command/VXPayAutoRecharge';
 import VXPayOpenBalance            from './VXPay/Middleware/Command/VXPayOpenBalance';
+import VXPayMigration              from './VXPay/Middleware/Command/VXPayMigration';
 import VXPayShowForTab             from './VXPay/Middleware/Frames/VXPayShowForTab';
 import VXPayPaymentHooksConfig     from './VXPay/Config/VXPayPaymentHooksConfig';
 import VXPayHookRouter             from './VXPay/Message/Hooks/VXPayHookRouter';
@@ -354,6 +355,22 @@ export default class VXPay {
 				.then(VXPayShowForTab.trigger)
 				.then(VXPayWhen.tokenTransferred)
 				.then(vxpay => VXPayOpenBalance.open(vxpay, flowOptions))
+				.then(resolve)
+				.catch(reject);
+		});
+	}
+
+	/**
+	 * @param {Object} flowOptions
+	 * @return {Promise<VXPay>}
+	 */
+	openMigration(flowOptions = {}) {
+		return new Promise((resolve, reject) => {
+			return this._initPaymentFrame()
+				.then(VXPayTokenForTab.reset)
+				.then(VXPayShowForTab.trigger)
+				.then(VXPayWhen.tokenTransferred)
+				.then(vxpay => VXPayMigration.open(vxpay, flowOptions))
 				.then(resolve)
 				.catch(reject);
 		});
