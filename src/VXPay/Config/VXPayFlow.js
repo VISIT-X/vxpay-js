@@ -15,6 +15,7 @@ class VXPayFlow {
 			VXPayFlow.SCRATCH_CARD,
 			VXPayFlow.TRIAL_VIP_ABO,
 			VXPayFlow.VIP_ABO,
+			VXPayFlow.ABO_OVERVIEW,
 			VXPayFlow.VXTV_ABO,
 			VXPayFlow.SETTINGS,
 			VXPayFlow.CHANGE_CARD,
@@ -47,6 +48,7 @@ VXPayFlow.PROMOCODE       = 'promocode';
 VXPayFlow.SCRATCH_CARD    = 'scratchcard';
 VXPayFlow.TRIAL_VIP_ABO   = 'trialvipabo';
 VXPayFlow.VIP_ABO         = 'vipabo';
+VXPayFlow.ABO_OVERVIEW    = 'abooverview';
 VXPayFlow.VXTV_ABO        = 'vxtvabo';
 VXPayFlow.SETTINGS        = 'vxsettings';
 VXPayFlow.CHANGE_CARD     = 'changecc';
