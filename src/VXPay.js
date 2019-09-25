@@ -40,6 +40,7 @@ import VXPayIsLoggedInTrigger      from './VXPay/Middleware/Actions/VXPayIsLogge
 import VXPayTokenForTab            from './VXPay/Middleware/Frames/VXPayTokenForTab';
 import VXPayWhen                   from './VXPay/Middleware/VXPayWhen';
 import VXPayPayment                from './VXPay/Middleware/Frames/VXPayPayment';
+import VXPayAboOverview            from './VXPay/Middleware/Command/VXPayAboOverview';
 
 export default class VXPay {
 	/**
@@ -165,6 +166,22 @@ export default class VXPay {
 				.then(VXPayShowForTab.trigger)
 				.then(VXPayWhen.tokenTransferred)
 				.then(vxpay => VXPayAbo.open(vxpay, flowOptions))
+				.then(resolve)
+				.catch(reject);
+		});
+	}
+
+	/**
+	 * @param {Object} flowOptions
+	 * @return {Promise<VXPay>}
+	 */
+	openAboOverview(flowOptions = {}) {
+		return new Promise((resolve, reject) => {
+			this._initPaymentFrame()
+				.then(VXPayTokenForTab.reset)
+				.then(VXPayShowForTab.trigger)
+				.then(VXPayWhen.tokenTransferred)
+				.then(vxpay => VXPayAboOverview.open(vxpay, flowOptions))
 				.then(resolve)
 				.catch(reject);
 		});
