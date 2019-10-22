@@ -106,6 +106,13 @@ document.addEventListener('DOMContentLoaded', function() {
 		});
 	};
 
+	document.getElementById('open-abo-overview').onclick = function(e) {
+		e.preventDefault();
+		vxpay.openAboOverview(options).then(function() {
+			console.log('Open abo overview');
+		});
+	};
+
 	document.getElementById('open-abo-trial').onclick = function(e) {
 		e.preventDefault();
 		vxpay.vipAboTrial(options).then(function() {
