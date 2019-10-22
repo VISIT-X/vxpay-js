@@ -63,14 +63,13 @@ class VXPayPaymentFrame extends VXPayIframe {
 		const userAgent     = new VXPayUserAgent(uaString);
 		const bodyElement   = typeof document !== 'undefined' ? document.getElementsByTagName('body').item(0) : null;
 		const defaultStyles = {
-			border:     'none',
-			width:      '100%',
-			height:     '100%',
-			top:        '50%',
-			left:      '50%',
-			display:   'none',
-			transform: 'translate(-50%, -50%)',
-			zIndex:    '9999',
+			border:  'none',
+			width:   '100%',
+			height:  '100%',
+			top:     '0',
+			left:    '0',
+			display: 'none',
+			zIndex:  '9999',
 		};
 
 		defaultStyles.position = userAgent.isMobile()
