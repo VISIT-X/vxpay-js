@@ -7,6 +7,7 @@ import VXPayDomHelper           from './../VXPayDomHelper';
 import VXPayIsVisibleMessage    from './../../Message/VXPayIsVisibleMessage';
 import VXPayAdditionalOptions   from '../../Message/VXPayAdditionalOptions';
 import VXPayPaymentHooksConfig  from './../../Config/VXPayPaymentHooksConfig';
+import EnumAllow                from './EnumAllow';
 
 class VXPayPaymentFrame extends VXPayIframe {
 	/**
@@ -29,6 +30,10 @@ class VXPayPaymentFrame extends VXPayIframe {
 
 		// allow transparent iframe for <= IE8
 		this._frame.allowTransparency = true;
+
+		// allow camera and mic on the frame
+		this._frame.allow = EnumAllow.getDefaults().join(', ');
+
 		this._frame.name              = 'vxpay';
 		this._sessionInitialized      = false;
 		this._hooks                   = hooks;
