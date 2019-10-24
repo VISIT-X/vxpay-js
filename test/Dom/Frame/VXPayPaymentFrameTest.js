@@ -12,6 +12,7 @@ import VXPayChangeRouteMessage    from '../../../src/VXPay/Message/VXPayChangeRo
 import VXPayAdditionalOptions     from '../../../src/VXPay/Message/VXPayAdditionalOptions';
 import VXPayIsVisibleMessage      from '../../../src/VXPay/Message/VXPayIsVisibleMessage';
 import VXPayInitSessionMessage    from '../../../src/VXPay/Message/VXPayInitSessionMessage';
+import EnumAllow                  from '../../../src/VXPay/Dom/Frame/EnumAllow';
 
 describe('VXPayPaymentFrameTest', () => {
 
@@ -40,6 +41,21 @@ describe('VXPayPaymentFrameTest', () => {
 			hooks.onLoad(() => {
 				assert.isTrue(frame.loaded);
 				assert.equal(doc.getElementById(fid).length, 1);
+				done();
+			});
+			frame.triggerLoad();
+		});
+		it('Should set `allow` attribute with defaults (camera and mic)', () => {
+			assert.isFalse(frame.loaded);
+
+			// check before load
+			assert.equal(frame.frame.allow, EnumAllow.getDefaults().join(', '));
+
+			// and after load
+			hooks.onLoad(() => {
+				assert.isTrue(frame.loaded);
+				assert.equal(doc.getElementById(fid).length, 1);
+				assert.equal(doc.getElementById(fid).allow, EnumAllow.getDefaults().join(', '));
 				done();
 			});
 			frame.triggerLoad();
