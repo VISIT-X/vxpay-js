@@ -7,6 +7,7 @@ import VXPayDomHelper           from './../VXPayDomHelper';
 import VXPayIsVisibleMessage    from './../../Message/VXPayIsVisibleMessage';
 import VXPayAdditionalOptions   from '../../Message/VXPayAdditionalOptions';
 import VXPayPaymentHooksConfig  from './../../Config/VXPayPaymentHooksConfig';
+import EnumAllow                from './EnumAllow';
 
 class VXPayPaymentFrame extends VXPayIframe {
 	/**
@@ -29,6 +30,10 @@ class VXPayPaymentFrame extends VXPayIframe {
 
 		// allow transparent iframe for <= IE8
 		this._frame.allowTransparency = true;
+
+		// allow camera and mic on the frame
+		this._frame.allow = EnumAllow.getDefaults().join(', ');
+
 		this._frame.name              = 'vxpay';
 		this._sessionInitialized      = false;
 		this._hooks                   = hooks;
@@ -63,15 +68,13 @@ class VXPayPaymentFrame extends VXPayIframe {
 		const userAgent     = new VXPayUserAgent(uaString);
 		const bodyElement   = typeof document !== 'undefined' ? document.getElementsByTagName('body').item(0) : null;
 		const defaultStyles = {
-			border:     'none',
-			width:      '100%',
-			height:     '100%',
-			top:        '50%',
-			left:       '50%',
-			marginLeft: '-325px',  // margin does not seem to be applied :/
-			zIndex:     10001,
-			display:    'none',
-			transform:  'translate(-50%, -50%)'
+			border:  'none',
+			width:   '100%',
+			height:  '100%',
+			top:     '0',
+			left:    '0',
+			display: 'none',
+			zIndex:  '9999',
 		};
 
 		defaultStyles.position = userAgent.isMobile()
@@ -87,7 +90,6 @@ class VXPayPaymentFrame extends VXPayIframe {
 				defaultStyles.maxHeight = VXPayDomHelper.getClientHeight(document.defaultView) + 'px';
 			}
 		}
-
 		return defaultStyles;
 	}
 
@@ -97,7 +99,7 @@ class VXPayPaymentFrame extends VXPayIframe {
 	 */
 	_markLoaded() {
 		super._markLoaded();
-		return this._hooks.trigger(VXPayPaymentHooksConfig.ON_LOAD, this._frame.id);
+		return this._hooks.trigger(VXPayPaymentHooksConfig.ON_LOAD, [], this._frame.id);
 	}
 
 	/**
@@ -173,6 +175,13 @@ class VXPayPaymentFrame extends VXPayIframe {
 	setVisible() {
 		return this.message(new VXPayIsVisibleMessage());
 	}
+
+	show() {
+		super.show();
+		this._hooks.trigger(VXPayPaymentHooksConfig.ON_SHOW, [], this._frame.id);
+
+	}
+
 }
 
 VXPayPaymentFrame.NAME = 'vx-payment-frame';

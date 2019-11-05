@@ -18,14 +18,17 @@ class VXPayConfig {
 		this._flow     = VXPayFlow.getDefault();
 		this._language = VXPayLanguage.getDefault();
 		this._urls     = {
-			agb:     VXPayConfig.AGB_DEFAULT.replace('{language}', this._language),
-			privacy: VXPayConfig.PRIVACY_DEFAULT.replace('{language}', this._language),
-			ruri:    '',
-			suri:    '',
-			purl:    ''
+			agb:        VXPayConfig.AGB_DEFAULT.replace('{language}', this._language),
+			privacy:    VXPayConfig.PRIVACY_DEFAULT.replace('{language}', this._language),
+			ref:        '',
+			ruri:       '',
+			suri:       '',
+			successUrl: '',
+			purl:       ''
 		};
 
 		this._pfm        = '';
+		this._pfmsub     = '';
 		this._enableTab  = (new VXPayUserAgent(window.navigator.userAgent || '')).isMobile();
 		this._host       = '';
 		this._token      = '';
@@ -62,8 +65,36 @@ class VXPayConfig {
 	/**
 	 * @return {string}
 	 */
+	get ref() {
+		return this._urls.ref;
+	}
+
+	/**
+	 * @param {string} ref
+	 */
+	set ref(ref) {
+		this._urls.ref = ref;
+	}
+
+	/**
+	 * @return {string}
+	 */
 	get suri() {
 		return this._urls.suri;
+	}
+
+	/**
+	 * @return {string}
+	 */
+	get successUrl() {
+		return this._urls.successUrl;
+	}
+
+	/**
+	 * @param {string} successUrl
+	 */
+	set successUrl(successUrl) {
+		this._urls.successUrl = successUrl;
 	}
 
 	/**
@@ -103,6 +134,7 @@ class VXPayConfig {
 			flow:        this._flow,
 			lang:        this._language,
 			pfm:         this._pfm,
+			pfmsub:      this._pfmsub,
 			w:           this._wmId,
 			ws:          this._wmSubRef,
 			wt:          this._wmToken,
@@ -113,6 +145,7 @@ class VXPayConfig {
 			pc:          this._promoCode,
 			tt:          this._token,
 			ruri:        this._urls.ruri,
+			successUrl:  this._urls.successUrl,
 			host:        this._host
 		};
 	}
@@ -122,7 +155,7 @@ class VXPayConfig {
 	 */
 	getAdditionalOptions() {
 		const urls = {
-			ref:   this._wmId,
+			ref:   this._urls.ref,
 			ruri:  this._urls.ruri,
 			surl:  this._urls.suri,
 			aurl:  this.agbUrl,
@@ -408,6 +441,20 @@ class VXPayConfig {
 	 */
 	set pfm(value) {
 		this._pfm = value;
+	}
+
+	/**
+	 * @return {string}
+	 */
+	get pfmsub() {
+		return this._pfmsub;
+	}
+
+	/**
+	 * @param {string} value
+	 */
+	set pfmsub(value) {
+		this._pfmsub = value;
 	}
 
 	/**

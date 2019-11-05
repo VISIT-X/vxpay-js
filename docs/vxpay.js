@@ -1958,6 +1958,7 @@ function () {
     this._urls = {
       abg: VXPayConfig.ABG_DEFAULT.replace('{language}', this._language),
       privacy: VXPayConfig.PRIVACY_DEFAULT.replace('{language}', this._language),
+      ref:  '',
       ruri: '',
       suri: '',
       purl: ''
@@ -2006,6 +2007,7 @@ function () {
         flow: this._flow,
         lang: this._language,
         pfm: this._pfm,
+        pfmsub: this._pfmsub,
         w: this._wmId,
         ws: this._wmSubRef,
         wt: this._wmToken,
@@ -2027,7 +2029,7 @@ function () {
     key: "getAdditionalOptions",
     value: function getAdditionalOptions() {
       var urls = {
-        ref: this._wmId,
+        ref: this._urls.ref,
         ruri: this._urls.ruri,
         surl: this._urls.suri,
         aurl: this.abgUrl,
@@ -2082,6 +2084,22 @@ function () {
     value: function updateFlow(message) {
       this._flow = message.newFlow;
     }
+  }, {
+    key: "ref",
+    get: function get() {
+      return this._urls.ref;
+    }
+    /**
+     * @param {string} ref
+     */
+    ,
+    set: function set(ref) {
+      this._urls.ref = ref;
+    }
+    /**
+     * @return {string}
+     */
+
   }, {
     key: "ruri",
     get: function get() {
@@ -2411,6 +2429,22 @@ function () {
     ,
     set: function set(value) {
       this._pfm = value;
+    }
+    /**
+     * @return {boolean}
+     */
+
+  }, {
+    key: "pfmsub",
+    get: function get() {
+      return this._pfmsub;
+    }
+    /**
+     * @param {string} value
+     */
+    ,
+    set: function set(value) {
+      this._pfmsub = value;
     }
     /**
      * @return {boolean}
@@ -6208,6 +6242,37 @@ function () {
   return VXPayAbo;
 }();
 
+var Command_VXPayAbo_VXPayAboOverview =
+/*#__PURE__*/
+function () {
+  function VXPayAboOverview() {
+    Command_VXPayAbo_classCallCheck(this, VXPayAboOverview);
+  }
+
+  Command_VXPayAbo_createClass(VXPayAboOverview, null, [{
+    key: "open",
+
+    /**
+     * @param {VXPay} vxpay
+     * @param {Object} flowOptions
+     * @return {VXPay}
+     */
+    value: function open(vxpay) {
+      var flowOptions = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      vxpay.logger.log('VXPayAboOverview::open()');
+      vxpay.paymentFrame.then(function (frame) {
+        return frame.sendOptions(Object.assign({}, {
+          'flow': Config_VXPayFlow.ABO_OVERVIEW
+        }, flowOptions)).sendAdditionalOptions(vxpay.config.getAdditionalOptions()).changeRoute(Config_VXPayRoutes.ABO_OVERVIEW).initSession();
+      });
+      vxpay.config.route = Config_VXPayRoutes.ABO_OVERVIEW;
+      return vxpay;
+    }
+  }]);
+
+  return VXPayAboOverview;
+}();
+
 
 // CONCATENATED MODULE: ./src/VXPay/Middleware/Command/VXPayResetPassword.js
 function VXPayResetPassword_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -7717,6 +7782,22 @@ function () {
     get: function get() {
       return this.config.window;
     }
+  }, {
+    key: "openAboOverview",
+    value: function openAboOverview() {
+      var _this29 = this;
+
+      var flowOptions = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      return new Promise(function (resolve, reject) {
+        _this29._initPaymentFrame().then(Frames_VXPayTokenForTab.reset).then(VXPayShowForTab.trigger).then(VXPayWhen.tokenTransferred).then(function (vxpay) {
+          return Command_VXPayAbo_VXPayAboOverview.open(vxpay, flowOptions);
+        }).then(resolve).catch(reject);
+      });
+    }
+    /**
+     * @return {Promise<VXPay>}
+     */
+
   }]);
 
   return VXPay;

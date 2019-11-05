@@ -8,6 +8,7 @@ class VXPayRoutes {
 			VXPayRoutes.SIGN_UP,
 			VXPayRoutes.PAYMENT,
 			VXPayRoutes.ABO,
+			VXPayRoutes.ABO_OVERVIEW,
 			VXPayRoutes.AVS,
 			VXPayRoutes.PROMOCODE,
 			VXPayRoutes.OP_COMP,
@@ -18,23 +19,26 @@ class VXPayRoutes {
 			VXPayRoutes.SETTINGS,
 			VXPayRoutes.VOICE_CALL,
 			VXPayRoutes.LIMIT,
+			VXPayRoutes.MIGRATION,
 		];
 	}
 }
 
-VXPayRoutes.LOGIN      = '/login';
-VXPayRoutes.SIGN_UP    = '/signup';
-VXPayRoutes.PAYMENT    = '/payment';
-VXPayRoutes.ABO        = '/abo';
-VXPayRoutes.AVS        = '/avs';
-VXPayRoutes.PROMOCODE  = '/promocode';
-VXPayRoutes.OP_COMP    = '/opcompensation';
-VXPayRoutes.PASS       = '/password';
-VXPayRoutes.PASS_RESET = '/passwordreset';
-VXPayRoutes.RECHARGE   = '/autorecharge';
-VXPayRoutes.ONE_CLICK  = '/comfort';
-VXPayRoutes.SETTINGS   = '/user/settings';
-VXPayRoutes.VOICE_CALL = '/voicecall';
-VXPayRoutes.LIMIT      = '/limit';
+VXPayRoutes.LOGIN        = '/login';
+VXPayRoutes.SIGN_UP      = '/signup';
+VXPayRoutes.PAYMENT      = '/payment';
+VXPayRoutes.ABO          = '/abo';
+VXPayRoutes.AVS          = '/avs';
+VXPayRoutes.PROMOCODE    = '/promocode';
+VXPayRoutes.OP_COMP      = '/opcompensation';
+VXPayRoutes.PASS         = '/password';
+VXPayRoutes.PASS_RESET   = '/passwordreset';
+VXPayRoutes.RECHARGE     = '/autorecharge';
+VXPayRoutes.ONE_CLICK    = '/comfort';
+VXPayRoutes.SETTINGS     = '/user/settings';
+VXPayRoutes.VOICE_CALL   = '/voicecall';
+VXPayRoutes.LIMIT        = '/limit';
+VXPayRoutes.MIGRATION    = '/migration';
+VXPayRoutes.ABO_OVERVIEW = '/abooverview';
 
 export default VXPayRoutes;
