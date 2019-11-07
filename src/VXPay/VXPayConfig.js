@@ -18,7 +18,7 @@ class VXPayConfig {
 		this._flow     = VXPayFlow.getDefault();
 		this._language = VXPayLanguage.getDefault();
 		this._urls     = {
-			abg:        VXPayConfig.ABG_DEFAULT.replace('{language}', this._language),
+			agb:        VXPayConfig.AGB_DEFAULT.replace('{language}', this._language),
 			privacy:    VXPayConfig.PRIVACY_DEFAULT.replace('{language}', this._language),
 			ref:        '',
 			ruri:       '',
@@ -128,7 +128,7 @@ class VXPayConfig {
 	 */
 	getOptions() {
 		return {
-			agbUrl:      this.abgUrl,
+			agbUrl:      this.agbUrl,
 			privacyUrl:  this.privacyUrl,
 			environment: this._env,
 			flow:        this._flow,
@@ -158,7 +158,7 @@ class VXPayConfig {
 			ref:   this._urls.ref,
 			ruri:  this._urls.ruri,
 			surl:  this._urls.suri,
-			aurl:  this.abgUrl,
+			aurl:  this.agbUrl,
 			prurl: this.privacyUrl,
 			purl:  this._urls.purl
 		};
@@ -173,19 +173,19 @@ class VXPayConfig {
 	/**
 	 * @return {String}
 	 */
-	get abgUrl() {
-		return this._urls.abg;
+	get agbUrl() {
+		return this._urls.agb;
 	}
 
 	/**
 	 * @param {String} url
 	 */
-	set abgUrl(url) {
+	set agbUrl(url) {
 		if (!VXPayValidator.isUrl(url)) {
 			throw new Error('Invalid URL provided: ' + url);
 		}
 
-		this._urls.abg = url;
+		this._urls.agb = url;
 	}
 
 	/**
@@ -501,7 +501,7 @@ class VXPayConfig {
 	}
 }
 
-VXPayConfig.ABG_DEFAULT     = 'https://www.visit-x.net/CAMS/{language}/Info/Zentrum.html?submod=AGB&track=Account';
+VXPayConfig.AGB_DEFAULT     = 'https://www.visit-x.net/CAMS/{language}/Info/Zentrum.html?submod=AGB&track=Account';
 VXPayConfig.PRIVACY_DEFAULT = 'https://www.visit-x.net/CAMS/{language}/Info/Zentrum.html?submod=Datenschutz&track=Index';
 
 export default VXPayConfig;
