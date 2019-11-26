@@ -20,6 +20,7 @@ class VXPayRoutes {
 			VXPayRoutes.VOICE_CALL,
 			VXPayRoutes.LIMIT,
 			VXPayRoutes.MIGRATION,
+			VXPayRoutes.TELEGRAM,
 		];
 	}
 }
@@ -40,5 +41,6 @@ VXPayRoutes.VOICE_CALL   = '/voicecall';
 VXPayRoutes.LIMIT        = '/limit';
 VXPayRoutes.MIGRATION    = '/migration';
 VXPayRoutes.ABO_OVERVIEW = '/abooverview';
+VXPayRoutes.TELEGRAM     = '/telegram';
 
 export default VXPayRoutes;
