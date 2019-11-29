@@ -24,6 +24,7 @@ class VXPayFlow {
 			VXPayFlow.AUTO_RECHARGE,
 			VXPayFlow.SIGNUP,
 			VXPayFlow.MIGRATION,
+			VXPayFlow.TELEGRAM,
 		];
 	}
 
@@ -55,5 +56,6 @@ VXPayFlow.CHANGE_CARD     = 'changecc';
 VXPayFlow.CHANGE_LS       = 'changels';
 VXPayFlow.ONE_CLICK       = 'oneclick';
 VXPayFlow.MIGRATION       = 'migration';
+VXPayFlow.TELEGRAM        = 'telegram';
 
 export default VXPayFlow;
