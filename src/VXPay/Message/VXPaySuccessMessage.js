@@ -15,6 +15,7 @@ class VXPaySuccessMessage extends VXPayMessage {
 		this.user.fsk18    = data.fsk18 || false;
 		this.user.userId   = data.userId || NaN;
 		this.user.uhash    = data.uhash || '';
+		this.user.services = data.services || {};
 	}
 }
 
@@ -34,7 +35,8 @@ VXPaySuccessMessage.USER_DATA_STRUCT = {
 	'transferToken':  'TT_7a9523c9-5555-4c48-5555-91cc2465f484',
 	'availableMoney': 12.34,
 	'fsk18':          false,
-	'uhash':          ''
+	'uhash':          '',
+	'services':       {},
 };
 
 export default VXPaySuccessMessage;

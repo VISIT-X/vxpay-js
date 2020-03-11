@@ -5,6 +5,7 @@ class VXPayUser {
 		this._nickname = '';
 		this._userId   = NaN;
 		this._uhash    = '';
+		this._services = {};
 	}
 
 	/**
@@ -75,6 +76,20 @@ class VXPayUser {
 	 */
 	set uhash(value) {
 		this._uhash = value;
+	}
+
+	/**
+	 * @return {Object}
+	 */
+	get services() {
+		return this._services;
+	}
+
+	/**
+	 * @param {Object} value
+	 */
+	set services(value) {
+		this._services = value;
 	}
 }
 
