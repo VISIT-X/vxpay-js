@@ -19,5 +19,14 @@ describe('VXPaySuccessMessage', () => {
 			assert.equal(12.55, successMessage.user.balance);
 			assert.equal('', successMessage.user.uhash);
 		});
+		it('`services` unset', () => {
+			const successMessage = new VXPaySuccessMessage();
+			assert.notStrictEqual({}, successMessage.user.services);
+		});
+		it('`services` should have consistent type', () => {
+			const data = {services: {telegram: {token: 'xxx'}}};
+			const successMessage = new VXPaySuccessMessage(data);
+			assert.equal(data.services, successMessage.user.services);
+		});
 	});
 });
