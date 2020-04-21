@@ -11,8 +11,8 @@ import VXPayUpdateParamsMessage   from '../../../src/VXPay/Message/VXPayUpdatePa
 import VXPayChangeRouteMessage    from '../../../src/VXPay/Message/VXPayChangeRouteMessage';
 import VXPayAdditionalOptions     from '../../../src/VXPay/Message/VXPayAdditionalOptions';
 import VXPayIsVisibleMessage      from '../../../src/VXPay/Message/VXPayIsVisibleMessage';
-import VXPayInitSessionMessage    from '../../../src/VXPay/Message/VXPayInitSessionMessage';
-import EnumAllow                  from '../../../src/VXPay/Dom/Frame/EnumAllow';
+import VXPayInitSessionMessage     from '../../../src/VXPay/Message/VXPayInitSessionMessage';
+import EnumAllow, {AllowSeparator} from '../../../src/VXPay/Dom/Frame/EnumAllow';
 
 describe('VXPayPaymentFrameTest', () => {
 
@@ -49,13 +49,13 @@ describe('VXPayPaymentFrameTest', () => {
 			assert.isFalse(frame.loaded);
 
 			// check before load
-			assert.equal(frame.frame.allow, EnumAllow.getDefaults().join(', '));
+			assert.equal(frame.frame.allow, EnumAllow.getDefaults().join(AllowSeparator));
 
 			// and after load
 			hooks.onLoad(() => {
 				assert.isTrue(frame.loaded);
 				assert.equal(doc.getElementById(fid).length, 1);
-				assert.equal(doc.getElementById(fid).allow, EnumAllow.getDefaults().join(', '));
+				assert.equal(doc.getElementById(fid).allow, EnumAllow.getDefaults().join(AllowSeparator));
 				done();
 			});
 			frame.triggerLoad();

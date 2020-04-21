@@ -1,13 +1,13 @@
-import VXPayIframe              from './../VXPayIframe';
-import VXPayInitSessionMessage  from './../../Message/VXPayInitSessionMessage';
-import VXPayUpdateParamsMessage from './../../Message/VXPayUpdateParamsMessage';
-import VXPayChangeRouteMessage  from './../../Message/VXPayChangeRouteMessage';
-import VXPayUserAgent           from '../../VXPayUserAgent';
-import VXPayDomHelper           from './../VXPayDomHelper';
-import VXPayIsVisibleMessage    from './../../Message/VXPayIsVisibleMessage';
-import VXPayAdditionalOptions   from '../../Message/VXPayAdditionalOptions';
-import VXPayPaymentHooksConfig  from './../../Config/VXPayPaymentHooksConfig';
-import EnumAllow                from './EnumAllow';
+import VXPayIframe                 from './../VXPayIframe';
+import VXPayInitSessionMessage     from './../../Message/VXPayInitSessionMessage';
+import VXPayUpdateParamsMessage    from './../../Message/VXPayUpdateParamsMessage';
+import VXPayChangeRouteMessage     from './../../Message/VXPayChangeRouteMessage';
+import VXPayUserAgent              from '../../VXPayUserAgent';
+import VXPayDomHelper              from './../VXPayDomHelper';
+import VXPayIsVisibleMessage       from './../../Message/VXPayIsVisibleMessage';
+import VXPayAdditionalOptions      from '../../Message/VXPayAdditionalOptions';
+import VXPayPaymentHooksConfig     from './../../Config/VXPayPaymentHooksConfig';
+import EnumAllow, {AllowSeparator} from './EnumAllow';
 
 class VXPayPaymentFrame extends VXPayIframe {
 	/**
@@ -32,7 +32,7 @@ class VXPayPaymentFrame extends VXPayIframe {
 		this._frame.allowTransparency = true;
 
 		// allow camera and mic on the frame
-		this._frame.allow = EnumAllow.getDefaults().join('; ');
+		this._frame.allow = EnumAllow.getDefaults().join(AllowSeparator);
 
 		// fullscreen
 		this._frame.allowfullscreen = '';
