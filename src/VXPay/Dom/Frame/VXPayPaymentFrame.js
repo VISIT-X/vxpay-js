@@ -32,7 +32,10 @@ class VXPayPaymentFrame extends VXPayIframe {
 		this._frame.allowTransparency = true;
 
 		// allow camera and mic on the frame
-		this._frame.allow = EnumAllow.getDefaults().join(', ');
+		this._frame.allow = EnumAllow.getDefaults().join('; ');
+
+		// fullscreen
+		this._frame.allowfullscreen = '';
 
 		this._frame.name              = 'vxpay';
 		this._sessionInitialized      = false;
