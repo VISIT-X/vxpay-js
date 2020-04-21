@@ -11,4 +11,6 @@ const EnumAllow = {
 	]
 };
 
+export const AllowSeparator = ';';
+
 export default EnumAllow;
