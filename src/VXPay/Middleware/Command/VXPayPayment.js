@@ -3,6 +3,16 @@ import VXPayFlow   from './../../Config/VXPayFlow'
 
 class VXPayPayment {
 	/**
+	 * @return {Object}
+	 */
+	static defaultFlowOptions() {
+		return {
+			flow:    VXPayFlow.CHARGE,
+			paytype: '' // unset paytype
+		};
+	}
+
+	/**
 	 * @param {VXPay} vxpay
 	 * @param {Object} flowOptions
 	 * @return {VXPay}
@@ -11,7 +21,7 @@ class VXPayPayment {
 		vxpay.logger.log('VXPayPayment()');
 
 		vxpay.paymentFrame.then(frame => frame
-			.sendOptions(Object.assign({}, VXPayPayment.PARAMS, flowOptions))
+			.sendOptions(Object.assign({}, self.defaultFlowOptions(), flowOptions))
 			.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
 			.changeRoute(VXPayRoutes.PAYMENT)
 			.initSession()
@@ -21,10 +31,5 @@ class VXPayPayment {
 		return vxpay;
 	}
 }
-
-VXPayPayment.PARAMS = {
-	flow:    VXPayFlow.CHARGE,
-	paytype: '' // unset paytype
-};
 
 export default VXPayPayment;

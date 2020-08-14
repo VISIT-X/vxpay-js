@@ -3,6 +3,19 @@ import VXPayRoutes from '../../Config/VXPayRoutes';
 
 class VXPayOneClick {
 	/**
+	 * @return {Object}
+	 */
+	static defaultFlowOptions() {
+		return {
+			flow:         VXPayFlow.ONE_CLICK,
+			paytype:      '',
+			oneClickData: {
+				data: null
+			}
+		};
+	}
+
+	/**
 	 * @param {VXPay} vxpay
 	 * @param {Object} flowOptions
 	 * @return {VXPay}
@@ -12,7 +25,7 @@ class VXPayOneClick {
 
 		vxpay.paymentFrame.then(frame => frame
 			.initSession()
-			.sendOptions(Object.assign({}, VXPayOneClick.PARAMS, flowOptions))
+			.sendOptions(Object.assign({}, self.defaultFlowOptions(), flowOptions))
 			.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
 			.changeRoute(VXPayRoutes.ONE_CLICK)
 		);
@@ -21,13 +34,5 @@ class VXPayOneClick {
 		return vxpay;
 	}
 }
-
-VXPayOneClick.PARAMS = {
-	flow:         VXPayFlow.ONE_CLICK,
-	paytype:      '',
-	oneClickData: {
-		data: null
-	}
-};
 
 export default VXPayOneClick;

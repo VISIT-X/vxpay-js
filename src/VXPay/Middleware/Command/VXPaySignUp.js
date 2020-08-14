@@ -3,6 +3,13 @@ import VXPayRoutes from '../../Config/VXPayRoutes'
 
 export default class VXPaySignUp {
 	/**
+	 * @return {Object}
+	 */
+	static defaultFlowOptions() {
+		return {flow: VXPayFlow.SIGNUP};
+	}
+
+	/**
 	 * @param {VXPay} vxpay
 	 * @param {Object} flowOptions
 	 * @return {VXPay}
@@ -12,7 +19,7 @@ export default class VXPaySignUp {
 
 		vxpay.paymentFrame
 			.then(frame => frame
-				.sendUpdateParams(Object.assign({}, {'flow': VXPayFlow.SIGNUP}, flowOptions))
+				.sendUpdateParams(Object.assign({}, self.defaultFlowOptions(), flowOptions))
 				.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
 				.changeRoute(VXPayRoutes.SIGN_UP)
 				.initSession()

@@ -3,6 +3,16 @@ import VXPayRoutes from '../../Config/VXPayRoutes'
 
 class VXPaySettings {
 	/**
+	 * @return {Object}
+	 */
+	static defaultFlowOptions() {
+		return {
+			flow:    VXPayFlow.SETTINGS,
+			paytype: '' // reset paytype
+		};
+	}
+
+	/**
 	 * @param {VXPay} vxpay
 	 * @return {VXPay}
 	 */
@@ -10,7 +20,7 @@ class VXPaySettings {
 		vxpay.logger.log('VXPaySettings()');
 
 		vxpay.paymentFrame.then(frame => frame
-			.sendOptions(VXPaySettings.PARAMS)
+			.sendOptions(self.defaultFlowOptions())
 			.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
 			.changeRoute(VXPayRoutes.SETTINGS)
 			.initSession()
@@ -20,10 +30,5 @@ class VXPaySettings {
 		return vxpay;
 	}
 }
-
-VXPaySettings.PARAMS = {
-	flow:    VXPayFlow.SETTINGS,
-	paytype: '' // reset paytype
-};
 
 export default VXPaySettings;

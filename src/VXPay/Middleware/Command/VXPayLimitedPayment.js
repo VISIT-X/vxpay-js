@@ -3,6 +3,16 @@ import VXPayRoutes from '../../Config/VXPayRoutes'
 
 class VXPayLimitedPayment {
 	/**
+	 * @return {Object}
+	 */
+	static defaultFlowOptions() {
+		return {
+			flow: VXPayFlow.LIMIT,
+			paytype: ''
+		};
+	}
+
+	/**
 	 * @param {VXPay} vxpay
 	 * @return {VXPay}
 	 */
@@ -10,7 +20,7 @@ class VXPayLimitedPayment {
 		vxpay.logger.log('VXPayLimitedPayment()');
 
 		vxpay.paymentFrame.then(frame => frame
-			.sendOptions(VXPayLimitedPayment.PARAMS)
+			.sendOptions(self.defaultFlowOptions())
 			.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
 			.changeRoute(VXPayRoutes.LIMIT)
 			.initSession()
@@ -20,10 +30,5 @@ class VXPayLimitedPayment {
 		return vxpay;
 	}
 }
-
-VXPayLimitedPayment.PARAMS = {
-	flow: VXPayFlow.LIMIT,
-	paytype: ''
-};
 
 export default VXPayLimitedPayment;

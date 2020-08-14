@@ -4,6 +4,21 @@ import VXPayRoutes    from '../../Config/VXPayRoutes'
 
 export default class VXPayLostPassword {
 	/**
+	 * @param config
+	 * @return {Object}
+	 */
+	static defaultFlowOptions(config) {
+		const helper = new VXPayUrlHelper(config.window.URL);
+
+		return {
+			flow:             VXPayFlow.PASSWORD_LOST,
+			pwdresetUserId:   helper.getQueryParam('u', config.window.location.href),
+			pwdresetUserName: helper.getQueryParam('tpLoginPwdLost', config.window.location.href),
+			pwdresetEmail:    helper.getQueryParam('tpEmailPwdLost', config.window.location.href)
+		};
+	}
+
+	/**
 	 * @param {VXPay} vxpay
 	 * @param {Object} flowOptions
 	 * @return {VXPay}
@@ -11,7 +26,7 @@ export default class VXPayLostPassword {
 	static run(vxpay, flowOptions = {}) {
 		vxpay.logger.log('VXPayLostPassword()');
 
-		const options = Object.assign({}, VXPayLostPassword.getParams(vxpay.config), flowOptions);
+		const options = Object.assign({}, self.defaultFlowOptions(vxpay.config), flowOptions);
 
 		vxpay.paymentFrame.then(frame => frame
 			.initSession()
@@ -24,18 +39,4 @@ export default class VXPayLostPassword {
 		return vxpay;
 	}
 
-	/**
-	 * @param config
-	 * @return {{flow: string, pwdresetUserId: String, pwdresetUserName: String, pwdresetEmail: String}}
-	 */
-	static getParams(config) {
-		const helper = new VXPayUrlHelper(config.window.URL);
-
-		return {
-			flow:             VXPayFlow.PASSWORD_LOST,
-			pwdresetUserId:   helper.getQueryParam('u', config.window.location.href),
-			pwdresetUserName: helper.getQueryParam('tpLoginPwdLost', config.window.location.href),
-			pwdresetEmail:    helper.getQueryParam('tpEmailPwdLost', config.window.location.href)
-		};
-	}
 }

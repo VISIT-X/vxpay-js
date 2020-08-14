@@ -3,6 +3,13 @@ import VXPayRoutes from '../../Config/VXPayRoutes'
 
 export default class VXPayTelegram {
 	/**
+	 * @return {Object}
+	 */
+	static defaultFlowOptions() {
+		return {flow: VXPayFlow.TELEGRAM};
+	}
+
+	/**
 	 * @param {VXPay} vxpay
 	 * @param {Object} flowOptions
 	 * @return {VXPay}
@@ -12,7 +19,7 @@ export default class VXPayTelegram {
 
 		vxpay.paymentFrame
 			.then(frame => frame
-				.sendUpdateParams(Object.assign({}, {'flow': VXPayFlow.TELEGRAM}, flowOptions))
+				.sendUpdateParams(Object.assign({}, self.defaultFlowOptions(), flowOptions))
 				.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
 				.changeRoute(VXPayRoutes.TELEGRAM)
 				.initSession()
