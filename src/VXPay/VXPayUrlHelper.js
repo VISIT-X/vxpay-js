@@ -21,11 +21,16 @@ export default class VXPayUrlHelper {
 		// add params
 		if (params) {
 			for (let d in params) {
-				if (typeof params[d] === 'undefined') {
+				let paramValue = params[d];
+				if (typeof paramValue === 'undefined') {
 					continue;
 				}
 
-				url.searchParams.append(d, params[d]);
+				if (typeof paramValue === 'object') {
+					paramValue = JSON.stringify(paramValue);
+				}
+
+				url.searchParams.append(d, paramValue);
 			}
 		}
 

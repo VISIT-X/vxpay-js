@@ -3,6 +3,18 @@ import VXPayRoutes from '../../Config/VXPayRoutes'
 
 class VXPayAutoRecharge {
 	/**
+	 * @return {Object}
+	 */
+	static defaultFlowOptions() {
+		return {
+			flow: VXPayFlow.AUTO_RECHARGE,
+			autoRechargeData: {
+				data: null
+			}
+		};
+	}
+
+	/**
 	 * @param {VXPay} vxpay
 	 * @param {Object} flowOptions
 	 * @return {VXPay}
@@ -12,7 +24,7 @@ class VXPayAutoRecharge {
 
 		vxpay.paymentFrame.then(frame => frame
 			.initSession()
-			.sendOptions(Object.assign({}, VXPayAutoRecharge.PARAMS, flowOptions))
+			.sendOptions(Object.assign({}, self.defaultFlowOptions(), flowOptions))
 			.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
 			.changeRoute(VXPayRoutes.RECHARGE)
 		);
@@ -20,12 +32,5 @@ class VXPayAutoRecharge {
 		return vxpay;
 	}
 }
-
-VXPayAutoRecharge.PARAMS = {
-	flow: VXPayFlow.AUTO_RECHARGE,
-	autoRechargeData: {
-		data: null
-	}
-};
 
 export default VXPayAutoRecharge;

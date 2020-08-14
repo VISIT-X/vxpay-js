@@ -3,6 +3,13 @@ import VXPayRoutes from '../../Config/VXPayRoutes'
 
 export default class VXPayAVS {
 	/**
+	 * @return {Object}
+	 */
+	static defaultFlowOptions() {
+		return {flow: VXPayFlow.AVS};
+	}
+
+	/**
 	 * @param {VXPay} vxpay
 	 * @param {Object} flowOptions
 	 * @return {VXPay}
@@ -12,7 +19,7 @@ export default class VXPayAVS {
 
 		vxpay.paymentFrame.then(frame => frame
 			.initSession()
-			.sendOptions(Object.assign({}, {'flow': VXPayFlow.AVS}, flowOptions))
+			.sendOptions(Object.assign({}, self.defaultFlowOptions(), flowOptions))
 			.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
 			.changeRoute(VXPayRoutes.AVS)
 		);

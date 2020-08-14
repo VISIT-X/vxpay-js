@@ -4,6 +4,16 @@ import VXPayRoutes      from '../../Config/VXPayRoutes'
 
 class VXPayVoiceCall {
 	/**
+	 * @return {Object}
+	 */
+	static defaultFlowOptions() {
+		return {
+			flow:    VXPayFlow.CHARGE,
+			paytype: VXPayPaymentType.VOICE_CALL
+		};
+	}
+
+	/**
 	 * @param {VXPay} vxpay
 	 * @return {VXPay}
 	 */
@@ -11,7 +21,7 @@ class VXPayVoiceCall {
 		vxpay.logger.log('VXPayVoiceCall::reset()');
 
 		vxpay.paymentFrame.then(frame => frame
-			.sendOptions(VXPayVoiceCall.PARAMS)
+			.sendOptions(self.defaultFlowOptions())
 			.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
 			.changeRoute(VXPayRoutes.VOICE_CALL)
 			.initSession()
@@ -21,10 +31,5 @@ class VXPayVoiceCall {
 		return vxpay;
 	}
 }
-
-VXPayVoiceCall.PARAMS = {
-	flow:    VXPayFlow.CHARGE,
-	paytype: VXPayPaymentType.VOICE_CALL
-};
 
 export default VXPayVoiceCall;

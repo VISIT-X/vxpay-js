@@ -3,6 +3,13 @@ import VXPayRoutes from '../../Config/VXPayRoutes'
 
 export default class VXPayLogin {
 	/**
+	 * @return {Object}
+	 */
+	static defaultFlowOptions() {
+		return {flow: VXPayFlow.LOGIN};
+	}
+
+	/**
 	 * @param {VXPay} vxpay
 	 * @param {Object} flowOptions
 	 * @return {VXPay}
@@ -11,7 +18,7 @@ export default class VXPayLogin {
 		vxpay.logger.log('VXPayLogin::open()');
 
 		vxpay.paymentFrame.then(frame => frame
-			.sendOptions(Object.assign({}, {'flow': VXPayFlow.LOGIN}, flowOptions))
+			.sendOptions(Object.assign({}, self.defaultFlowOptions(), flowOptions))
 			.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
 			.changeRoute(VXPayRoutes.LOGIN)
 			.initSession()

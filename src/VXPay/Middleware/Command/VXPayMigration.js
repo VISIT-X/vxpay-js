@@ -3,6 +3,13 @@ import VXPayRoutes from '../../Config/VXPayRoutes'
 
 export default class VXPayMigration {
 	/**
+	 * @return {Object}
+	 */
+	static defaultFlowOptions() {
+		return {flow: VXPayFlow.MIGRATION};
+	}
+
+	/**
 	 * @param {VXPay} vxpay
 	 * @param {Object} flowOptions
 	 * @return {VXPay}
@@ -12,7 +19,7 @@ export default class VXPayMigration {
 
 		vxpay.paymentFrame
 			.then(frame => frame
-				.sendUpdateParams(Object.assign({}, {'flow': VXPayFlow.MIGRATION}, flowOptions))
+				.sendUpdateParams(Object.assign({}, self.defaultFlowOptions(), flowOptions))
 				.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
 				.changeRoute(VXPayRoutes.MIGRATION)
 				.initSession()

@@ -3,6 +3,13 @@ import VXPayRoutes from '../../Config/VXPayRoutes'
 
 export default class VXPayAboOverview {
 	/**
+	 * @return {Object}
+	 */
+	static defaultFlowOptions() {
+		return {flow: VXPayFlow.ABO_OVERVIEW};
+	}
+
+	/**
 	 * @param {VXPay} vxpay
 	 * @param {Object} flowOptions
 	 * @return {VXPay}
@@ -11,7 +18,7 @@ export default class VXPayAboOverview {
 		vxpay.logger.log('VXPayAboOverview::open()');
 
 		vxpay.paymentFrame.then(frame => frame
-			.sendOptions(Object.assign({}, {'flow': VXPayFlow.ABO_OVERVIEW}, flowOptions))
+			.sendOptions(Object.assign({}, self.defaultFlowOptions(), flowOptions))
 			.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
 			.changeRoute(VXPayRoutes.ABO_OVERVIEW)
 			.initSession()

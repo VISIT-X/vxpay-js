@@ -39,6 +39,7 @@ class VXPayConfig {
 		this._adtv       = '';
 		this._subRef     = '';
 		this._apiVersion = 3;
+		this._flowParams = {};
 
 		this._modalConfig = typeof modalConfig === 'undefined'
 			? new VXPayModalConfig()
@@ -146,7 +147,8 @@ class VXPayConfig {
 			tt:          this._token,
 			ruri:        this._urls.ruri,
 			successUrl:  this._urls.successUrl,
-			host:        this._host
+			host:        this._host,
+			flowParams:  this._flowParams,
 		};
 	}
 
@@ -469,6 +471,20 @@ class VXPayConfig {
 	 */
 	set enableTab(value) {
 		this._enableTab = value;
+	}
+
+	/**
+	 * @return {Object}
+	 */
+	get flowParams() {
+		return this._flowParams;
+	}
+
+	/**
+	 * @param {Object} value
+	 */
+	set flowParams(value) {
+		this._flowParams = value;
 	}
 
 	/**
