@@ -26,7 +26,7 @@ export default class VXPayLostPassword {
 	static run(vxpay, flowOptions = {}) {
 		vxpay.logger.log('VXPayLostPassword()');
 
-		const options = Object.assign({}, self.defaultFlowOptions(vxpay.config), flowOptions);
+		const options = Object.assign({}, VXPayLostPassword.defaultFlowOptions(vxpay.config), flowOptions);
 
 		vxpay.paymentFrame.then(frame => frame
 			.initSession()

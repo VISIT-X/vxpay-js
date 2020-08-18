@@ -20,7 +20,7 @@ class VXPayLimitedPayment {
 		vxpay.logger.log('VXPayLimitedPayment()');
 
 		vxpay.paymentFrame.then(frame => frame
-			.sendOptions(self.defaultFlowOptions())
+			.sendOptions(VXPayLimitedPayment.defaultFlowOptions())
 			.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
 			.changeRoute(VXPayRoutes.LIMIT)
 			.initSession()
