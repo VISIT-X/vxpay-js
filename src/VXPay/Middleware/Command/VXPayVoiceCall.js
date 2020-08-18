@@ -21,7 +21,7 @@ class VXPayVoiceCall {
 		vxpay.logger.log('VXPayVoiceCall::reset()');
 
 		vxpay.paymentFrame.then(frame => frame
-			.sendOptions(self.defaultFlowOptions())
+			.sendOptions(VXPayVoiceCall.defaultFlowOptions())
 			.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
 			.changeRoute(VXPayRoutes.VOICE_CALL)
 			.initSession()

@@ -18,7 +18,7 @@ export default class VXPayLogin {
 		vxpay.logger.log('VXPayLogin::open()');
 
 		vxpay.paymentFrame.then(frame => frame
-			.sendOptions(Object.assign({}, self.defaultFlowOptions(), flowOptions))
+			.sendOptions(Object.assign({}, VXPayLogin.defaultFlowOptions(), flowOptions))
 			.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
 			.changeRoute(VXPayRoutes.LOGIN)
 			.initSession()

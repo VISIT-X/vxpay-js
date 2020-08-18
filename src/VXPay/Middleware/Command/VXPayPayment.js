@@ -21,7 +21,7 @@ class VXPayPayment {
 		vxpay.logger.log('VXPayPayment()');
 
 		vxpay.paymentFrame.then(frame => frame
-			.sendOptions(Object.assign({}, self.defaultFlowOptions(), flowOptions))
+			.sendOptions(Object.assign({}, VXPayPayment.defaultFlowOptions(), flowOptions))
 			.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
 			.changeRoute(VXPayRoutes.PAYMENT)
 			.initSession()

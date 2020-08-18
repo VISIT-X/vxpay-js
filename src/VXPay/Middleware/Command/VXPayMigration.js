@@ -19,7 +19,7 @@ export default class VXPayMigration {
 
 		vxpay.paymentFrame
 			.then(frame => frame
-				.sendUpdateParams(Object.assign({}, self.defaultFlowOptions(), flowOptions))
+				.sendUpdateParams(Object.assign({}, VXPayMigration.defaultFlowOptions(), flowOptions))
 				.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
 				.changeRoute(VXPayRoutes.MIGRATION)
 				.initSession()

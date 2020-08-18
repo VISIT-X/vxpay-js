@@ -19,7 +19,7 @@ export default class VXPayTelegram {
 
 		vxpay.paymentFrame
 			.then(frame => frame
-				.sendUpdateParams(Object.assign({}, self.defaultFlowOptions(), flowOptions))
+				.sendUpdateParams(Object.assign({}, VXPayTelegram.defaultFlowOptions(), flowOptions))
 				.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
 				.changeRoute(VXPayRoutes.TELEGRAM)
 				.initSession()

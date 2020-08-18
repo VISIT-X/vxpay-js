@@ -18,7 +18,7 @@ export default class VXPayAboOverview {
 		vxpay.logger.log('VXPayAboOverview::open()');
 
 		vxpay.paymentFrame.then(frame => frame
-			.sendOptions(Object.assign({}, self.defaultFlowOptions(), flowOptions))
+			.sendOptions(Object.assign({}, VXPayAboOverview.defaultFlowOptions(), flowOptions))
 			.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
 			.changeRoute(VXPayRoutes.ABO_OVERVIEW)
 			.initSession()

@@ -24,7 +24,7 @@ class VXPayAutoRecharge {
 
 		vxpay.paymentFrame.then(frame => frame
 			.initSession()
-			.sendOptions(Object.assign({}, self.defaultFlowOptions(), flowOptions))
+			.sendOptions(Object.assign({}, VXPayAutoRecharge.defaultFlowOptions(), flowOptions))
 			.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
 			.changeRoute(VXPayRoutes.RECHARGE)
 		);

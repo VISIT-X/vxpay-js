@@ -19,7 +19,7 @@ export default class VXPayPremiumAbo {
 
 		vxpay.paymentFrame.then(frame => frame
 			.initSession()
-			.sendOptions(Object.assign({}, self.defaultFlowOptions(), flowOptions))
+			.sendOptions(Object.assign({}, VXPayPremiumAbo.defaultFlowOptions(), flowOptions))
 			.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
 			.changeRoute(VXPayRoutes.ABO)
 		);

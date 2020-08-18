@@ -19,7 +19,7 @@ export default class VXPayPromoCode {
 
 		vxpay.paymentFrame.then(frame => frame
 			.initSession()
-			.sendOptions(Object.assign({}, self.defaultFlowOptions(), flowOptions))
+			.sendOptions(Object.assign({}, VXPayPromoCode.defaultFlowOptions(), flowOptions))
 			.sendAdditionalOptions(vxpay.config.getAdditionalOptions())
 			.changeRoute(VXPayRoutes.PROMOCODE)
 		);
