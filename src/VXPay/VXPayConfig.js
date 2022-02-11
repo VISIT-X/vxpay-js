@@ -11,10 +11,11 @@ class VXPayConfig {
 	/**
 	 * @param {Window} window
 	 * @param {VXPayModalConfig} modalConfig
+	 * @param {Boolean} enableLogging
 	 */
-	constructor(window, modalConfig = undefined) {
+	constructor(window, modalConfig = undefined, enableLogging = false) {
 		this._env      = VXPayEnvironment.getDefault();
-		this._logging  = false;
+		this._logging  = enableLogging;
 		this._flow     = VXPayFlow.getDefault();
 		this._language = VXPayLanguage.getDefault();
 		this._urls     = {
