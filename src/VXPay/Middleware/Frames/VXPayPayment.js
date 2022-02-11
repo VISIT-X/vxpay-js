@@ -34,7 +34,7 @@ export default class VXPayPayment {
 		if (vxpay.config.enableTab) {
 			vxpay._paymentFrame = new VXPayPaymentTab(vxpay.window.document, VXPayPaymentTab.NAME, vxpay.config, vxpay._hooks);
 		} else {
-			vxpay._paymentFrame = !vxpay.hasOwnProperty('_paymentFrame')
+			vxpay._paymentFrame = typeof vxpay._paymentFrame === 'undefined'
 				? new VXPayPaymentFrame(vxpay.window.document, vxpay.config.getPaymentFrameUrl(), VXPayPaymentFrame.NAME, vxpay._hooks)
 				: vxpay._paymentFrame;
 		}

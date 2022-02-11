@@ -15,7 +15,7 @@ export default class VXPayHookMessageFactory {
 	 * @return {VXPayHookMessage}
 	 */
 	static fromData(data = {}) {
-		if (typeof data === 'undefined' || !data.hasOwnProperty('hook')) {
+		if (typeof data === 'undefined' || !data.hook) {
 			throw new TypeError('Invalid message format - no hook field');
 		}
 

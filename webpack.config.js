@@ -1,7 +1,6 @@
 const path = require('path'),
-      webpack = require('webpack'),
       HtmlWebpackPlugin = require('html-webpack-plugin'),
-      UglifyJsPlugin = require('uglifyjs-webpack-plugin'),
+      TerserPlugin = require('terser-webpack-plugin'),
       sources = ['./src/main.js'];
 
 module.exports = {
@@ -22,30 +21,29 @@ module.exports = {
 				test: /\.js$/,
 				exclude: /node_modules/,
 				use: {
-					loader: "babel-loader"
+					loader: 'babel-loader'
 				}
 			}
 		]
 	},
 	devServer: {
-		contentBase: path.resolve(__dirname, './docs'),
+		static: {
+			directory: path.join(__dirname, './docs'),
+		},
 		hot: true
 	},
 	stats: {
 		colors: true
 	},
 	optimization: {
-		minimize: false,
+		minimize: true,
+		minimizer: [new TerserPlugin()],
+		moduleIds: 'named'
 	},
 	plugins: [
-		new UglifyJsPlugin({
-			include: /\.min\.js$/
-		}),
 		new HtmlWebpackPlugin({
 			filename: './docs/demo.html',
 			template: './docs/demo.html'
-		}),
-		new webpack.NamedModulesPlugin(),
-		new webpack.HotModuleReplacementPlugin()
+		})
 	]
 };

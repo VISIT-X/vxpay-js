@@ -23,9 +23,9 @@ export default class VXPayMessageFactory {
 	 * @throws {TypeError|SyntaxError}
 	 */
 	static fromJson(json = '{}') {
-		const message = JSON.parse(json);
+		let message = JSON.parse(json);
 
-		if (!message.hasOwnProperty('type')) {
+		if (!message.type) {
 			throw new TypeError('Invalid message format - no type field');
 		}
 

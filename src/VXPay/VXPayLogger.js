@@ -31,7 +31,7 @@ class VXPayLogger {
 	}
 }
 
-VXPayLogger.IN  = '<-- []';
-VXPayLogger.OUT = '--> []';
+VXPayLogger.IN  = '⬅️ []';
+VXPayLogger.OUT = '➡️ []';
 
 export default VXPayLogger;

@@ -19,6 +19,10 @@ describe('VXConfig', () => {
 			assert.equal(config.privacyUrl, VXPayConfig.PRIVACY_DEFAULT.replace('{language}', defaultLang), 'Default localized privacy URl');
 			assert.equal(config.agbUrl, VXPayConfig.AGB_DEFAULT.replace('{language}', defaultLang), 'Default localized AGB URl');
 		})
+		it('Can configure logging', () => {
+			const config = new VXPayConfig(VXPayTestFx.getWindow(), undefined, true);
+			assert.isTrue(config.logging, 'Logging can be enabled');
+		})
 	});
 	describe('#env()', () => {
 		it('Will only accept defined environments', () => {

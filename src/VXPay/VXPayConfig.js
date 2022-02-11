@@ -497,10 +497,10 @@ class VXPayConfig {
 		Object
 			.keys(that.getOptions())
 			.forEach(key => {
-				const valid = options.hasOwnProperty(key) && typeof options[key] !== 'undefined';
+				const valid = typeof options[key] !== 'undefined';
 
 				// map
-				if (key === 'lang' && options.hasOwnProperty('language')) {
+				if (key === 'lang' && typeof options['language'] !== 'undefined') {
 					that[key] = options['language'];
 				}
 				// normal flow

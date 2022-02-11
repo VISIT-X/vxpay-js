@@ -41,7 +41,7 @@ class VXPayHooksConfig {
 	trigger(hook, callbackArguments = [], sourceTab = undefined) { /* eslint-disable-line no-unused-vars  */
 		const name = '_' + hook;
 
-		if (!this.hasOwnProperty(name)) {
+		if (typeof this[name] === 'undefined') {
 			throw new Error('Hook ' + hook + ' not available!');
 		}
 

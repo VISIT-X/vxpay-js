@@ -20,6 +20,7 @@ export default class VXPayUrlHelper {
 
 		// add params
 		if (params) {
+			// eslint-disable-next-line no-unused-vars
 			for (let d in params) {
 				let paramValue = params[d];
 				if (typeof paramValue === 'undefined') {
@@ -36,6 +37,7 @@ export default class VXPayUrlHelper {
 
 		// add module config
 		if (config) {
+			// eslint-disable-next-line no-unused-vars
 			for (let d2 in config) {
 				// skip underline in object props
 				let name = d2.charAt(1) === '_' ? d2.substr(1) : d2;

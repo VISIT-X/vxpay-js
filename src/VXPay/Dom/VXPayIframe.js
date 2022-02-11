@@ -32,6 +32,7 @@ class VXPayIframe extends VXPayEventListener {
 
 		// only apply if valid
 		if (null !== style) {
+			// eslint-disable-next-line no-unused-vars
 			for (let item in style) {
 				this._frame.style[item] = style[item];
 			}
